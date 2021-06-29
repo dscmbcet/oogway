@@ -61,10 +61,29 @@ client.on('message', (message) => {
 			return message.channel.send(formattedMessage, {
 				embed: {
 					thumbnail: {
-						url: member.user.displayAvatarURL()
+						url: member.user.displayAvatarURL(),
+						color: member.displayHexColor
 					}
 				}
 			});
+		}
+	}
+	else if (command === 'find-role') {
+		if (!args.length)
+			return message.channel.send(`You didn't specify any role, ${message.author}!`);
+		else {
+			var users = [];
+			const role = (message.guild.roles.cache.find(role => role.name === args[0]));
+			users = role === undefined ? ["No Role Found"] : role.members.map(m => m.displayName);
+
+			users = users.length == undefined || users.length == 0 ? "No User Found" : users.join('\n')
+
+			let embed = new Discord.MessageEmbed({
+				"title": `Users with the ${args[0]} role`,
+				"description": users,
+				"color": 0xFFFF
+			});
+			return message.channel.send({ embed });
 		}
 	}
 	else if (message.content === `${prefix}server`) {
