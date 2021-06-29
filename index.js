@@ -34,15 +34,15 @@ client.on('message', (message) => {
 		message.channel.send(`First argument: ${args[0]}`);
 	}
 	else if (command === 'kick') {
-		if (!message.mentions.users.size) {return message.reply('You need to tag someone!');}
+		if (!message.mentions.users.size) { return message.reply('You need to tag someone!'); }
 		const taggedUser = message.mentions.users.first();
 		message.channel.send(`You wanted to kick : ${taggedUser.username}`);
 	}
 	else if (command === 'avatar') {
-		if (!message.mentions.users.size) {return message.channel.send(`Your avatar: <${message.author.displayAvatarURL({ format: 'png', dynamic: true })}>`);}
+		if (!message.mentions.users.size) { return message.channel.send(`Your avatar: <${message.author.displayAvatarURL({ format: 'png', dynamic: true })}>`); }
 	}
 	else if (command === 'user-info') {
-		if (!args.length) {return message.channel.send(`You didn't tag a user, ${message.author}!`);}
+		if (!args.length) { return message.channel.send(`You didn't tag a user, ${message.author}!`); }
 		else {
 			const taggedUser = message.mentions.users.first();
 			const member = message.guild.member(taggedUser);
@@ -67,10 +67,12 @@ client.on('message', (message) => {
 		}
 	}
 	else if (command === 'find-role') {
-		if (!args.length) {return message.channel.send(`You didn't specify any role, ${message.author}!`);}
+		if (!args.length) { return message.channel.send(`You didn't specify any role, ${message.author}!`); }
 		else {
 			let users = [];
 			// eslint-disable-next-line no-shadow
+
+			// TODO: Fix permissions of bot , currently only the user who calls this command has his name shown
 			const role = (message.guild.roles.cache.find(role => role.name === args[0]));
 			users = role === undefined ? ['No Role Found'] : role.members.map(m => m.displayName);
 
