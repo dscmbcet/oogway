@@ -1,7 +1,7 @@
 {
-  "name": "professor",
-  "version": "1.0.0",
-  "description": "",
+  "name": "Professor",
+  "version": "1.0.5",
+  "description": "Official DSC Bot for DSC Discord Server",
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./bin/www",
