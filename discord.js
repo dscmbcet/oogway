@@ -1,4 +1,4 @@
-const { client } = require("./app");
+const { client ,prefix} = require("./app");
 
 client.on('ready', () => {
     console.log('Ready!');

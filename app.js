@@ -11,6 +11,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 client.login(token);
 
-module.exports = { app, client }
+module.exports = { app, client, prefix}
 
 require("./discord");
