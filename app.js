@@ -1,6 +1,6 @@
 require('dotenv').config();
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -11,6 +11,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 client.login(token);
 
-module.exports = { app, client, prefix}
+module.exports = { app, client, prefix };
 
-require("./discord");
+require('./discord');
