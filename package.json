@@ -1,10 +1,13 @@
 {
-  "name": "Professor",
+  "name": "professor",
   "version": "1.0.5",
   "description": "Official DSC Bot for DSC Discord Server",
   "main": "app.js",
   "scripts": {
     "start": "nodemon ./bin/www",
+    "get-logs-heroku-app-only": "heroku logs --tail -a dsc-professor-bot --source app",
+    "get-logs-heroku": "heroku logs --tail -a dsc-professor-bot",
+    "connect-bash-heroku": "heroku run bash --app dsc-professor-bot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
