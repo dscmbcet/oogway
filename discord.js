@@ -45,7 +45,7 @@ client.on('message', (message) => {
 			const taggedUser = message.mentions.users.first();
 			const member = message.guild.member(taggedUser);
 			const joinedDate = new Date(member.joinedAt);
-			const joinedDateFormatted = `${joinedDate.getDate()}-${joinedDate.getMonth()}-${joinedDate.getFullYear()}`;
+			const joinedDateFormatted = `${joinedDate.getDate()}-${joinedDate.getMonth() + 1}-${joinedDate.getFullYear()}`;
 			const formattedMessage = [
 				`**User ID**: ${member.id}`,
 				`**Display Name**: ${member.displayName}`,
