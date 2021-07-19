@@ -8,9 +8,9 @@
     "get-logs-heroku-app-only": "heroku logs --tail -a dsc-professor-bot --source app",
     "get-logs-heroku": "heroku logs --tail -a dsc-professor-bot",
     "connect-bash-heroku": "heroku run bash --app dsc-professor-bot",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "manual-deploy": "git push heroku main"
   },
-  "author": "",
+  "author": "DSC MBCET",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^12.5.3",

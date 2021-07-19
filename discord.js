@@ -1,3 +1,4 @@
+const Discord = require('discord.js');
 const { client, prefix } = require('./app');
 
 client.on('ready', () => {
