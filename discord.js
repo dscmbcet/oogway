@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const { client, prefix } = require('./app');
 
 client.on('ready', () => {
-	console.log('Ready!');
+	console.log('Bot Is Ready!');
 });
 
 // Listening to a new user
@@ -71,7 +71,7 @@ client.on('message', (message) => {
 			// eslint-disable-next-line no-shadow
 
 			// TODO: Fix permissions of bot , currently only the user who calls this command has his name shown
-			const role = (message.guild.roles.cache.find(role => role.name === args[0]));
+			const role = (message.guild.roles.cache.find(e_role => e_role.name === args[0]));
 			users = role === undefined ? ['No Role Found'] : role.members.map(m => m.displayName);
 
 			users = users.length == undefined || users.length == 0 ? 'No User Found' : users.join('\n');
