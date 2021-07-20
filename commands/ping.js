@@ -9,9 +9,10 @@ module.exports = {
    * @param {string[]} args The arguments
    */
   async execute(message, args) {
+    const member = message.guild.member(message.author.id);
     let embed = new Discord.MessageEmbed({
-      description: `Hello **${message.author.username}**`,
-      color: "RANDOM",
+      description: `How are you doing my old friend **${member.displayName}**`,
+      color: member.displayHexColor,
     });
     message.channel.send({ embed });
   },
