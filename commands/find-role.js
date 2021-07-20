@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'find-role',
     usage: "!find-role @role_name",
-    description: 'Gives The UserNames Of Members Belonging To Given Role',
+    description: 'Gives the UserNames of members belonging to given role',
 
     /**
     * @param {Discord.Message} message The Message

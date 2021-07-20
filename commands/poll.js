@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'poll',
     usage: "!poll NUMBER TITLE DESCRIPTION",
-    description: 'Creates a poll of given NUMBER with a title TITLE and a DESCRIPTION ',
+    description: 'Creates a poll of given _NUMBER_ with a title _TITLE_ and a _DESCRIPTION_',
 
     /**
     * @param {Discord.Message} message The Message

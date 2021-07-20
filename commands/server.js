@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'server',
     usage: '!server',
-    description: 'Gives Information About Given Args',
+    description: 'Gives information about the server',
 
     /**
     * @param {Discord.Message} message The Message

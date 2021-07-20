@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'ping',
     usage: '!ping',
-    description: 'This Is A Ping Command',
+    description: 'Command to ping the bot',
 
     /**
     * @param {Discord.Message} message The Message

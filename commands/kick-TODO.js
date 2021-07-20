@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'kick',
     usage: '!kick @user-name',
-    description: 'Kicks A Member From Server',
+    description: 'Kicks a member from server',
 
     /**
     * @param {Discord.Message} message The Message

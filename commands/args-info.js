@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'args-info',
     usage: '!args-info',
-    description: 'Gives Information About Args',
+    description: 'Gives information about given args',
 
     /**
     * @param {Discord.Message} message The Message
