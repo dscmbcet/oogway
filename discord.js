@@ -110,7 +110,7 @@ client.on('message', (message) => {
 				});
 			else if (poll_no > 10)
 				embed = new Discord.MessageEmbed({
-					title: `POLL : Can't Be Greater Than ${emojiArr.length}`,
+					title: `POLL : Can't Be Greater Than ${emojiArr.length - 1}`,
 					color: 0xeb0707
 				});
 			else
