@@ -45,5 +45,16 @@ client.on("message", (message) => {
     message.channel.send({ embed });
     return;
   }
-  commandFile.execute(message, args);
+
+  try {
+    commandFile.execute(message, args);
+  } catch {
+    let embed = new Discord.MessageEmbed({
+      title: "Error Occured",
+      description: `I am not feeling too well my friend`,
+      color: 0xff0000,
+    });
+    message.channel.send({ embed });
+    return;
+  }
 });
