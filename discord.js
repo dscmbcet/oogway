@@ -1,10 +1,5 @@
 const Discord = require('discord.js');
 const { client, prefix } = require('./app');
-const quotes = ['Yesterday is history,tomorrow is a mystery,and today is a gift...thats why they call it present',
-	'If you only do what you can do, you will never be more than who you are',
-	'Your story may not have such a happy beginning but that does not make you who you are, it is the rest of it- who you choose to be',
-	'One often meets his destiny on the road he takes to avoid it',
-	'There is no secret ingredient, its just you'];
 
 client.on('ready', () => {
 	console.log('Bot Is Ready!');
@@ -27,10 +22,8 @@ client.on('message', (message) => {
 	const args = message.content.slice(prefix.length).trim().split(' ');
 	const command = args.shift().toLowerCase();
 
-	if (command === 'master') {
-		const i = Math.floor(Math.random() * 7);
-		const msg = quotes[i];
-		message.channel.send(msg);
+	if (command === 'ping') {
+		message.channel.send('Pong.');
 	}
 	else if (command === 'args-info') {
 		if (!args.length) {
