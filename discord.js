@@ -48,7 +48,8 @@ client.on("message", async (message) => {
 
   try {
     await commandFile.execute(message, args);
-  } catch {
+  } catch (e) {
+    console.error('Error Occured', e);
     let embed = new Discord.MessageEmbed({
       title: "Error Occured",
       description: `I am not feeling too well my friend`,

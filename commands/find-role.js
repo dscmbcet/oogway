@@ -32,23 +32,49 @@ module.exports = {
                   `${m.displayName}  \`${m.joinedAt.toDateString()}\` `
               );
 
-        users =
-          users.length == undefined || users.length == 0
-            ? "No User Found"
-            : users.join("\n");
-        embed = new Discord.MessageEmbed({
-          title: `Users with the '@${roleName}' role`,
-          description: users,
-          color: 0xffff,
-        }).setColor(role.hexColor);
-      } catch {
+        users = users.length == undefined || users.length == 0
+          ? "No User Found"
+          : users;
+
+        let BEST_LENGTH = 0;
+        while (true) {
+          const size = users.slice(0, Math.min(users.length, BEST_LENGTH)).join("\n").length;
+          if (size >= 3500) {
+            BEST_LENGTH -= 1;
+            break;
+          }
+          BEST_LENGTH += 1;
+        }
+
+        for (let i = 0; i < users.length; i += BEST_LENGTH) {
+          const toSend = users.slice(i, Math.min(users.length, i + BEST_LENGTH)).join("\n");
+          console.log(toSend.length);
+          let embed;
+          if (i === 0)
+            embed = new Discord.MessageEmbed({
+              title: `Users with the '@${roleName}' role`,
+              color: role.hexColor,
+              description: toSend
+            });
+          else {
+            embed = new Discord.MessageEmbed({
+              color: role.hexColor,
+              description: toSend
+            });
+          }
+          await message.channel.send(embed);
+        }
+
+        return;
+
+      } catch (e) {
+        console.log('Error:find-role :', e);
         embed = new Discord.MessageEmbed({
           title: `Invalid Role`,
           color: 0xffff,
         });
+        return message.channel.send({ embed, split: true });
       }
-
-      return message.channel.send({ embed });
     }
   },
 };
