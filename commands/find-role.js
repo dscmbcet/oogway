@@ -38,7 +38,12 @@ module.exports = {
 
         let BEST_LENGTH = 0;
         while (true) {
+          const orginalSize = users.slice(0, users.length).join("\n").length;
           const size = users.slice(0, Math.min(users.length, BEST_LENGTH)).join("\n").length;
+          if (orginalSize <= 3500) {
+            BEST_LENGTH = orginalSize;
+            break;
+          }
           if (size >= 3500) {
             BEST_LENGTH -= 1;
             break;
