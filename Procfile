@@ -1,0 +1,1 @@
+Worker: nodemon discord.js
