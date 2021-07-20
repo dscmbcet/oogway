@@ -3,7 +3,7 @@ const fs = require("fs");
 module.exports = {
   name: "help-v",
   usage: "!help-v",
-  description: "This is a help command in verbose mode",
+  description: "Gives detailed information about commands",
 
   /**
    * @param {Discord.Message} message The Message
