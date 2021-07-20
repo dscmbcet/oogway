@@ -116,7 +116,7 @@ client.on('message', (message) => {
 			else
 				embed = new Discord.MessageEmbed({
 					title: `Poll`,
-					description: `**${description}**\n\n_Created by ${message.author.username}_`,
+					description: `**${description}**\n\n_Created by @${message.author.username}_`,
 					color: 0xeb9e34
 				});
 
