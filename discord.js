@@ -54,14 +54,15 @@ client.on('message', (message) => {
 				`**Joined sever on**: ${joinedDateFormatted}`,
 			];
 
-			return message.channel.send(formattedMessage, {
-				embed: {
-					thumbnail: {
-						url: member.user.displayAvatarURL(),
-						color: member.displayHexColor,
-					},
+			const embed = new Discord.MessageEmbed({
+				description: formattedMessage.join('\n'),
+				color: 0xFFFF,
+				thumbnail: {
+					url: member.user.displayAvatarURL(),
 				},
-			});
+			}).setColor(member.roles.color.hexColor);
+
+			return message.channel.send({ embed });
 		}
 	}
 	else if (command === 'find-role') {
@@ -80,7 +81,7 @@ client.on('message', (message) => {
 					'title': `Users with the '@${roleName}' role`,
 					'description': users,
 					'color': 0xFFFF,
-				});
+				}).setColor(role.hexColor);
 			} catch {
 				embed = new Discord.MessageEmbed({
 					'title': `Invalid Role`,
