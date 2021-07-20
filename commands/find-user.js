@@ -14,16 +14,12 @@ module.exports = {
     else {
       const taggedUser = message.mentions.users.first();
       const member = message.guild.member(taggedUser);
-      const joinedDate = new Date(member.joinedAt);
-      const joinedDateFormatted = `${joinedDate.getDate()}-${
-        joinedDate.getMonth() + 1
-      }-${joinedDate.getFullYear()}`;
       const formattedMessage = [
         `**User ID**: ${member.id}`,
         `**Display Name**: ${member.displayName}`,
         `**Nickname**: ${member.nickname == null ? "-" : member.nickname}`,
         `**Highest Role**: ${member.roles.highest.name}`,
-        `**Joined sever on**: ${joinedDateFormatted}`,
+        `**Joined sever on**: ${member.joinedAt.toDateString()}`,
       ];
 
       const embed = new Discord.MessageEmbed({

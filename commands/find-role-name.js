@@ -1,8 +1,8 @@
 const Discord = require("discord.js");
 module.exports = {
-  name: "find-role",
-  usage: "!find-role @role_name",
-  description: "Gives the usernames,date of joining of members belonging to given role",
+  name: "find-role-name",
+  usage: "!find-role-name @role_name",
+  description: "Gives the usernames of members belonging to given role",
 
   /**
    * @param {Discord.Message} message The Message
@@ -26,11 +26,7 @@ module.exports = {
           role === undefined
             ? ["No Role Found"]
             : role.members
-              .sort((a, b) => a.joinedAt - b.joinedAt)
-              .map(
-                (m) =>
-                  `${m.displayName}  \`${m.joinedAt.toDateString()}\` `
-              );
+              .map((m) => m.displayName);
 
         users =
           users.length == undefined || users.length == 0
