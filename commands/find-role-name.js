@@ -35,8 +35,8 @@ module.exports = {
         embed = new Discord.MessageEmbed({
           title: `Users with the '@${roleName}' role`,
           description: users,
-          color: 0xffff,
-        }).setColor(role.hexColor);
+          color: role.hexColor,
+        });
       } catch {
         embed = new Discord.MessageEmbed({
           title: `Invalid Role`,

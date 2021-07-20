@@ -29,7 +29,7 @@ client.on("guildMemberAdd", (member) => {
 });
 
 // listening to messages
-client.on("message", (message) => {
+client.on("message", async (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
   const args = message.content.slice(prefix.length).trim().split(" ");
   const command = args.shift().toLowerCase();
@@ -47,7 +47,7 @@ client.on("message", (message) => {
   }
 
   try {
-    commandFile.execute(message, args);
+    await commandFile.execute(message, args);
   } catch {
     let embed = new Discord.MessageEmbed({
       title: "Error Occured",
