@@ -39,7 +39,7 @@ client.on("message", (message) => {
   if (!commandFile) {
     let embed = new Discord.MessageEmbed({
       title: "Invalid Command",
-      description: `_I usually say there are no mistakes. But you my child have made one_`,
+      description: `I usually say _"there are no mistakes"_\nBut you my child have made one\nMaybe I can guide you to the right path, type: \`help-v\``,
       color: 0xff0000,
     });
     message.channel.send({ embed });
