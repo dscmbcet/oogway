@@ -108,9 +108,9 @@ client.on('message', (message) => {
 					title: `POLL : Can't Be Zero`,
 					color: 0xeb0707
 				});
-			else if (poll_no > 10)
+			else if (poll_no > emojiArr.length)
 				embed = new Discord.MessageEmbed({
-					title: `POLL : Can't Be Greater Than ${emojiArr.length - 1}`,
+					title: `POLL : Can't Be Greater Than ${emojiArr.length}`,
 					color: 0xeb0707
 				});
 			else
@@ -121,7 +121,7 @@ client.on('message', (message) => {
 				});
 
 			return message.channel.send({ embed }).then(async embedMessage => {
-				if (!(poll_no === 0 || poll_no > 10))
+				if (!(poll_no === 0 || poll_no > emojiArr.length))
 					for (let i = 0; i < poll_no; i++)
 						await embedMessage.react(emojiArr[i]);
 			});
