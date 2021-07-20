@@ -1,21 +1,32 @@
-const Discord = require('discord.js');
-const { client, prefix } = require('./app');
+const Discord = require("discord.js");
+const fs = require("fs");
+const { client, prefix } = require("./app");
 
-client.on('ready', () => {
-	console.log('Bot Is Ready!');
-});
+client.commands = new Discord.Collection();
+const commandFiles = fs
+  .readdirSync("./commands/")
+  .filter((file) => file.endsWith(".js"));
+for (const file of commandFiles) {
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
+}
+
+client.on("ready", () => console.log("Bot Is Ready!"));
 
 // Listening to a new user
-client.on('guildMemberAdd', member => {
-	// Send the message to a designated channel on a server:
-	const channel = member.guild.channels.cache.find(ch => ch.name === 'member-log');
-	// Do nothing if the channel wasn't found on this server
-	if (!channel) return;
-	// Send the message, mentioning the member
-	channel.send(`Welcome to the DSC server, ${member}`);
+client.on("guildMemberAdd", (member) => {
+  // Send the message to a designated channel on a server:
+  const channel = member.guild.channels.cache.find(
+    (ch) => ch.name === "member-log"
+  );
+  // Do nothing if the channel wasn't found on this server
+  if (!channel) return;
+  // Send the message, mentioning the member
+  channel.send(`Welcome to the DSC server, ${member}`);
 });
 
 // listening to messages
+<<<<<<< HEAD
 client.on('message', (message) => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
@@ -134,4 +145,13 @@ client.on('message', (message) => {
 	else if (message.content === `${prefix}server`) {
 		message.channel.send(`Server Name: ${message.guild.name} \n Total members: ${message.guild.memberCount} \n No: of channels : ${message.guild.member} \n Server Region ${message.guild.region}`);
 	}
+=======
+client.on("message", (message) => {
+  if (!message.content.startsWith(prefix) || message.author.bot) return;
+  const args = message.content.slice(prefix.length).trim().split(" ");
+  const command = args.shift().toLowerCase();
+
+  const commandFile = client.commands.get(command);
+  commandFile !== undefined ? commandFile.execute(message, args) : null;
+>>>>>>> f97d96d1ec23ebd4aee591d0b50c9b35731f2f74
 });
