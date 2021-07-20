@@ -25,6 +25,20 @@ client.on('message', (message) => {
 	if (command === 'ping') {
 		message.channel.send('Pong.');
 	}
+	if (command === 'help') {
+		message.channel.send(
+			[
+				"```",
+				"Usage",
+				"",
+				"!ping",
+				"!user-info @user_name",
+				"!find-role @role_name",
+				"!poll NUMBER DESCRIPTION",
+				"```"
+			].join('\n')
+		);
+	}
 	else if (command === 'args-info') {
 		if (!args.length) {
 			return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
