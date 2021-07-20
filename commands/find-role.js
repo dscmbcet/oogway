@@ -48,7 +48,6 @@ module.exports = {
 
         for (let i = 0; i < users.length; i += BEST_LENGTH) {
           const toSend = users.slice(i, Math.min(users.length, i + BEST_LENGTH)).join("\n");
-          console.log(toSend.length);
           let embed;
           if (i === 0)
             embed = new Discord.MessageEmbed({
