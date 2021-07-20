@@ -35,5 +35,15 @@ client.on("message", (message) => {
   const command = args.shift().toLowerCase();
 
   const commandFile = client.commands.get(command);
-  commandFile !== undefined ? commandFile.execute(message, args) : null;
+  console.log(`Recieved command: !${command} from: ${message.author.username}`);
+  if (!commandFile) {
+    let embed = new Discord.MessageEmbed({
+      title: "Invalid Command",
+      description: `_I usually say there are no mistakes. But you my child have made one_`,
+      color: 0xff0000,
+    });
+    message.channel.send({ embed });
+    return;
+  }
+  commandFile.execute(message, args);
 });
