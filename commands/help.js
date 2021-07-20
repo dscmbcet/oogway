@@ -22,7 +22,7 @@ module.exports = {
     let embed = new Discord.MessageEmbed({
       title: `Command Usage`,
       color: 0xff0000,
-      description: [...infoArr].join("\n"),
+      description: infoArr.join("\n"),
     });
     message.channel.send({ embed });
   },
