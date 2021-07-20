@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 module.exports = {
-  name: "user-info",
-  usage: "!user-info @user_name",
+  name: "find-info",
+  usage: "!find-info @user_name",
   description: "Gives information about given user",
 
   /**
