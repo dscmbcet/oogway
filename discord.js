@@ -30,5 +30,6 @@ client.on('message', (message) => {
 	const args = message.content.slice(prefix.length).trim().split(' ');
 	const command = args.shift().toLowerCase();
 
-	client.commands.get(command).execute(message, args);
+	const commandFile = client.commands.get(command);
+	commandFile !== undefined ? commandFile.execute(message, args) : null;
 });
