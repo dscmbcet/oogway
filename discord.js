@@ -34,7 +34,7 @@ client.on('message', (message) => {
 				"!ping",
 				"!user-info @user_name",
 				"!find-role @role_name",
-				"!poll NUMBER DESCRIPTION",
+				"!poll NUMBER TITLE DESCRIPTION",
 				"```"
 			].join('\n')
 		);
@@ -111,7 +111,7 @@ client.on('message', (message) => {
 		else {
 			// eslint-disable-next-line no-shadow
 			let embed;
-			let emojiArr = ['👍', '👎', '0️⃣', '1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣'];
+			let emojiArr = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'];
 			const poll_no = args[0];
 
 			args.splice(0, 1);
@@ -135,9 +135,10 @@ client.on('message', (message) => {
 				});
 
 			return message.channel.send({ embed }).then(async embedMessage => {
-				if (!(poll_no === 0 || poll_no > emojiArr.length))
+				if (!(poll_no === 0 || poll_no > emojiArr.length)) {
 					for (let i = 0; i < poll_no; i++)
 						await embedMessage.react(emojiArr[i]);
+				}
 			});
 		};
 	}
