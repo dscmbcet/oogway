@@ -72,7 +72,6 @@ module.exports = {
         return;
 
       } catch (e) {
-        console.log('Error:find-role :', e);
         embed = new Discord.MessageEmbed({
           title: `Invalid Role`,
           color: 0xffff,
