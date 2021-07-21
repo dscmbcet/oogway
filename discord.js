@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const fs = require("fs");
+const colors = require("./utils/colors");
 require("dotenv").config();
 const { prefix, token } = JSON.parse(process.env.CONFIG);
 const client = new Discord.Client();
@@ -40,7 +41,7 @@ client.on("message", async (message) => {
     let embed = new Discord.MessageEmbed({
       title: "Invalid Command",
       description: `I usually say _"there are no mistakes"_\nBut you my child have made one\nMaybe I can guide you to the right path, type: \`help-v\``,
-      color: 0xff0000,
+      color: colors.red,
     });
     message.channel.send({ embed });
     return;
@@ -53,7 +54,7 @@ client.on("message", async (message) => {
     let embed = new Discord.MessageEmbed({
       title: "Error Occured",
       description: `I am not feeling too well my friend`,
-      color: 0xff0000,
+      color: colors.red,
     });
     message.channel.send({ embed });
     return;
