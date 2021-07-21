@@ -4,7 +4,7 @@ const colors = require("../utils/colors");
 module.exports = {
     name: "team-delete-category",
     usage: "!team-delete-category <CATEGORY_NAME>",
-    description: "Deletes Category <CATEGORY_NAME> with all its sub channels and roles",
+    description: "deletes category CATEGORY_NAME with all its sub channels and roles",
 
     /**
      * @param {Discord.Message} message The Message

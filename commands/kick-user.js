@@ -4,7 +4,7 @@ const colors = require("../utils/colors");
 module.exports = {
   name: "kick-user",
   usage: "!kick-user @user-name",
-  description: "Kicks a member from server",
+  description: "kicks a member from server",
 
   /**
    * @param {Discord.Message} message The Message

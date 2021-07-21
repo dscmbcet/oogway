@@ -4,7 +4,7 @@ const Oogway_quotes = require("../utils/oogwayQuotes");
 module.exports = {
   name: "master",
   usage: "!master",
-  description: "Summon Master Oogway",
+  description: "summon Master Oogway",
 
   /**
    * @param {Discord.Message} message The Message

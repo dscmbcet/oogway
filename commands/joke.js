@@ -2,11 +2,10 @@ const Discord = require("discord.js");
 const https = require("https");
 const colors = require("../utils/colors");
 
-require("https");
 module.exports = {
   name: "joke",
   usage: "!joke",
-  description: "Gets a joke for you",
+  description: "tells a joke for you",
 
   /**
    * @param {Discord.Message} message The Message

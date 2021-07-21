@@ -4,75 +4,70 @@ Discord bot for DSC MBCET Server
 
 ## Commands
 
-#### args-info
-
-- Usage: `!args-info`
-- Description: Gives information about given args
-
 #### ban-user
 
 - Usage: `!ban-user @user-name`
-- Description: Bans a member from server
+- Description: bans a member from server
 
 #### find-role-name
 
 - Usage: `!find-role-name @role_name`
-- Description: Gives the usernames of members belonging to given role
+- Description: gives the usernames of members belonging to given role
 
 #### find-role
 
 - Usage: `!find-role @role_name`
-- Description: Gives the usernames,date of joining of members belonging to given role
+- Description: gives the usernames,date of joining of members belonging to given role
 
 #### find-user
 
 - Usage: `!find-user @user_name`
-- Description: Gives information about given user
+- Description: gives information about given user
 
 #### help-v
 
 - Usage: `!help-v`
-- Description: Gives detailed information about commands
+- Description: gives detailed information about commands
 
 #### help
 
 - Usage: `!help`
-- Description: Gives basic information about commands
+- Description: gives basic information about commands
 
 #### joke
 
 - Usage: `!joke`
-- Description: Gets a joke for you
+- Description: tells a joke for you
 
 #### kick-user
 
 - Usage: `!kick-user @user-name`
-- Description: Kicks a member from server
+- Description: kicks a member from server
 
 #### master
 
 - Usage: `!master`
-- Description: Summon Master Oogway
+- Description: summon Master Oogway
 
 #### poll
 
 - Usage: `!poll <NUMBER> <TITLE> [DESCRIPTION]`
-- Description: Creates a poll of given _NUMBER_ with a _TITLE_ and a _DESCRIPTION_
+- Description: creates a poll of given NUMBER with a TITLE and a DESCRIPTION
 
-#### server
+#### server-info
 
-- Usage: `!server`
-- Description: Gives information about the server
+- Usage: `!server-info`
+- Description: gives information about the server
 
 #### team-create-category
 
 - Usage: `!team-create-category <TEAM_NO> <CATEGORY_NAME>`
-- Description: Creates Category <CATEGORY_NAME> with given no. of <TEAM_NO> as sub channels having void and text and creates role for each team
+- Description: creates category CATEGORY_NAME with given no. of TEAM_NO as sub channels having roles and text and creates role for each team
 
 #### team-delete-category
 
 - Usage: `!team-delete-category <CATEGORY_NAME>`
-- Description: Deletes Category <CATEGORY_NAME> with all its sub channels and roles
+- Description: deletes category CATEGORY_NAME with all its sub channels and roles
 
 ---
 

@@ -4,7 +4,7 @@ const colors = require("../utils/colors");
 module.exports = {
   name: "find-role-name",
   usage: "!find-role-name @role_name",
-  description: "Gives the usernames of members belonging to given role",
+  description: "gives the usernames of members belonging to given role",
 
   /**
    * @param {Discord.Message} message The Message
@@ -16,7 +16,6 @@ module.exports = {
         `You didn't specify any role, ${message.author}!`
       );
     else {
-      // eslint-disable-next-line no-shadow
       let embed;
       try {
         const roleID = message.mentions.roles.first().id;
