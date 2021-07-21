@@ -41,9 +41,9 @@ client.on("message", async (message) => {
     let embed = new Discord.MessageEmbed({
       title: "Invalid Command",
       description: [
-        'I usually say "there are no mistakes"',
+        '“There are no accidents”',
         'But you my friend have made one',
-        'I can guide you to the right path',
+        'I will show you the way',
         'Type: \`help-v\`'
       ].join('\n'),
       color: colors.red,

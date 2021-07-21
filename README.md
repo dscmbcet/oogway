@@ -49,10 +49,10 @@ Discord bot for DSC MBCET Server
 - Usage: `!kick-user @user-name`
 - Description: Kicks a member from server
 
-#### ping
+#### master
 
-- Usage: `!ping`
-- Description: Command to ping the bot
+- Usage: `!master`
+- Description: Summon Master Oogway
 
 #### poll
 
