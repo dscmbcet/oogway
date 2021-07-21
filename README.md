@@ -56,8 +56,8 @@ Discord bot for DSC Server
 
 #### poll
 
-- Usage: `!poll NUMBER TITLE DESCRIPTION`
-- Description: Creates a poll of given _NUMBER_ with a title _TITLE_ and a _DESCRIPTION_
+- Usage: `!poll <NUMBER> <TITLE> [DESCRIPTION]`
+- Description: Creates a poll of given _NUMBER_ with a _TITLE_ and a _DESCRIPTION_
 
 #### server
 

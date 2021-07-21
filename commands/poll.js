@@ -3,9 +3,9 @@ const colors = require("../utils/colors");
 
 module.exports = {
   name: "poll",
-  usage: "!poll NUMBER TITLE DESCRIPTION",
+  usage: "!poll <NUMBER> <TITLE> [DESCRIPTION]",
   description:
-    "Creates a poll of given _NUMBER_ with a title _TITLE_ and a _DESCRIPTION_",
+    "Creates a poll of given _NUMBER_ with a _TITLE_ and a _DESCRIPTION_",
 
   /**
    * @param {Discord.Message} message The Message
