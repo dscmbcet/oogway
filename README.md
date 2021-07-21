@@ -1,6 +1,6 @@
-# Professor
+# Oogway
 
-Discord bot for DSC Server
+Discord bot for DSC MBCET Server
 
 ## Commands
 
