@@ -5,7 +5,7 @@ const colors = require("../utils/colors");
 module.exports = {
   name: "help-v",
   usage: "!help-v",
-  description: "gives detailed information about commands",
+  description: "Gives detailed information about commands",
 
   /**
    * @param {Discord.Message} message The Message
@@ -20,8 +20,8 @@ module.exports = {
       return {
         name: command.name,
         value: [
-          `Usage: \`${command.usage === undefined ? "-" : command.usage}\``,
-          `Description: ${command.description === undefined ? "-" : command.description}`,
+          `\`${command.usage === undefined ? "-" : command.usage}\``,
+          `${command.description === undefined ? "-" : command.description}`,
         ].join("\n"),
       };
     });

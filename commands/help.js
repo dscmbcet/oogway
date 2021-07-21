@@ -5,7 +5,7 @@ const colors = require("../utils/colors");
 module.exports = {
   name: "help",
   usage: "!help",
-  description: "gives basic information about commands",
+  description: "Gives basic information about commands",
 
   /**
    * @param {Discord.Message} message The Message

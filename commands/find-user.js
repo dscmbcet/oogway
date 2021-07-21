@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports = {
   name: "find-user",
   usage: "!find-user @user_name",
-  description: "gives information about given user",
+  description: "Gives information about given user",
 
   /**
    * @param {Discord.Message} message The Message

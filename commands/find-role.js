@@ -4,7 +4,7 @@ const colors = require("../utils/colors");
 module.exports = {
   name: "find-role",
   usage: "!find-role @role_name",
-  description: "gives the usernames,date of joining of members belonging to given role",
+  description: "Gives the usernames,date of joining of members belonging to given role",
 
   /**
    * @param {Discord.Message} message The Message

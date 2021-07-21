@@ -4,7 +4,7 @@ const colors = require("../utils/colors");
 module.exports = {
     name: "team-create-category",
     usage: "!team-create-category <TEAM_NO> <CATEGORY_NAME>",
-    description: "creates category CATEGORY_NAME with given no. of TEAM_NO as sub channels having roles and text and creates role for each team",
+    description: "Creates category CATEGORY_NAME with given no. of TEAM_NO as sub channels having roles and text and creates role for each team",
 
     /**
      * @param {Discord.Message} message The Message
