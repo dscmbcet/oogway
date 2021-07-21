@@ -47,7 +47,7 @@ Discord bot for DSC MBCET Server
 #### master
 
 - Usage: `!master`
-- Description: Summon Master Oogway
+- Description: Summon Master Oogway To Gather Knowledge
 
 #### poll
 

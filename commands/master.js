@@ -1,23 +1,32 @@
 const Discord = require("discord.js");
-const Oogway_quotes = require("../utils/oogwayQuotes");
+const fetch = require('node-fetch');
+const API_URL = require("../utils/api_URLS");
 
 module.exports = {
   name: "master",
   usage: "!master",
-  description: "Summon Master Oogway",
+  description: "Summon Master Oogway To Gather Knowledge",
 
   /**
    * @param {Discord.Message} message The Message
    * @param {string[]} args The arguments
    */
   async execute(message, args) {
-    const quote = Oogway_quotes[Math.floor(Math.random() * Oogway_quotes.length)];
     const member = message.guild.member(message.author.id);
-
-    let embed = new Discord.MessageEmbed({
-      description: `${quote}\n\nHow are you doing my friend **${member}**`,
-      color: member.displayHexColor,
-    });
-    message.channel.send({ embed });
+    try {
+      const response = await fetch(API_URL.quotes);
+      const data = await response.json();
+      let embed = new Discord.MessageEmbed({
+        description: `“${data.content}”\n- ${data.author}\n\nHow are you doing my friend **${member}**`,
+        color: member.displayHexColor,
+      });
+      message.channel.send({ embed });
+    } catch (e) {
+      let embed = new Discord.MessageEmbed({
+        description: `How are you doing my friend **${member}**`,
+        color: member.displayHexColor,
+      });
+      return message.channel.send({ embed });
+    }
   },
 };
