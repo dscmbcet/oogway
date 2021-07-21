@@ -24,6 +24,11 @@ module.exports = {
 
             const CATEGORY_NAME = args.join(" ");
             const category = await message.guild.channels.cache.find(cat => cat.name === CATEGORY_NAME);
+            if (!category) return message.reply(new Discord.MessageEmbed({
+                title: `Check your category name`,
+                color: colors.red,
+            }));
+
             category.children.forEach(async channel => {
                 const team_role = await message.guild.roles.cache.find(rol => rol.name === channel.name);
                 if (team_role) await team_role.delete();
