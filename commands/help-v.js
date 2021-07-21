@@ -21,8 +21,7 @@ module.exports = {
         name: command.name,
         value: [
           `Usage: \`${command.usage === undefined ? "-" : command.usage}\``,
-          `Description: ${command.description === undefined ? "-" : command.description
-          }`,
+          `Description: ${command.description === undefined ? "-" : command.description}`,
         ].join("\n"),
       };
     });
