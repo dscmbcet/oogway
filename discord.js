@@ -44,7 +44,7 @@ client.on("message", async (message) => {
         '“There are no accidents”',
         'But you my friend have made one',
         'I will show you the way',
-        'Type: \`help-v\`'
+        'Type: \`!help-v\`'
       ].join('\n'),
       color: colors.red,
     });
