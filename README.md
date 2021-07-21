@@ -63,3 +63,26 @@ Discord bot for DSC Server
 
 - Usage: `!server`
 - Description: Gives information about the server
+
+---
+
+### Creators
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<table>
+ <tr>
+            <td align="center">
+                <a href="https://github.com/mak626">
+                    <img src="https://avatars.githubusercontent.com/u/60577077?v=4" width="100px;" alt="" />
+                    <br>
+                    <sub><b>M Aswin Kishore</b></sub>
+            </td>
+            <td align="center">
+                <a href="https://github.com/advaith-unnikrishnan">
+                    <img src="https://avatars.githubusercontent.com/u/45172876?v=4" width="100px;" alt="" />
+                    <br>
+                    <sub><b>Advaith U</b></sub>
+            </td>        
+</tr>
+</table>
+<!-- ALL-CONTRIBUTORS-LIST:END -->
