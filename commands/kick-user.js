@@ -32,20 +32,28 @@ module.exports = {
     else {
       const taggedUser = message.guild.member(message.mentions.users.first());
 
-      try {
-        await taggedUser.kick();
+      if (member == taggedUser) {
         embed = new Discord.MessageEmbed({
-          footer: {
-            text: `${taggedUser.displayName} has been kicked`,
-            icon_url: taggedUser.user.displayAvatarURL(),
-          },
-          color: colors.cyan,
-        });
-      } catch (e) {
-        embed = new Discord.MessageEmbed({
-          description: `I am sorry but that person is wiser than you my friend** ${member}**`,
+          description: `Why do you want to kick yourself my friend** ${member}**`,
           color: colors.red,
-        })
+        });
+      }
+      else {
+        try {
+          await taggedUser.kick();
+          embed = new Discord.MessageEmbed({
+            footer: {
+              text: `${taggedUser.displayName} has been kicked`,
+              icon_url: taggedUser.user.displayAvatarURL(),
+            },
+            color: colors.cyan,
+          });
+        } catch (e) {
+          embed = new Discord.MessageEmbed({
+            description: `I am sorry but that person is wiser than you my friend** ${member}**`,
+            color: colors.red,
+          })
+        }
       }
     }
 
