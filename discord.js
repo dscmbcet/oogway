@@ -18,16 +18,40 @@ for (const file of commandFiles) {
 client.on("ready", () => console.log("Bot Is Ready!"));
 
 // Listening to a new user
-client.on("guildMemberAdd", (member) => {
-  // Send the message to a designated channel on a server:
-  const channel = member.guild.channels.cache.find(
-    (ch) => ch.name === "member-log"
-  );
-  // Do nothing if the channel wasn't found on this server
+client.on("guildMemberAdd", async (member) => {
+  const channel = member.guild.channels.cache.find((ch) => ch.name === 'welcome🤝');
   if (!channel) return;
-  // Send the message, mentioning the member
-  channel.send(`Welcome to the DSC server, ${member}`);
+  let embed = new Discord.MessageEmbed({
+    title: `A new member just arrived!`,
+    description: [
+      `Welcome ${member} we hope you enjoy your stay here!`,
+      `I am **Master Oogway**, bot of GDSC MBCET`,
+      `\nTo get to know me type: \`!help-v\``
+    ].join('\n'),
+    thumbnail: {
+      url: member.user.displayAvatarURL(),
+    },
+    color: colors.cyan
+  });
+
+  await channel.send(embed);
+
+  embed = new Discord.MessageEmbed({
+    title: `GDSC MBCET`,
+    color: colors.orange,
+    thumbnail: {
+      url: member.guild.iconURL(),
+    },
+    description: [
+      `Welcome ${member} we hope you enjoy your stay here!`,
+      `I am **Master Oogway**, bot of GDSC MBCET`,
+      `\nTo get to know me type: \`!help-v\` in GDSC Discord Channel`
+    ].join('\n'),
+  })
+
+  return await member.send(embed);
 });
+
 
 // listening to messages
 client.on("message", async (message) => {
