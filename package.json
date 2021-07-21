@@ -5,11 +5,11 @@
   "main": "discord.js",
   "scripts": {
     "start": "nodemon ./discord.js",
+    "generate-commands.md": "node ./utils/generate_command_readme.js",
     "get-logs-heroku-app-only": "heroku logs --tail -a dsc-professor-bot --source app",
     "get-logs-heroku": "heroku logs --tail -a dsc-professor-bot",
     "connect-bash-heroku": "heroku run bash --app dsc-professor-bot",
-    "manual-deploy": "git push heroku main",
-    "generate-commands.md": "node ./utils/generate_command_readme.js"
+    "manual-deploy": "git push heroku main"
   },
   "author": "DSC MBCET",
   "license": "ISC",
