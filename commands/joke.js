@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const https = require("https");
+const colors = require("../utils/colors");
 
 require("https");
 module.exports = {
@@ -29,7 +30,7 @@ module.exports = {
             embed = new Discord.MessageEmbed({
               title: `Here is your joke for the day`,
               description: json.joke,
-              color: 0xffff,
+              color: colors.cyan,
             });
             return message.channel.send({ embed });
           });
@@ -40,7 +41,7 @@ module.exports = {
     } catch (e) {
       embed = new Discord.MessageEmbed({
         title: `No Jokes For Now`,
-        color: 0xff0000,
+        color: colors.red,
       });
       return message.channel.send({ embed });
     }

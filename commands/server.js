@@ -1,4 +1,6 @@
 const Discord = require("discord.js");
+const colors = require("../utils/colors");
+
 module.exports = {
   name: "server",
   usage: "!server",
@@ -41,7 +43,7 @@ module.exports = {
     let embed = new Discord.MessageEmbed({
       title: "Server Information",
       fields: info,
-      color: 0xffa500,
+      color: colors.orange,
       thumbnail: {
         url: message.guild.iconURL(),
       },

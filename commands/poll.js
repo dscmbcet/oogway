@@ -1,4 +1,6 @@
 const Discord = require("discord.js");
+const colors = require("../utils/colors");
+
 module.exports = {
   name: "poll",
   usage: "!poll NUMBER TITLE DESCRIPTION",
@@ -35,18 +37,18 @@ module.exports = {
       if (poll_no == 0)
         embed = new Discord.MessageEmbed({
           title: `POLL : Can't Be Zero`,
-          color: 0xeb0707,
+          color: colors.red,
         });
       else if (poll_no > emojiArr.length)
         embed = new Discord.MessageEmbed({
           title: `POLL : Can't Be Greater Than ${emojiArr.length}`,
-          color: 0xeb0707,
+          color: colors.red,
         });
       else
         embed = new Discord.MessageEmbed({
           title: `Poll`,
           description: `**${description}**\n\n_Created by @${message.author.username}_`,
-          color: 0xeb9e34,
+          color: colors.orange,
         });
 
       const embedMessage = await message.channel.send({ embed });

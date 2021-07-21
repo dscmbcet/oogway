@@ -1,5 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
+const colors = require("../utils/colors");
+
 module.exports = {
   name: "help-v",
   usage: "!help-v",
@@ -19,8 +21,7 @@ module.exports = {
         name: command.name,
         value: [
           `Usage: \`${command.usage === undefined ? "-" : command.usage}\``,
-          `Description: ${
-            command.description === undefined ? "-" : command.description
+          `Description: ${command.description === undefined ? "-" : command.description
           }`,
         ].join("\n"),
       };
@@ -29,8 +30,8 @@ module.exports = {
     infoArr.sort();
 
     let embed = new Discord.MessageEmbed({
-      title: `Commands Verbose`,
-      color: 0xff0000,
+      title: `Commands`,
+      color: colors.purple,
       fields: infoArr,
     });
     message.channel.send({ embed });

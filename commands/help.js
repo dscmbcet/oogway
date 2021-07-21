@@ -1,5 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
+const colors = require("../utils/colors");
+
 module.exports = {
   name: "help",
   usage: "!help",
@@ -21,7 +23,7 @@ module.exports = {
     infoArr.sort();
     let embed = new Discord.MessageEmbed({
       title: `Command Usage`,
-      color: 0xff0000,
+      color: colors.purple,
       description: infoArr.join("\n"),
     });
     message.channel.send({ embed });

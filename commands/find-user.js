@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+
 module.exports = {
   name: "find-user",
   usage: "!find-user @user_name",
@@ -24,11 +25,10 @@ module.exports = {
 
       const embed = new Discord.MessageEmbed({
         description: formattedMessage.join("\n"),
-        color: 0xffff,
         thumbnail: {
           url: member.user.displayAvatarURL(),
         },
-        hexColor: member.roles.color.hexColor,
+        color: member.roles.color.hexColor,
       });
 
       return message.channel.send({ embed });

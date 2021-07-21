@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+
 module.exports = {
   name: "ping",
   usage: "!ping",
@@ -10,6 +11,7 @@ module.exports = {
    */
   async execute(message, args) {
     const member = message.guild.member(message.author.id);
+
     let embed = new Discord.MessageEmbed({
       description: `How are you doing my old friend **${member}**`,
       color: member.displayHexColor,

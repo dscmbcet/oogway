@@ -1,4 +1,6 @@
 const Discord = require("discord.js");
+const colors = require("../utils/colors");
+
 module.exports = {
   name: "find-role-name",
   usage: "!find-role-name @role_name",
@@ -69,7 +71,7 @@ module.exports = {
       } catch (e) {
         embed = new Discord.MessageEmbed({
           title: `Invalid Role`,
-          color: 0xffff,
+          color: colors.red,
         });
         return message.channel.send({ embed, split: true });
       }
