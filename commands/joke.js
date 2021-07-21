@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const fetch = require('node-fetch');
-const API_URL = require("../utils/api_URLS");
+const API_URL = require("../utils/api_urls");
 const colors = require("../utils/colors");
 
 module.exports = {
