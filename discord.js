@@ -20,6 +20,9 @@ client.on("ready", () => console.log("Bot Is Ready!"));
 // Listening to a new user
 client.on("guildMemberAdd", async (member) => {
   const channel = member.guild.channels.cache.find((ch) => ch.name === 'welcome🤝');
+  var memberRole = member.guild.roles.cache.find(role => role.name === "Member");
+  if (memberRole) member.roles.add(memberRole);
+
   if (!channel) return;
   let embed = new Discord.MessageEmbed({
     title: `A new member just arrived!`,
