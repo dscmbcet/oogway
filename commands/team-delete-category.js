@@ -2,9 +2,9 @@ const Discord = require("discord.js");
 const colors = require("../utils/colors");
 
 module.exports = {
-    name: "team-delete-channel",
-    usage: "!team-delete-channel <CHANNEL_NAME>",
-    description: "Deletes Channel <CHANNEL_NAME> with all its sub channels and roles",
+    name: "team-delete-category",
+    usage: "!team-delete-category <CATEGORY_NAME>",
+    description: "Deletes Category <CATEGORY_NAME> with all its sub channels and roles",
 
     /**
      * @param {Discord.Message} message The Message
@@ -22,15 +22,15 @@ module.exports = {
                 return message.channel.send({ embed });
             }
 
-            const CHANNEL_NAME = args.join(" ");
-            const category = await message.guild.channels.cache.find(cat => cat.name === CHANNEL_NAME);
+            const CATEGORY_NAME = args.join(" ");
+            const category = await message.guild.channels.cache.find(cat => cat.name === CATEGORY_NAME);
             category.children.forEach(async channel => {
                 const team_role = await message.guild.roles.cache.find(rol => rol.name === channel.name);
                 if (team_role) await team_role.delete();
                 await channel.delete()
             });
 
-            const role = await message.guild.roles.cache.find(rol => rol.name === CHANNEL_NAME);
+            const role = await message.guild.roles.cache.find(rol => rol.name === CATEGORY_NAME);
             if (role) await role.delete();
             await category.delete();
 

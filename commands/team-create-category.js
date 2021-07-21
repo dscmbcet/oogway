@@ -2,9 +2,9 @@ const Discord = require("discord.js");
 const colors = require("../utils/colors");
 
 module.exports = {
-    name: "team-create-channel",
-    usage: "!team-create-channel <TEAM_NO> <CHANNEL_NAME>",
-    description: "Creates Channel <CHANNEL_NAME> with given no. of <TEAM_NO> as sub channels having void and text and creates role for each team",
+    name: "team-create-category",
+    usage: "!team-create-category <TEAM_NO> <CATEGORY_NAME>",
+    description: "Creates Category <CATEGORY_NAME> with given no. of <TEAM_NO> as sub channels having void and text and creates role for each team",
 
     /**
      * @param {Discord.Message} message The Message
@@ -24,16 +24,16 @@ module.exports = {
 
             const TEAM_NO = args[0];
             args.splice(0, 1);
-            const CHANNEL_NAME = args.join(" ");
+            const CATEGORY_NAME = args.join(" ");
 
             const CateogoryRole = await message.guild.roles.create({
                 data: {
-                    name: CHANNEL_NAME,
+                    name: CATEGORY_NAME,
                     color: 'BLACK',
                 },
             })
 
-            const catergory = await message.guild.channels.create(CHANNEL_NAME, {
+            const catergory = await message.guild.channels.create(CATEGORY_NAME, {
                 type: 'category',
                 permissionOverwrites: [
                     {

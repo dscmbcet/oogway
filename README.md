@@ -64,15 +64,15 @@ Discord bot for DSC MBCET Server
 - Usage: `!server`
 - Description: Gives information about the server
 
-#### team-create-channel
+#### team-create-category
 
-- Usage: `!team-create-channel <TEAM_NO> <CHANNEL_NAME>`
-- Description: Creates Channel <CHANNEL_NAME> with given no. of <TEAM_NO> as sub channels having void and text and creates role for each team
+- Usage: `!team-create-category <TEAM_NO> <CATEGORY_NAME>`
+- Description: Creates Category <CATEGORY_NAME> with given no. of <TEAM_NO> as sub channels having void and text and creates role for each team
 
-#### team-delete-channel
+#### team-delete-category
 
-- Usage: `!team-delete-channel <CHANNEL_NAME>`
-- Description: Deletes Channel <CHANNEL_NAME> with all its sub channels and roles
+- Usage: `!team-delete-category <CATEGORY_NAME>`
+- Description: Deletes Category <CATEGORY_NAME> with all its sub channels and roles
 
 ---
 
