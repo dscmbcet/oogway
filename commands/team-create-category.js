@@ -22,6 +22,12 @@ module.exports = {
                 return message.channel.send({ embed });
             }
 
+            const core_team_permission = {
+                id: message.guild.roles.cache.find((rol) => rol.name == 'Core Team').id,
+                allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT', 'CHANGE_NICKNAME', 'MUTE_MEMBERS', 'PRIORITY_SPEAKER', 'MOVE_MEMBERS']
+            }
+
+
             const TEAM_NO = args[0];
             args.splice(0, 1);
             const CATEGORY_NAME = args.join(" ");
@@ -43,52 +49,13 @@ module.exports = {
                     {
                         id: message.guild.roles.everyone,
                         deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT']
-                    }
-                ]
-            })
-
-            for (let i = 1; i <= TEAM_NO; i++) {
-                const role = await message.guild.roles.create({
-                    data: {
-                        name: `team ${i}`,
-                        color: 'RANDOM',
                     },
-                })
-
-                await message.guild.channels.create(`team ${i}`, {
-                    type: 'text',
-                    parent: catergory.id,
-                    permissionOverwrites: [
-                        {
-                            id: role.id,
-                            allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT']
-                        },
-                        {
-                            id: message.guild.roles.everyone,
-                            deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT']
-                        }
-                    ]
-                });
-
-                await message.guild.channels.create(`team ${i}`, {
-                    type: 'voice',
-                    parent: catergory.id,
-                    permissionOverwrites: [
-                        {
-                            id: role.id,
-                            allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT']
-                        },
-                        {
-                            id: message.guild.roles.everyone,
-                            deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT']
-                        }
-                    ]
-                });
-            }
+                    core_team_permission
+                ]
+            });
 
             const annoucementChannel = await message.guild.channels.create(`announcements`, {
                 type: 'text',
-                position: 1,
                 parent: catergory.id,
                 permissionOverwrites: [
                     {
@@ -99,9 +66,44 @@ module.exports = {
                     {
                         id: message.guild.roles.everyone,
                         deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT']
-                    }
+                    },
+                    core_team_permission
                 ]
             });
+
+
+            for (let i = 1; i <= TEAM_NO; i++) {
+                const role = await message.guild.roles.create({
+                    data: {
+                        name: `team ${i}`,
+                        color: 'RANDOM',
+                    },
+                })
+
+                const permission = [
+                    {
+                        id: role.id,
+                        allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT']
+                    },
+                    {
+                        id: message.guild.roles.everyone,
+                        deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT']
+                    },
+                    core_team_permission
+                ]
+
+                await message.guild.channels.create(`team ${i}`, {
+                    type: 'text',
+                    parent: catergory.id,
+                    permissionOverwrites: permission
+                });
+
+                await message.guild.channels.create(`team ${i}`, {
+                    type: 'voice',
+                    parent: catergory.id,
+                    permissionOverwrites: permission
+                });
+            }
 
             let embed = new Discord.MessageEmbed({
                 title: "Created Category Succesfully",

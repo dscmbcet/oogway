@@ -12,7 +12,7 @@ module.exports = {
    * @param {string[]} args The arguments
    */
   async execute(message, args) {
-    let embed, joke;
+    let embed;
     try {
       const url =
         "https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single";
