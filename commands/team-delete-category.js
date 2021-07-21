@@ -40,7 +40,7 @@ module.exports = {
             await category.delete();
 
             let embed = new Discord.MessageEmbed({
-                title: `Deleted Channel Succesfully`,
+                title: `Deleted Category Succesfully`,
                 color: colors.red,
             });
             message.reply(embed);

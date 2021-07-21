@@ -104,7 +104,7 @@ module.exports = {
             });
 
             let embed = new Discord.MessageEmbed({
-                title: "Created Channel Succesfully",
+                title: "Created Category Succesfully",
                 color: colors.green,
             });
 
