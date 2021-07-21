@@ -113,7 +113,7 @@ module.exports = {
                 color: colors.cyan,
             });
 
-            await message.channel.send({ embed });
+            await message.reply(embed);
             await annoucementChannel.send(reaction_embed);
         }
     },
