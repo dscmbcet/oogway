@@ -31,6 +31,8 @@ module.exports = {
           : users;
 
         const BEST_LENGTH = this.findBestMessageSize(users);
+        console.log(BEST_LENGTH);
+        console.log(users);
         for (let i = 0; i < users.length; i += BEST_LENGTH) {
           const toSend = users.slice(i, Math.min(users.length, i + BEST_LENGTH)).join("\n");
           let embed;
@@ -65,7 +67,7 @@ module.exports = {
  *  @param {string[]} data String Data Array
  * @returns {number} BEST_LENGTH
  * */
-  async findBestMessageSize(data) {
+  findBestMessageSize(data) {
     let BEST_LENGTH = 0;
     while (true) {
       const orginalSize = data.slice(0, data.length).join("\n").length;

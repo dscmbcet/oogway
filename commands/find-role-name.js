@@ -62,7 +62,7 @@ module.exports = {
    *  @param {string[]} data String Data Array
    * @returns {number} BEST_LENGTH
    * */
-  async findBestMessageSize(data) {
+  findBestMessageSize(data) {
     let BEST_LENGTH = 0;
     while (true) {
       const orginalSize = data.slice(0, data.length).join("\n").length;
