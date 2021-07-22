@@ -18,40 +18,19 @@ module.exports = {
     else {
       let embed;
       try {
-        const roleID = message.mentions.roles.first().id;
-        const roleName = message.mentions.roles.first().name;
-        const role = message.guild.roles.cache.find(
-          (e_role) => e_role.id === roleID
-        );
-        let users =
-          role === undefined
-            ? ["No Role Found"]
-            : role.members
-              .sort((a, b) => a.joinedAt - b.joinedAt)
-              .map(
-                (m) =>
-                  `${m.displayName}  \`${m.joinedAt.toDateString()}\` `
-              );
+        const { id: roleID, name: roleName } = message.mentions.roles.first();
+        const role = message.guild.roles.cache.find(e_role => e_role.id === roleID);
+        let users = role === undefined
+          ? ["No Role Found"]
+          : role.members
+            .sort((a, b) => a.joinedAt - b.joinedAt)
+            .map(m => `${m.displayName}  \`${m.joinedAt.toDateString()}\` `);
 
         users = users.length == undefined || users.length == 0
           ? "No User Found"
           : users;
 
-        let BEST_LENGTH = 0;
-        while (true) {
-          const orginalSize = users.slice(0, users.length).join("\n").length;
-          const size = users.slice(0, Math.min(users.length, BEST_LENGTH)).join("\n").length;
-          if (orginalSize <= 3500) {
-            BEST_LENGTH = orginalSize;
-            break;
-          }
-          if (size >= 3500) {
-            BEST_LENGTH -= 1;
-            break;
-          }
-          BEST_LENGTH += 1;
-        }
-
+        const BEST_LENGTH = this.findBestMessageSize(users);
         for (let i = 0; i < users.length; i += BEST_LENGTH) {
           const toSend = users.slice(i, Math.min(users.length, i + BEST_LENGTH)).join("\n");
           let embed;
@@ -81,4 +60,26 @@ module.exports = {
       }
     }
   },
+
+  /**
+ *  @param {string[]} data String Data Array
+ * @returns {number} BEST_LENGTH
+ * */
+  async findBestMessageSize(data) {
+    let BEST_LENGTH = 0;
+    while (true) {
+      const orginalSize = data.slice(0, data.length).join("\n").length;
+      const size = data.slice(0, Math.min(data.length, BEST_LENGTH)).join("\n").length;
+      if (orginalSize <= 3500) {
+        BEST_LENGTH = orginalSize;
+        break;
+      }
+      if (size >= 3500) {
+        BEST_LENGTH -= 1;
+        break;
+      }
+      BEST_LENGTH += 1;
+    }
+    return BEST_LENGTH;
+  }
 };

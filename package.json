@@ -1,6 +1,6 @@
 {
-  "name": "professor",
-  "version": "1.4.0",
+  "name": "master_oogway",
+  "version": "1.5.0",
   "description": "Official DSC Bot for DSC Discord Server",
   "main": "discord.js",
   "scripts": {

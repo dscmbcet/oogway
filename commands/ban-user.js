@@ -44,11 +44,11 @@ module.exports = {
           embed = new Discord.MessageEmbed({
             footer: {
               text: `${taggedUser.displayName} has been banned`,
-              icon_url: taggedUser.user.displayAvatarURL(),
+              icon_url: taggedUser.user.displayAvatarURL()
             },
             color: colors.cyan,
           });
-        } catch (e) {
+        } catch {
           embed = new Discord.MessageEmbed({
             description: `I am sorry but that person is wiser than you my friend** ${member}**`,
             color: colors.red,

@@ -15,16 +15,17 @@ module.exports = {
     const commandFiles = fs
       .readdirSync("./commands/")
       .filter((file) => file.endsWith(".js"));
-    let infoArr = commandFiles.map((file) => {
+
+    let commandsArray = commandFiles.map((file) => {
       const command = require(`./${file}`);
       return `\`${command.usage === undefined ? "-" : command.usage}\``;
     });
 
-    infoArr.sort();
+    commandsArray.sort();
     let embed = new Discord.MessageEmbed({
       title: `Command Usage`,
       color: colors.purple,
-      description: infoArr.join("\n"),
+      description: commandsArray.join("\n"),
     });
     message.channel.send({ embed });
   },

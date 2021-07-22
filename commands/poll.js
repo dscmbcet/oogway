@@ -14,7 +14,6 @@ module.exports = {
     if (args.length < 2)
       return message.channel.send(`Invalid Syntax, ${message.author}!`);
     else {
-      // eslint-disable-next-line no-shadow
       let embed;
       let emojiArr = [
         "1️⃣",
@@ -51,6 +50,7 @@ module.exports = {
         });
 
       const embedMessage = await message.channel.send({ embed });
+
       if (!(poll_no === 0 || poll_no > emojiArr.length)) {
         for (let i = 0; i < poll_no; i++) await embedMessage.react(emojiArr[i]);
       }

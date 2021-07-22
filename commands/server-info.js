@@ -26,27 +26,22 @@ module.exports = {
       },
       {
         name: "Categories",
-        value: message.guild.channels.cache.filter((e) => e.type == "category")
-          .size,
+        value: message.guild.channels.cache.filter((e) => e.type == "category").size,
       },
       {
         name: "Text Channels",
-        value: message.guild.channels.cache.filter((e) => e.type == "text")
-          .size,
+        value: message.guild.channels.cache.filter((e) => e.type == "text").size,
       },
       {
         name: "Voice Channels",
-        value: message.guild.channels.cache.filter((e) => e.type == "voice")
-          .size,
-      },
+        value: message.guild.channels.cache.filter((e) => e.type == "voice").size,
+      }
     ];
     let embed = new Discord.MessageEmbed({
       title: "Server Information",
       fields: info,
       color: colors.orange,
-      thumbnail: {
-        url: message.guild.iconURL(),
-      },
+      thumbnail: { url: message.guild.iconURL() },
     });
     message.channel.send({ embed });
   },

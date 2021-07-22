@@ -1,11 +1,13 @@
+require("dotenv").config();
 const Discord = require("discord.js");
 const fs = require("fs");
 const colors = require("./utils/colors");
-require("dotenv").config();
 const { prefix, token } = JSON.parse(process.env.CONFIG);
+
 const client = new Discord.Client();
 client.login(token);
 
+// Reading commands from ./commands/
 client.commands = new Discord.Collection();
 const commandFiles = fs
   .readdirSync("./commands/")
@@ -15,12 +17,13 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-client.on("ready", () => console.log("Bot Is Ready!"));
+
+client.on("ready", () => console.log("Master Oogway Is Ready!"));
 
 // Listening to a new user
 client.on("guildMemberAdd", async (member) => {
   const channel = member.guild.channels.cache.find((ch) => ch.name === 'welcome🤝');
-  var role = member.guild.roles.cache.find(role => role.name === "Member");
+  const role = member.guild.roles.cache.find(role => role.name === "Member");
   member.roles.add(role);
 
   if (!channel) return;
@@ -31,9 +34,7 @@ client.on("guildMemberAdd", async (member) => {
       `I am **Master Oogway**, bot of GDSC MBCET`,
       `\nTo get to know me type: \`!help-v\``
     ].join('\n'),
-    thumbnail: {
-      url: member.user.displayAvatarURL(),
-    },
+    thumbnail: { url: member.user.displayAvatarURL() },
     color: colors.cyan
   });
 
@@ -42,9 +43,7 @@ client.on("guildMemberAdd", async (member) => {
   embed = new Discord.MessageEmbed({
     title: `GDSC MBCET`,
     color: colors.orange,
-    thumbnail: {
-      url: member.guild.iconURL(),
-    },
+    thumbnail: { url: member.guild.iconURL() },
     description: [
       `Welcome ${member} we hope you enjoy your stay here!`,
       `I am **Master Oogway**, bot of GDSC MBCET`,
@@ -52,7 +51,7 @@ client.on("guildMemberAdd", async (member) => {
     ].join('\n'),
   })
 
-  return await member.send(embed);
+  return member.send(embed);
 });
 
 
@@ -62,9 +61,9 @@ client.on("message", async (message) => {
   const args = message.content.slice(prefix.length).trim().split(" ");
   const command = args.shift().toLowerCase();
 
-  const commandFile = client.commands.get(command);
+  const commandFileData = client.commands.get(command);
   console.log(`Recieved command: !${command} from: ${message.author.username}`);
-  if (!commandFile) {
+  if (!commandFileData) {
     let embed = new Discord.MessageEmbed({
       title: "Invalid Command",
       description: [
@@ -75,20 +74,17 @@ client.on("message", async (message) => {
       ].join('\n'),
       color: colors.red,
     });
-    message.channel.send({ embed });
-    return;
+    return message.channel.send({ embed });
   }
 
-  try {
-    await commandFile.execute(message, args);
-  } catch (e) {
-    console.error('Error Occured', e);
+  try { await commandFileData.execute(message, args) }
+  catch (e) {
+    console.error('Error Occured:discord.js :', e);
     let embed = new Discord.MessageEmbed({
       title: "Error Occured",
       description: `I am not feeling too well my friend`,
       color: colors.red,
     });
-    message.channel.send({ embed });
-    return;
+    return message.channel.send({ embed });
   }
 });

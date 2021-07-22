@@ -13,22 +13,19 @@ module.exports = {
     if (!args.length)
       return message.channel.send(`You didn't tag a user, ${message.author}!`);
     else {
-      const taggedUser = message.mentions.users.first();
-      const member = message.guild.member(taggedUser);
+      const tagged_user = message.guild.member(message.mentions.users.first());
       const formattedMessage = [
-        `**User ID**: ${member.id}`,
-        `**Display Name**: ${member.displayName}`,
-        `**Nickname**: ${member.nickname == null ? "-" : member.nickname}`,
-        `**Highest Role**: ${member.roles.highest.name}`,
-        `**Joined sever on**: ${member.joinedAt.toDateString()}`,
+        `**User ID**: ${tagged_user.id}`,
+        `**Display Name**: ${tagged_user.displayName}`,
+        `**Nickname**: ${tagged_user.nickname == null ? "-" : tagged_user.nickname}`,
+        `**Highest Role**: ${tagged_user.roles.highest.name}`,
+        `**Joined sever on**: ${tagged_user.joinedAt.toDateString()}`,
       ];
 
       const embed = new Discord.MessageEmbed({
         description: formattedMessage.join("\n"),
-        thumbnail: {
-          url: member.user.displayAvatarURL(),
-        },
-        color: member.roles.color.hexColor,
+        thumbnail: { url: tagged_user.user.displayAvatarURL() },
+        color: tagged_user.roles.color.hexColor,
       });
 
       return message.channel.send({ embed });
