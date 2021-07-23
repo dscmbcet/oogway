@@ -13,7 +13,6 @@ module.exports = {
         try { await member.roles.add(role.id) }
         catch (e) { console.error(`Event: ${this.name} Error: ${e.name}: ${e.message}`) }
 
-
         console.log(`${guild.name}:A new member just arrived: ${member.user.tag}`)
 
         if (!channel) return;
