@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const colors = require("../utils/colors");
+const { findBestMessageSize, findRoleById } = require("../utils/functions");
 
 module.exports = {
   name: "find-role",
@@ -19,7 +20,7 @@ module.exports = {
       let embed;
       try {
         const { id: roleID, name: roleName } = message.mentions.roles.first();
-        const role = message.guild.roles.cache.find(e_role => e_role.id === roleID);
+        const role = findRoleById(message, roleID);
         let users = role === undefined
           ? ["No Role Found"]
           : role.members
@@ -30,7 +31,7 @@ module.exports = {
           ? "No User Found"
           : users;
 
-        const BEST_LENGTH = this.findBestMessageSize(users);
+        const BEST_LENGTH = findBestMessageSize(users);
         console.log(BEST_LENGTH);
         console.log(users);
         for (let i = 0; i < users.length; i += BEST_LENGTH) {
@@ -61,27 +62,5 @@ module.exports = {
         return message.channel.send({ embed, split: true });
       }
     }
-  },
-
-  /**
- *  @param {string[]} data String Data Array
- * @returns {number} BEST_LENGTH
- * */
-  findBestMessageSize(data) {
-    let BEST_LENGTH = 0;
-    while (true) {
-      const orginalSize = data.slice(0, data.length).join("\n").length;
-      const size = data.slice(0, Math.min(data.length, BEST_LENGTH)).join("\n").length;
-      if (orginalSize <= 3500) {
-        BEST_LENGTH = orginalSize;
-        break;
-      }
-      if (size >= 3500) {
-        BEST_LENGTH -= 1;
-        break;
-      }
-      BEST_LENGTH += 1;
-    }
-    return BEST_LENGTH;
   }
 };

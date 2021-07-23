@@ -51,9 +51,8 @@ module.exports = {
 
       const embedMessage = await message.channel.send({ embed });
 
-      if (!(poll_no === 0 || poll_no > emojiArr.length)) {
+      if (!(poll_no === 0 || poll_no > emojiArr.length))
         for (let i = 0; i < poll_no; i++) await embedMessage.react(emojiArr[i]);
-      }
     }
   },
 };

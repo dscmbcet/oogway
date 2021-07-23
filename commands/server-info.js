@@ -11,30 +11,31 @@ module.exports = {
    * @param {string[]} args The arguments
    */
   async execute(message, args) {
+    const { name, memberCount, region, channels } = message.guild;
     let info = [
       {
         name: "Server Name",
-        value: message.guild.name,
+        value: name,
       },
       {
         name: "Total members",
-        value: message.guild.memberCount,
+        value: memberCount,
       },
       {
         name: "Server Region",
-        value: message.guild.region,
+        value: region,
       },
       {
         name: "Categories",
-        value: message.guild.channels.cache.filter((e) => e.type == "category").size,
+        value: channels.cache.filter(channel => channel.type == "category").size,
       },
       {
         name: "Text Channels",
-        value: message.guild.channels.cache.filter((e) => e.type == "text").size,
+        value: channels.cache.filter(channel => channel.type == "text").size,
       },
       {
         name: "Voice Channels",
-        value: message.guild.channels.cache.filter((e) => e.type == "voice").size,
+        value: channels.cache.filter(channel => channel.type == "voice").size,
       }
     ];
     let embed = new Discord.MessageEmbed({

@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const colors = require("../utils/colors");
+const { findRoleByName, findChannelByName } = require("../utils/functions");
 
 module.exports = {
     name: "team-delete-category",
@@ -23,19 +24,21 @@ module.exports = {
             }
 
             const CATEGORY_NAME = args.join(" ");
-            const category = await message.guild.channels.cache.find(cat => cat.name === CATEGORY_NAME);
+
+            /**@type {Discord.CategoryChannel}*/
+            const category = findChannelByName(message, CATEGORY_NAME);
             if (!category) return message.reply(new Discord.MessageEmbed({
                 title: `Check your category name`,
                 color: colors.red,
             }));
 
             category.children.forEach(async channel => {
-                const team_role = await message.guild.roles.cache.find(rol => rol.name === channel.name);
+                const team_role = findRoleByName(message, channel.name);
                 if (team_role) await team_role.delete();
                 await channel.delete()
             });
 
-            const role = await message.guild.roles.cache.find(rol => rol.name === CATEGORY_NAME);
+            const role = findRoleByName(message, CATEGORY_NAME)
             if (role) await role.delete();
             await category.delete();
 

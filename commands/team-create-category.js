@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const colors = require("../utils/colors");
+const { findRoleByName } = require("../utils/functions");
 
 module.exports = {
     name: "team-create-category",
@@ -23,7 +24,7 @@ module.exports = {
             }
 
             const core_team_permission = {
-                id: message.guild.roles.cache.find((rol) => rol.name == 'Core Team').id,
+                id: findRoleByName(message, 'Core Team').id,
                 allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT', 'CHANGE_NICKNAME', 'MUTE_MEMBERS', 'PRIORITY_SPEAKER', 'MOVE_MEMBERS']
             }
 
