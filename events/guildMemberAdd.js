@@ -12,8 +12,9 @@ module.exports = {
 
         const guild = member.guild;
         const channel = guild.channels.cache.find((ch) => ch.name === welcome_channel_name);
-        const role = guild.roles.cache.find(role => role.name === new_member_default_role_name);
-        try { await member.roles.add(role.id) }
+        const new_member_role = guild.roles.cache.find(role => role.name === new_member_default_role_name);
+
+        try { await member.roles.add(new_member_role.id) }
         catch (e) { console.error(`Event: ${this.name} Error: ${e.name}: ${e.message}`) }
 
         console.log(`${guild.name}:A new member just arrived: ${member.user.tag}`)
@@ -43,6 +44,6 @@ module.exports = {
             ].join('\n'),
         })
 
-        return member.send(embed);
+        return member.send(embed); //Direct Message
     },
 }

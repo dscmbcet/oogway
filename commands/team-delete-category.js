@@ -15,6 +15,8 @@ module.exports = {
         if (!args.length)
             return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
         else {
+            let embed;
+
             if (!message.member.hasPermission('ADMINISTRATOR')) {
                 embed = new Discord.MessageEmbed({
                     description: `You are not wise enough to delete those channels my friend** ${message.member}**`,
@@ -23,7 +25,7 @@ module.exports = {
                 return message.channel.send({ embed });
             }
 
-            const CATEGORY_NAME = args.join(" ");
+            const CATEGORY_NAME = args.join(" ").trim().toLocaleUpperCase();
 
             /**@type {Discord.CategoryChannel}*/
             const category = findChannelByName(message, CATEGORY_NAME);
@@ -48,10 +50,11 @@ module.exports = {
             })
             await category.delete();
 
-            let embed = new Discord.MessageEmbed({
+            embed = new Discord.MessageEmbed({
                 title: `Deleted Category Succesfully`,
                 color: colors.red,
             });
+
             message.reply(embed);
         }
     },

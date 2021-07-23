@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const { core_team_role_name } = require("../config");
+const { core_team_role_name, new_member_default_role_name } = require("../config");
 const colors = require("../utils/colors");
 const { prefix, findRoleByName } = require("../utils/functions");
 
@@ -17,8 +17,8 @@ module.exports = {
         if (args.length < 2)
             return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
         else {
-            let emojiArr = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟", "❤️", "🧡", "💛", "💚", "💙", "💜", "🤎", "🖤", "🤍"], embed;
-            let team_data = [];
+            let emojiArr = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟", "❤️", "🧡", "💛", "💚", "💙", "💜", "🤎", "🖤", "🤍"];
+            let team_data = [], embed;
 
             if (!message.member.hasPermission('ADMINISTRATOR')) {
                 embed = new Discord.MessageEmbed({
@@ -37,35 +37,34 @@ module.exports = {
                 return message.channel.send(embed);
             }
             args.splice(0, 1);
-            const CATEGORY_NAME = args.join(" ");
+            const CATEGORY_NAME = args.join(" ").trim().toLocaleUpperCase();
 
-            const core_team_permission = {
-                id: findRoleByName(message, core_team_role_name).id,
-                allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT', 'CHANGE_NICKNAME', 'MUTE_MEMBERS', 'PRIORITY_SPEAKER', 'MOVE_MEMBERS']
-            }
+            const core_team_role = findRoleByName(message, core_team_role_name);
+            const general_permissions = [
+                {
+                    id: core_team_role.id,
+                    allow: core_team_role.permissions
+                },
+                {
+                    id: message.guild.roles.everyone,
+                    deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT']
+                }
+            ]
 
             const role = message.guild.roles;
             const channel = message.guild.channels;
 
-            const categoryRole = await role.create({
-                data: {
-                    name: CATEGORY_NAME,
-                    color: 'BLACK',
-                },
-            })
+            const categoryRole = await role.create({ data: { name: CATEGORY_NAME, color: 'BLACK' } });
+            const memberRolePermissions = findRoleByName(message, new_member_default_role_name).permissions;
 
             const category = await channel.create(CATEGORY_NAME, {
                 type: 'category',
                 permissionOverwrites: [
                     {
                         id: categoryRole.id,
-                        allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT']
+                        allow: memberRolePermissions
                     },
-                    {
-                        id: message.guild.roles.everyone,
-                        deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT']
-                    },
-                    core_team_permission
+                    ...general_permissions
                 ]
             });
 
@@ -76,14 +75,10 @@ module.exports = {
                 permissionOverwrites: [
                     {
                         id: categoryRole.id,
-                        allow: ['VIEW_CHANNEL'],
+                        allow: ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY', 'ADD_REACTIONS'],
                         deny: ['SEND_MESSAGES']
                     },
-                    {
-                        id: message.guild.roles.everyone,
-                        deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT']
-                    },
-                    core_team_permission
+                    ...general_permissions
                 ]
             });
 
@@ -95,28 +90,24 @@ module.exports = {
                     },
                 });
 
-                const permission = [
+                const team_permission = [
                     {
                         id: team_role.id,
-                        allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT']
+                        allow: memberRolePermissions
                     },
-                    {
-                        id: message.guild.roles.everyone,
-                        deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT']
-                    },
-                    core_team_permission
+                    ...general_permissions
                 ]
 
                 const team_channel = await channel.create(`team ${i}`, {
                     type: 'text',
                     parent: category.id,
-                    permissionOverwrites: permission
+                    permissionOverwrites: team_permission,
                 });
 
                 await channel.create(`team ${i}`, {
                     type: 'voice',
                     parent: category.id,
-                    permissionOverwrites: permission
+                    permissionOverwrites: team_permission
                 });
 
                 team_data.push({ channel: team_channel, role: team_role });
@@ -141,62 +132,55 @@ module.exports = {
             let reaction_msg = await annoucementChannel.send(reaction_embed);
             for (let i = 0; i < TEAM_NO; i++) await reaction_msg.react(emojiArr[i]);
 
-            client.on('messageReactionAdd', async (reaction, user) => {
-                if (reaction.message.partial) await reaction.message.fetch();
-                if (reaction.partial) await reaction.fetch();
-                if (user.bot) return;
+            client.on('messageReactionAdd', async (...args) =>
+                await this.handleReaction(...args, true, emojiArr, reaction_msg, team_data));
 
-                if (reaction.message.id === reaction_msg.id) {
-                    const team_no = emojiArr.findIndex(e => e === reaction.emoji.name);
-                    try { await reaction.message.guild.members.cache.get(user.id).roles.add(team_data[team_no].role.id) }
-                    catch (e) {
-                        console.error(`Command: ${this.name}, User: ${user.username} Error: ${e.name}: ${e.message}`);
-                        embed = new Discord.MessageEmbed({
-                            description: `Some error occured assigning you ${team_data[team_no].role} role my friend** ${user}**`,
-                            color: colors.red,
-                        })
-                        return message.channel.send(embed)
-                    }
-
-                    let join_embed = new Discord.MessageEmbed({
-                        footer: {
-                            text: `${user.username} has joined this team`,
-                            icon_url: user.displayAvatarURL(),
-                        },
-                        color: colors.green,
-                    });
-                    await team_data[team_no].channel.send(join_embed);
-                }
-            });
-
-            client.on('messageReactionRemove', async (reaction, user) => {
-                if (reaction.message.partial) await reaction.message.fetch();
-                if (reaction.partial) await reaction.fetch();
-                if (user.bot) return;
-
-                if (reaction.message.id === reaction_msg.id) {
-                    const team_no = emojiArr.findIndex(e => e === reaction.emoji.name);
-                    try { await reaction.message.guild.members.cache.get(user.id).roles.remove(team_data[team_no].role.id) }
-                    catch (e) {
-                        console.error(`Command: ${this.name}, User:  ${user.username} Error: ${e.name}: ${e.message}`);
-                        embed = new Discord.MessageEmbed({
-                            description: `Some error occured removing your ${team_data[team_no].role} role my friend** ${user}**`,
-                            color: colors.red,
-                        })
-                        return message.channel.send(embed)
-                    }
-                    let leave_embed = new Discord.MessageEmbed({
-                        footer: {
-                            text: `${user.username} has left this team`,
-                            icon_url: user.displayAvatarURL(),
-                        },
-                        color: colors.red,
-                    });
-                    await team_data[team_no].channel.send(leave_embed);
-                }
-            });
-
-
+            client.on('messageReactionRemove', async (...args) =>
+                await this.handleReaction(...args, false, emojiArr, reaction_msg, team_data));
         }
     },
+
+
+    /**
+     * @param {Discord.MessageReaction} reaction
+     * @param {Discord.User | Discord.PartialUser} user
+     * @param {boolean} roleAddEvent
+     * @param {string[]} emojiArr
+     * @param {Discord.Message} reaction_message
+     * @param {any[]} team_data
+     */
+    async handleReaction(reaction, user, roleAddEvent, emojiArr, reaction_message, team_data) {
+        if (reaction.message.partial) await reaction.message.fetch();
+        if (reaction.partial) await reaction.fetch();
+        if (user.bot) return;
+
+        if (reaction.message.id === reaction_message.id) {
+            const team_no = emojiArr.findIndex(e => e === reaction.emoji.name);
+            try {
+                const user_roles = await reaction.message.guild.members.cache.get(user.id).roles;
+                if (roleAddEvent) user_roles.add(team_data[team_no].role.id);
+                else user_roles.remove(team_data[team_no].role.id);
+            }
+            catch (e) {
+                console.error(`Command: ${this.name}, User:  ${user.username} Error: ${e.name}: ${e.message}`);
+                embed = new Discord.MessageEmbed({
+                    description: roleAddEvent ?
+                        `Some error occured assigning your ${team_data[team_no].role} role my friend** ${user}**` :
+                        `Some error occured removing your ${team_data[team_no].role} role my friend** ${user}**`,
+                    color: colors.red,
+                })
+                return reaction_message.channel.send(embed)
+            }
+            let embed = new Discord.MessageEmbed({
+                footer: {
+                    text: roleAddEvent ?
+                        `${user.username} has joined this team` :
+                        `${user.username} has left this team`,
+                    icon_url: user.displayAvatarURL(),
+                },
+                color: roleAddEvent ? colors.green : colors.red,
+            });
+            await team_data[team_no].channel.send(embed);
+        }
+    }
 };
