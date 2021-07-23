@@ -4,7 +4,8 @@
   "description": "Official DSC Bot for DSC Discord Server",
   "main": "discord.js",
   "scripts": {
-    "start": "nodemon ./discord.js",
+    "debug": "nodemon discord.js",
+    "start": "forever --minUptime 1000 --spinSleepTime 1000 discord.js",
     "generate-commands.md": "node ./utils/generate_command_readme.js",
     "get-logs-heroku-app-only": "heroku logs --tail -a dsc-professor-bot --source app",
     "get-logs-heroku": "heroku logs --tail -a dsc-professor-bot",
@@ -16,10 +17,10 @@
   "dependencies": {
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
-    "node-fetch": "^2.6.1",
-    "nodemon": "^2.0.12"
+    "forever": "^4.0.1",
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "eslint": "^7.31.0"
+    "nodemon": "^2.0.12"
   }
 }
