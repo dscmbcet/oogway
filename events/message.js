@@ -49,7 +49,7 @@ module.exports = {
                 ].join('\n'),
                 color: colors.red,
             });
-            return message.channel.send(embed);
+            return message.channel.send(embed).then(msg => { msg.delete({ timeout: 10000 }) });
         }
 
         try { await commandFileData.execute(message, args, client) }

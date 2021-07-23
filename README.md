@@ -12,6 +12,11 @@ Discord bot for DSC MBCET Server
 - Usage: `!ban-user <@user-name>`
 - Description: Bans a member from server
 
+#### clear
+
+- Usage: `!clear <NUMBER>`
+- Description: CLear upto 100 messages
+
 #### find-role-name
 
 - Usage: `!find-role-name <@role_name>`
