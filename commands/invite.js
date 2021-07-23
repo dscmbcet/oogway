@@ -1,12 +1,11 @@
 const Discord = require("discord.js");
 const { welcome_channel_name } = require("../config");
 const colors = require("../utils/colors");
-const { findBestMessageSize, findRoleById } = require("../utils/functions");
 
 module.exports = {
   name: "invite",
-  usage: "!invite <username> [email]",
-  description: "Creates an invite for username, and emails the code to <email>",
+  usage: "!invite <USERNAME> [EMAIL]",
+  description: "Creates an invite for USERNAME, and sends email the code to EMAIL",
 
   /**
    * @param {Discord.Message} message 

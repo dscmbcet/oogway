@@ -39,8 +39,8 @@ Discord bot for DSC MBCET Server
 
 #### invite
 
-- Usage: `!invite <username> [email]`
-- Description: Creates an invite for username, and emails the code to <email>
+- Usage: `!invite <USERNAME> [EMAIL]`
+- Description: Creates an invite for USERNAME, and sends email the code to EMAIL
 
 #### joke
 
