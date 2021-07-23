@@ -5,7 +5,7 @@ const colors = require("../utils/colors");
 module.exports = {
   name: "clear",
   usage: `${prefix}clear <NUMBER>`,
-  description: "CLear upto 100 messages",
+  description: "Clear upto 100 messages",
 
   /**
    * @param {Discord.Message} message
