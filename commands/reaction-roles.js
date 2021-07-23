@@ -21,7 +21,7 @@ module.exports = {
 
             if (!message.member.hasPermission('ADMINISTRATOR')) {
                 embed = new Discord.MessageEmbed({
-                    description: `You are not wise enough to give roles to others** ${member}**`,
+                    description: `You are not wise enough to give roles to others** ${message.member}**`,
                     color: colors.red,
                 })
                 return message.channel.send(embed);

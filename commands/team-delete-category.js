@@ -17,7 +17,7 @@ module.exports = {
         else {
             if (!message.member.hasPermission('ADMINISTRATOR')) {
                 embed = new Discord.MessageEmbed({
-                    description: `You are not wise enough to delete those channels my friend** ${member}**`,
+                    description: `You are not wise enough to delete those channels my friend** ${message.member}**`,
                     color: colors.red,
                 })
                 return message.channel.send({ embed });
