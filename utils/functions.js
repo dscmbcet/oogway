@@ -4,25 +4,25 @@ module.exports = {
 
     /**
     * @param {Discord.Message} message
-    * @param {string} roleID Role ID
+    * @param {string} roleID
     */
     findRoleById(message, roleID) { return message.guild.roles.cache.find(role => role.id === roleID) },
 
     /**
     * @param {Discord.Message} message
-    * @param {string} roleName Role ID
+    * @param {string} roleName
     */
     findRoleByName(message, roleName) { return message.guild.roles.cache.find(role => role.name === roleName) },
 
     /**
    * @param {Discord.Message} message
-   * @param {string} channelID Channel ID
+   * @param {string} channelID
    */
     findChannelById(message, channelID) { return message.guild.channels.cache.find(category => category.id === channelID) },
 
     /**
     * @param {Discord.Message} message
-    * @param {string} channeName Channel Name
+    * @param {string} channeName
     */
     findChannelByName(message, channeName) { return message.guild.channels.cache.find(category => category.name === channeName) },
 
