@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const colors = require("../utils/colors");
-const { prefix, findRoleByName, findChannelByName } = require("../utils/functions");
+const { prefix, findChannelByName, findRoleById } = require("../utils/functions");
 
 module.exports = {
     name: "team-delete-category",
@@ -33,13 +33,19 @@ module.exports = {
             }));
 
             category.children.forEach(async channel => {
-                const team_role = findRoleByName(message, channel.name);
-                if (team_role) await team_role.delete();
+                channel.permissionOverwrites.forEach(async role => {
+                    const team_role = findRoleById(message, role.id);
+                    if (!team_role) return;
+                    if (team_role.name === channel.name) return await team_role.delete();
+                })
                 await channel.delete()
             });
 
-            const role = findRoleByName(message, CATEGORY_NAME)
-            if (role) await role.delete();
+            category.permissionOverwrites.forEach(async role => {
+                const category_role = findRoleById(message, role.id);
+                if (!category_role) return;
+                if (category_role.name === CATEGORY_NAME) return await category_role.delete();
+            })
             await category.delete();
 
             let embed = new Discord.MessageEmbed({

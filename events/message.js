@@ -33,7 +33,6 @@ module.exports = {
             client.commands.set(command.name, command);
         }
 
-
         const args = message.content.slice(prefix.length).trim().split(" ");
         const command = args.shift().toLowerCase();
 
@@ -55,6 +54,7 @@ module.exports = {
 
         try { await commandFileData.execute(message, args, client) }
         catch (e) {
+            //console.log(e);
             console.error(`Command: ${command} Error: ${e.name}: ${e.message}`);
             let embed = new Discord.MessageEmbed({
                 title: "Error Occured",
