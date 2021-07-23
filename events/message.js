@@ -29,8 +29,6 @@ module.exports = {
 
         const commandFileData = client.commands.get(command);
         if (!commandFileData) {
-            console.log(`Recieved command from:${message.author.username} , command: ${message.content} `);
-
             embed = new Discord.MessageEmbed({
                 title: "Invalid Command",
                 description: [
@@ -44,6 +42,7 @@ module.exports = {
             return message.channel.send(embed).then(msg => { msg.delete({ timeout: 15000 }) });
         }
 
+        console.log(`Recieved command from:${message.author.username} , command: ${message.content} `);
         try { await commandFileData.execute(message, args, client) }
         catch (e) {
             console.log(e);
