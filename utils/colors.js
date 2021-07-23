@@ -7,4 +7,4 @@ const colors = {
     cyan: 0x00FFFF,
 }
 
-module.exports = colors
+module.exports = { colors }
