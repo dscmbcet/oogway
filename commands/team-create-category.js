@@ -33,14 +33,17 @@ module.exports = {
             args.splice(0, 1);
             const CATEGORY_NAME = args.join(" ");
 
-            const CateogoryRole = await message.guild.roles.create({
+            const { create: createRole } = message.guild.roles;
+            const { create: createChannel } = message.guild.channels;
+
+            const CateogoryRole = await createRole({
                 data: {
                     name: CATEGORY_NAME,
                     color: 'BLACK',
                 },
             })
 
-            const catergory = await message.guild.channels.create(CATEGORY_NAME, {
+            const catergory = await createChannel(CATEGORY_NAME, {
                 type: 'category',
                 permissionOverwrites: [
                     {
@@ -55,7 +58,7 @@ module.exports = {
                 ]
             });
 
-            const annoucementChannel = await message.guild.channels.create(`announcements`, {
+            const annoucementChannel = await createChannel(`announcements`, {
                 type: 'text',
                 parent: catergory.id,
                 permissionOverwrites: [
@@ -74,7 +77,7 @@ module.exports = {
 
 
             for (let i = 1; i <= TEAM_NO; i++) {
-                const role = await message.guild.roles.create({
+                const role = await createRole({
                     data: {
                         name: `team ${i}`,
                         color: 'RANDOM',
@@ -93,13 +96,13 @@ module.exports = {
                     core_team_permission
                 ]
 
-                await message.guild.channels.create(`team ${i}`, {
+                await createChannel(`team ${i}`, {
                     type: 'text',
                     parent: catergory.id,
                     permissionOverwrites: permission
                 });
 
-                await message.guild.channels.create(`team ${i}`, {
+                await createChannel(`team ${i}`, {
                     type: 'voice',
                     parent: catergory.id,
                     permissionOverwrites: permission
@@ -111,13 +114,14 @@ module.exports = {
                 color: colors.green,
             });
 
+            // TODO: Create reaction embed according to roles
             let reaction_embed = new Discord.MessageEmbed({
                 title: "Reaction Embed : TODO",
                 color: colors.cyan,
             });
 
             await message.reply(embed);
-            await annoucementChannel.send(reaction_embed);
+            return annoucementChannel.send(reaction_embed);
         }
     },
 };
