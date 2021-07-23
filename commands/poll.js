@@ -16,18 +16,7 @@ module.exports = {
       return message.channel.send(`Invalid Syntax, ${message.author}!`);
     else {
       let embed;
-      let emojiArr = [
-        "1️⃣",
-        "2️⃣",
-        "3️⃣",
-        "4️⃣",
-        "5️⃣",
-        "6️⃣",
-        "7️⃣",
-        "8️⃣",
-        "9️⃣",
-        "🔟",
-      ];
+      let emojiArr = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"];
       const poll_no = args[0];
 
       args.splice(0, 1);
@@ -50,7 +39,7 @@ module.exports = {
           color: colors.orange,
         });
 
-      const embedMessage = await message.channel.send({ embed });
+      const embedMessage = await message.channel.send(embed);
 
       if (!(poll_no === 0 || poll_no > emojiArr.length))
         for (let i = 0; i < poll_no; i++) await embedMessage.react(emojiArr[i]);

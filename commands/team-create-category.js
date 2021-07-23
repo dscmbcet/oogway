@@ -11,27 +11,37 @@ module.exports = {
     /**
      * @param {Discord.Message} message
      * @param {string[]} args
+     * @param {Discord.Client} client
      */
-    async execute(message, args) {
+    async execute(message, args, client) {
         if (args.length < 2)
             return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
         else {
+            let emojiArr = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟", "❤️", "🧡", "💛", "💚", "💙", "💜", "🤎", "🖤", "🤍"], embed;
+
             if (!message.member.hasPermission('ADMINISTRATOR')) {
                 embed = new Discord.MessageEmbed({
                     description: `You are not wise enough to make those channels my friend** ${member}**`,
                     color: colors.red,
                 })
-                return message.channel.send({ embed });
+                return message.channel.send(embed);
             }
+
+            const TEAM_NO = args[0];
+            if (TEAM_NO > emojiArr.length) {
+                embed = new Discord.MessageEmbed({
+                    title: `Team Number Can't Be Greater Than ${emojiArr.length}`,
+                    color: colors.red,
+                });
+                return message.channel.send(embed);
+            }
+            args.splice(0, 1);
+            const CATEGORY_NAME = args.join(" ");
 
             const core_team_permission = {
                 id: findRoleByName(message, core_team_role_name).id,
                 allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT', 'CHANGE_NICKNAME', 'MUTE_MEMBERS', 'PRIORITY_SPEAKER', 'MOVE_MEMBERS']
             }
-
-            const TEAM_NO = args[0];
-            args.splice(0, 1);
-            const CATEGORY_NAME = args.join(" ");
 
             const role = message.guild.roles;
             const channel = message.guild.channels;
@@ -58,6 +68,7 @@ module.exports = {
                 ]
             });
 
+            /** @type {Discord.Channel} */
             const annoucementChannel = await channel.create(`announcements`, {
                 type: 'text',
                 parent: catergory.id,
@@ -75,14 +86,14 @@ module.exports = {
                 ]
             });
 
-
+            let team_data = []
             for (let i = 1; i <= TEAM_NO; i++) {
                 const team_role = await role.create({
                     data: {
                         name: `team ${i}`,
                         color: 'RANDOM',
                     },
-                })
+                });
 
                 const permission = [
                     {
@@ -96,7 +107,7 @@ module.exports = {
                     core_team_permission
                 ]
 
-                await channel.create(`team ${i}`, {
+                const team_channel = await channel.create(`team ${i}`, {
                     type: 'text',
                     parent: catergory.id,
                     permissionOverwrites: permission
@@ -107,21 +118,68 @@ module.exports = {
                     parent: catergory.id,
                     permissionOverwrites: permission
                 });
+
+                team_data.push({ channel: team_channel, role: team_role });
             }
 
-            let embed = new Discord.MessageEmbed({
+            embed = new Discord.MessageEmbed({
                 title: "Created Category Succesfully",
                 color: colors.green,
             });
 
-            // TODO: Create reaction embed according to roles
+            await message.reply(embed);
+
+            let desc = [];
+            for (let i = 0; i < TEAM_NO; i++) desc.push(`Team ${i + 1} :  ${emojiArr[i]}\n`);
+
             let reaction_embed = new Discord.MessageEmbed({
-                title: "Reaction Embed : TODO",
-                color: colors.cyan,
+                title: "React the following emojis to get roles",
+                description: desc.join('\n'),
+                color: colors.orange,
             });
 
-            await message.reply(embed);
-            return annoucementChannel.send(reaction_embed);
+            let reaction_msg = await annoucementChannel.send(reaction_embed);
+            for (let i = 0; i < TEAM_NO; i++) await reaction_msg.react(emojiArr[i]);
+
+            client.on('messageReactionAdd', async (reaction, user) => {
+                if (reaction.message.partial) await reaction.message.fetch();
+                if (reaction.partial) await reaction.fetch();
+                if (user.bot) return;
+
+                if (reaction.message.channel.id == annoucementChannel.id) {
+                    const team_no = emojiArr.findIndex(e => e === reaction.emoji.name);
+                    await reaction.message.guild.members.cache.get(user.id).roles.add(team_data[team_no].role.id);
+                    let join_embed = new Discord.MessageEmbed({
+                        footer: {
+                            text: `${user.username} has joined this team`,
+                            icon_url: user.displayAvatarURL(),
+                        },
+                        color: colors.green,
+                    });
+                    await team_data[team_no].channel.send(join_embed);
+                }
+            });
+
+            client.on('messageReactionRemove', async (reaction, user) => {
+                if (reaction.message.partial) await reaction.message.fetch();
+                if (reaction.partial) await reaction.fetch();
+                if (user.bot) return;
+
+                if (reaction.message.channel.id === annoucementChannel.id) {
+                    const team_no = emojiArr.findIndex(e => e === reaction.emoji.name);
+                    await reaction.message.guild.members.cache.get(user.id).roles.remove(team_data[team_no].role.id);
+                    let leave_embed = new Discord.MessageEmbed({
+                        footer: {
+                            text: `${user.username} has left this team`,
+                            icon_url: user.displayAvatarURL(),
+                        },
+                        color: colors.red,
+                    });
+                    await team_data[team_no].channel.send(leave_embed);
+                }
+            });
+
+
         }
     },
 };
