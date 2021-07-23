@@ -2,9 +2,9 @@
   "name": "master_oogway",
   "version": "1.5.0",
   "description": "Official DSC Bot for DSC Discord Server",
-  "main": "discord.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon ./discord.js",
+    "start": "nodemon app.js",
     "update-command-readme": "node ./utils/update-command-readme.js",
     "get-logs-heroku-app-only": "heroku logs --tail -a dsc-professor-bot --source app",
     "get-logs-heroku": "heroku logs --tail -a dsc-professor-bot",

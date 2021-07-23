@@ -1,4 +1,5 @@
 const fs = require("fs");
+
 async function generate() {
     const commandFiles = fs.readdirSync("./commands/").filter(file => file.endsWith(".js"));
     let infoArr = commandFiles.map((file) => {
@@ -32,7 +33,6 @@ async function generate() {
 
     console.log('Updated README.md commands');
 }
-
 
 ; (async () => {
     await generate();
