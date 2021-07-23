@@ -3,7 +3,7 @@ const { prefix } = require("../utils/functions");
 
 module.exports = {
   name: "find-user",
-  usage: `${prefix}find-user @user_name`,
+  usage: `${prefix}find-user <@user_name>`,
   description: "Gives information about given user",
 
   /**

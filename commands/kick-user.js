@@ -4,7 +4,7 @@ const colors = require("../utils/colors");
 
 module.exports = {
   name: "kick-user",
-  usage: `${prefix}kick-user @user-name`,
+  usage: `${prefix}kick-user <@user-name>`,
   description: "Kicks a member from server",
 
   /**

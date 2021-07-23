@@ -4,7 +4,7 @@ const { prefix, findRoleById, findBestMessageSize } = require("../utils/function
 
 module.exports = {
   name: "find-role-name",
-  usage: `${prefix}find-role-name @role_name`,
+  usage: `${prefix}find-role-name <@role_name>`,
   description: "Gives the usernames of members belonging to given role",
 
   /**

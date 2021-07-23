@@ -9,22 +9,22 @@ Discord bot for DSC MBCET Server
 
 #### ban-user
 
-- Usage: `!ban-user @user-name`
+- Usage: `!ban-user <@user-name>`
 - Description: Bans a member from server
 
 #### find-role-name
 
-- Usage: `!find-role-name @role_name`
+- Usage: `!find-role-name <@role_name>`
 - Description: Gives the usernames of members belonging to given role
 
 #### find-role
 
-- Usage: `!find-role @role_name`
+- Usage: `!find-role <@role_name>`
 - Description: Gives the usernames,date of joining of members belonging to given role
 
 #### find-user
 
-- Usage: `!find-user @user_name`
+- Usage: `!find-user <@user_name>`
 - Description: Gives information about given user
 
 #### help-v
@@ -39,8 +39,8 @@ Discord bot for DSC MBCET Server
 
 #### invite
 
-- Usage: `!invite <USERNAME> [EMAIL]`
-- Description: Creates an invite for USERNAME, and sends email the code to EMAIL
+- Usage: `!invite <NAME>`
+- Description: Creates an invite for NAME
 
 #### joke
 
@@ -49,7 +49,7 @@ Discord bot for DSC MBCET Server
 
 #### kick-user
 
-- Usage: `!kick-user @user-name`
+- Usage: `!kick-user <@user-name>`
 - Description: Kicks a member from server
 
 #### master

@@ -5,8 +5,14 @@ const colors = require("../utils/colors");
 
 module.exports = {
   name: "invite",
+  usage: `${prefix}invite <NAME>`,
+  description: "Creates an invite for NAME",
+
+  /*
+  TODO: EMAIL
   usage: `${prefix}invite <USERNAME> [EMAIL]`,
-  description: "Creates an invite for USERNAME, and sends email the code to EMAIL",
+  description: "Creates an invite for USERNAME, and sends the code to EMAIL",
+  */
 
   /**
    * @param {Discord.Message} message 
