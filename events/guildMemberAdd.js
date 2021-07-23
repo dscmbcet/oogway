@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
-const { welcome_channel_name, new_member_default_role_name } = require("../config");
+const { prefix } = require("../utils/functions");
+const { welcome_channel_name, new_member_default_role_name, test_server_id } = require("../config");
 const colors = require("../utils/colors");
 
 module.exports = {
@@ -7,6 +8,8 @@ module.exports = {
 
     /** @param {Discord.GuildMember} member*/
     async execute(member) {
+        if (prefix === '~' && member.guild.id !== test_server_id) return console.log(`Ignoring production requests`);
+
         const guild = member.guild;
         const channel = guild.channels.cache.find((ch) => ch.name === welcome_channel_name);
         const role = guild.roles.cache.find(role => role.name === new_member_default_role_name);

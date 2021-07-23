@@ -12,7 +12,6 @@ module.exports = {
      * */
     async execute(message, client) {
         if (!message.content.startsWith(prefix) || message.author.bot) return;
-
         //Disable DM's to Bot
         if (message.channel.type === 'dm') {
             let embed = new Discord.MessageEmbed({
