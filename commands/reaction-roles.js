@@ -37,7 +37,7 @@ module.exports = {
             }
 
             let desc = [];
-            for (let i = 0; i < TEAM_NO; i++) desc.push(`${team_data[i].name} :  ${emojiArr[i]}\n`);
+            for (let i = 0; i < TEAM_NO; i++) desc.push(`${team_data[i]} :  ${emojiArr[i]}\n`);
 
             let reaction_embed = new Discord.MessageEmbed({
                 title: "React the following emojis to get roles",
@@ -48,43 +48,44 @@ module.exports = {
             let reaction_msg = await message.channel.send(reaction_embed);
             for (let i = 0; i < TEAM_NO; i++) await reaction_msg.react(emojiArr[i]);
 
-            client.on('messageReactionAdd', async (reaction, user) => {
-                if (reaction.message.partial) await reaction.message.fetch();
-                if (reaction.partial) await reaction.fetch();
-                if (user.bot) return;
+            client.on('messageReactionAdd', async (...args) =>
+                await this.handleReaction(...args, true, emojiArr, reaction_msg, team_data));
 
-                if (reaction.message.id === reaction_msg.id) {
-                    const team_no = emojiArr.findIndex(e => e === reaction.emoji.name);
-                    try { await reaction.message.guild.members.cache.get(user.id).roles.add(team_data[team_no].id) }
-                    catch (e) {
-                        console.error(`Command: ${this.name}, User:  ${user.username} Error: ${e.name}: ${e.message}`);
-                        embed = new Discord.MessageEmbed({
-                            description: `Some error occured assigning you ${team_data[team_no]} role my friend** ${user}**`,
-                            color: colors.red,
-                        })
-                        message.channel.send(embed)
-                    }
-                }
-            });
-
-            client.on('messageReactionRemove', async (reaction, user) => {
-                if (reaction.message.partial) await reaction.message.fetch();
-                if (reaction.partial) await reaction.fetch();
-                if (user.bot) return;
-
-                if (reaction.message.id === reaction_msg.id) {
-                    const team_no = emojiArr.findIndex(e => e === reaction.emoji.name);
-                    try { await reaction.message.guild.members.cache.get(user.id).roles.remove(team_data[team_no].id) }
-                    catch (e) {
-                        console.error(`Command: ${this.name}, User:  ${user.username} Error: ${e.name}: ${e.message}`);
-                        embed = new Discord.MessageEmbed({
-                            description: `Some error occured removing your ${team_data[team_no]} role my friend** ${user}**`,
-                            color: colors.red,
-                        })
-                        message.channel.send(embed)
-                    }
-                }
-            });
+            client.on('messageReactionRemove', async (...args) =>
+                await this.handleReaction(...args, false, emojiArr, reaction_msg, team_data));
         }
     },
+
+    /**
+     * @param {Discord.MessageReaction} reaction
+     * @param {Discord.User | Discord.PartialUser} user
+     * @param {boolean} roleAddEvent
+     * @param {string[]} emojiArr
+     * @param {Discord.Message} reaction_message
+     * @param {any[]} team_data
+     */
+    async handleReaction(reaction, user, roleAddEvent, emojiArr, reaction_message, team_data) {
+        if (reaction.message.partial) await reaction.message.fetch();
+        if (reaction.partial) await reaction.fetch();
+        if (user.bot) return;
+
+        if (reaction.message.id === reaction_message.id) {
+            const team_no = emojiArr.findIndex(e => e === reaction.emoji.name);
+            try {
+                const user_roles = await reaction.message.guild.members.cache.get(user.id).roles;
+                if (roleAddEvent) user_roles.add(team_data[team_no].id);
+                else user_roles.remove(team_data[team_no].id);
+            }
+            catch (e) {
+                console.error(`Command: ${this.name}, User:  ${user.username} Error: ${e.name}: ${e.message}`);
+                embed = new Discord.MessageEmbed({
+                    description: roleAddEvent ?
+                        `Some error occured assigning your ${team_data[team_no]} role my friend** ${user}**` :
+                        `Some error occured removing your ${team_data[team_no]} role my friend** ${user}**`,
+                    color: colors.red,
+                })
+                return reaction_message.channel.send(embed)
+            }
+        }
+    }
 };

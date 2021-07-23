@@ -121,7 +121,7 @@ module.exports = {
             await message.reply(embed);
 
             let desc = [];
-            for (let i = 0; i < TEAM_NO; i++) desc.push(`Team ${i + 1} :  ${emojiArr[i]}\n`);
+            for (let i = 0; i < TEAM_NO; i++) desc.push(`${team_data[i].role} :  ${emojiArr[i]}\n`);
 
             let reaction_embed = new Discord.MessageEmbed({
                 title: "React the following emojis to get roles",
