@@ -62,6 +62,11 @@ Discord bot for DSC MBCET Server
 - Usage: `!poll <NUMBER> <TITLE> [DESCRIPTION]`
 - Description: Creates a poll of given NUMBER with a TITLE and a DESCRIPTION
 
+#### reaction-roles
+
+- Usage: `!reaction-role <@role_1> [..@role_N]`
+- Description: Creates reaction role with given no. of role tags
+
 #### server-info
 
 - Usage: `!server-info`
