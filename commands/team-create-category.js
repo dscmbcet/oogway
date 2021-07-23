@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const { core_team_role_name } = require("../config");
 const colors = require("../utils/colors");
 const { prefix, findRoleByName } = require("../utils/functions");
 
@@ -24,26 +25,25 @@ module.exports = {
             }
 
             const core_team_permission = {
-                id: findRoleByName(message, 'Core Team').id,
+                id: findRoleByName(message, core_team_role_name).id,
                 allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT', 'CHANGE_NICKNAME', 'MUTE_MEMBERS', 'PRIORITY_SPEAKER', 'MOVE_MEMBERS']
             }
-
 
             const TEAM_NO = args[0];
             args.splice(0, 1);
             const CATEGORY_NAME = args.join(" ");
 
-            const { create: createRole } = message.guild.roles;
-            const { create: createChannel } = message.guild.channels;
+            const role = message.guild.roles;
+            const channel = message.guild.channels;
 
-            const CateogoryRole = await createRole({
+            const CateogoryRole = await role.create({
                 data: {
                     name: CATEGORY_NAME,
                     color: 'BLACK',
                 },
             })
 
-            const catergory = await createChannel(CATEGORY_NAME, {
+            const catergory = await channel.create(CATEGORY_NAME, {
                 type: 'category',
                 permissionOverwrites: [
                     {
@@ -58,7 +58,7 @@ module.exports = {
                 ]
             });
 
-            const annoucementChannel = await createChannel(`announcements`, {
+            const annoucementChannel = await channel.create(`announcements`, {
                 type: 'text',
                 parent: catergory.id,
                 permissionOverwrites: [
@@ -77,7 +77,7 @@ module.exports = {
 
 
             for (let i = 1; i <= TEAM_NO; i++) {
-                const role = await createRole({
+                const team_role = await role.create({
                     data: {
                         name: `team ${i}`,
                         color: 'RANDOM',
@@ -86,7 +86,7 @@ module.exports = {
 
                 const permission = [
                     {
-                        id: role.id,
+                        id: team_role.id,
                         allow: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT']
                     },
                     {
@@ -96,13 +96,13 @@ module.exports = {
                     core_team_permission
                 ]
 
-                await createChannel(`team ${i}`, {
+                await channel.create(`team ${i}`, {
                     type: 'text',
                     parent: catergory.id,
                     permissionOverwrites: permission
                 });
 
-                await createChannel(`team ${i}`, {
+                await channel.create(`team ${i}`, {
                     type: 'voice',
                     parent: catergory.id,
                     permissionOverwrites: permission

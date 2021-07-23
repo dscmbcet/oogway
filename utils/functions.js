@@ -25,10 +25,9 @@ module.exports = {
 
     /**
     * @param {Discord.Message} message
-    * @param {string} channeName
+    * @param {string} channelName
     */
-    findChannelByName(message, channeName) { return message.guild.channels.cache.find(category => category.name === channeName) },
-
+    findChannelByName(message, channelName) { return message.guild.channels.cache.find(category => category.name === channelName) },
 
     /** @param {string[]} data String Data Array*/
     findBestMessageSize(data) {
