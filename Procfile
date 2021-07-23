@@ -1,1 +1,1 @@
-Worker: npm start
+Worker: nodemon discord.js
