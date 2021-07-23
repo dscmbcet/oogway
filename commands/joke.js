@@ -9,8 +9,8 @@ module.exports = {
   description: "Tells a joke for you",
 
   /**
-   * @param {Discord.Message} message The Message
-   * @param {string[]} args The arguments
+   * @param {Discord.Message} message
+   * @param {string[]} args
    */
   async execute(message, args) {
     let embed;

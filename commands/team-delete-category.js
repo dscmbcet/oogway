@@ -8,8 +8,8 @@ module.exports = {
     description: "Deletes category CATEGORY_NAME with all its sub channels and roles",
 
     /**
-     * @param {Discord.Message} message The Message
-     * @param {string[]} args The arguments
+     * @param {Discord.Message} message
+     * @param {string[]} args
      */
     async execute(message, args) {
         if (!args.length)

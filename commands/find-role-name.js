@@ -8,14 +8,11 @@ module.exports = {
   description: "Gives the usernames of members belonging to given role",
 
   /**
-   * @param {Discord.Message} message The Message
-   * @param {string[]} args The arguments
+   * @param {Discord.Message} message
+   * @param {string[]} args
    */
   async execute(message, args) {
-    if (!args.length)
-      return message.channel.send(
-        `You didn't specify any role, ${message.author}!`
-      );
+    if (!args.length) return message.channel.send(`You didn't specify any role, ${message.author}!`);
     else {
       let embed;
       try {

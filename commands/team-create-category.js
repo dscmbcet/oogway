@@ -8,8 +8,8 @@ module.exports = {
     description: "Creates category CATEGORY_NAME with given no. of TEAM_NO as sub channels having roles and text and creates role for each team",
 
     /**
-     * @param {Discord.Message} message The Message
-     * @param {string[]} args The arguments
+     * @param {Discord.Message} message
+     * @param {string[]} args
      */
     async execute(message, args) {
         if (args.length < 2)

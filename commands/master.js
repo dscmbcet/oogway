@@ -8,8 +8,8 @@ module.exports = {
   description: "Summon Master Oogway To Gather Knowledge",
 
   /**
-   * @param {Discord.Message} message The Message
-   * @param {string[]} args The arguments
+   * @param {Discord.Message} message
+   * @param {string[]} args
    */
   async execute(message, args) {
     const member = message.guild.member(message.author.id);

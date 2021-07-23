@@ -6,12 +6,11 @@ module.exports = {
   description: "Gives information about given user",
 
   /**
-   * @param {Discord.Message} message The Message
-   * @param {string[]} args The arguments
+   * @param {Discord.Message} message
+   * @param {string[]} args
    */
   async execute(message, args) {
-    if (!args.length)
-      return message.channel.send(`You didn't tag a user, ${message.author}!`);
+    if (!args.length) return message.channel.send(`You didn't tag a user, ${message.author}!`);
     else {
       const tagged_user = message.guild.member(message.mentions.users.first());
       const formattedMessage = [

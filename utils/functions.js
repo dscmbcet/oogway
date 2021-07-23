@@ -3,29 +3,28 @@ const Discord = require("discord.js");
 module.exports = {
 
     /**
-    * @param {Discord.Message} message The Message
+    * @param {Discord.Message} message
     * @param {string} roleID Role ID
     */
     findRoleById(message, roleID) { return message.guild.roles.cache.find(role => role.id === roleID) },
 
     /**
-    * @param {Discord.Message} message The Message
+    * @param {Discord.Message} message
     * @param {string} roleName Role ID
     */
     findRoleByName(message, roleName) { return message.guild.roles.cache.find(role => role.name === roleName) },
 
     /**
-   * @param {Discord.Message} message The Message
+   * @param {Discord.Message} message
    * @param {string} channelID Channel ID
    */
     findChannelById(message, channelID) { return message.guild.channels.cache.find(category => category.id === channelID) },
 
     /**
-    * @param {Discord.Message} message The Message
+    * @param {Discord.Message} message
     * @param {string} channeName Channel Name
     */
     findChannelByName(message, channeName) { return message.guild.channels.cache.find(category => category.name === channeName) },
-
 
 
     /** @param {string[]} data String Data Array*/

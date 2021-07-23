@@ -7,8 +7,8 @@ module.exports = {
   description: "Bans a member from server",
 
   /**
-   * @param {Discord.Message} message The Message
-   * @param {string[]} args The arguments
+   * @param {Discord.Message} message
+   * @param {string[]} args
    */
   async execute(message, args) {
 

@@ -7,8 +7,8 @@ module.exports = {
   description: "Gives information about the server",
 
   /**
-   * @param {Discord.Message} message The Message
-   * @param {string[]} args The arguments
+   * @param {Discord.Message} message
+   * @param {string[]} args
    */
   async execute(message, args) {
     const { name, memberCount, region, channels } = message.guild;
