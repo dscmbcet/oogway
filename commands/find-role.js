@@ -28,9 +28,16 @@ module.exports = {
           ? "No User Found"
           : users;
 
+        if (users == "No User Found") {
+          embed = new Discord.MessageEmbed({
+            title: `No Users with the '@${roleName}' role`,
+            color: role.hexColor,
+          });
+
+          return message.channel.send(embed);
+        }
+
         const BEST_LENGTH = findBestMessageSize(users);
-        console.log(BEST_LENGTH);
-        console.log(users);
         for (let i = 0; i < users.length; i += BEST_LENGTH) {
           const toSend = users.slice(i, Math.min(users.length, i + BEST_LENGTH)).join("\n");
           let embed;
