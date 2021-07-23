@@ -146,7 +146,7 @@ module.exports = {
                 if (reaction.partial) await reaction.fetch();
                 if (user.bot) return;
 
-                if (reaction.message.channel.id == annoucementChannel.id) {
+                if (reaction.message.id === reaction_msg.id) {
                     const team_no = emojiArr.findIndex(e => e === reaction.emoji.name);
                     try { await reaction.message.guild.members.cache.get(user.id).roles.add(team_data[team_no].role.id) }
                     catch (e) {
@@ -174,7 +174,7 @@ module.exports = {
                 if (reaction.partial) await reaction.fetch();
                 if (user.bot) return;
 
-                if (reaction.message.channel.id === annoucementChannel.id) {
+                if (reaction.message.id === reaction_msg.id) {
                     const team_no = emojiArr.findIndex(e => e === reaction.emoji.name);
                     try { await reaction.message.guild.members.cache.get(user.id).roles.remove(team_data[team_no].role.id) }
                     catch (e) {
