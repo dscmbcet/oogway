@@ -1,9 +1,10 @@
 const Discord = require("discord.js");
+const { prefix } = require("../utils/functions");
 const colors = require("../utils/colors");
 
 module.exports = {
   name: "kick-user",
-  usage: "!kick-user @user-name",
+  usage: `${prefix}kick-user @user-name`,
   description: "Kicks a member from server",
 
   /**

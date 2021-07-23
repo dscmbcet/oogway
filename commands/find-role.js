@@ -1,10 +1,10 @@
 const Discord = require("discord.js");
 const colors = require("../utils/colors");
-const { findBestMessageSize, findRoleById } = require("../utils/functions");
+const { prefix, findBestMessageSize, findRoleById } = require("../utils/functions");
 
 module.exports = {
   name: "find-role",
-  usage: "!find-role @role_name",
+  usage: `${prefix}find-role @role_name`,
   description: "Gives the usernames,date of joining of members belonging to given role",
 
   /**

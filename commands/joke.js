@@ -1,11 +1,12 @@
 const Discord = require("discord.js");
+const { prefix } = require("../utils/functions");
 const fetch = require('node-fetch');
 const API_URL = require("../utils/api_urls");
 const colors = require("../utils/colors");
 
 module.exports = {
   name: "joke",
-  usage: "!joke",
+  usage: `${prefix}joke`,
   description: "Tells a joke for you",
 
   /**

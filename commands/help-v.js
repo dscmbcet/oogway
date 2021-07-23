@@ -1,10 +1,11 @@
 const Discord = require("discord.js");
+const { prefix } = require("../utils/functions");
 const fs = require("fs");
 const colors = require("../utils/colors");
 
 module.exports = {
   name: "help-v",
-  usage: "!help-v",
+  usage: `${prefix}help-v`,
   description: "Gives detailed information about commands",
 
   /**

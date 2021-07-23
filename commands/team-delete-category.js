@@ -1,10 +1,10 @@
 const Discord = require("discord.js");
 const colors = require("../utils/colors");
-const { findRoleByName, findChannelByName } = require("../utils/functions");
+const { prefix, findRoleByName, findChannelByName } = require("../utils/functions");
 
 module.exports = {
     name: "team-delete-category",
-    usage: "!team-delete-category <CATEGORY_NAME>",
+    usage: `${prefix}team-delete-category <CATEGORY_NAME>`,
     description: "Deletes category CATEGORY_NAME with all its sub channels and roles",
 
     /**

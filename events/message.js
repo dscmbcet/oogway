@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 const colors = require("../utils/colors");
-const { prefix } = JSON.parse(process.env.CONFIG);
+const { prefix } = require("../utils/functions");
 
 module.exports = {
     name: 'message',

@@ -1,8 +1,9 @@
 const Discord = require("discord.js");
+const { prefix } = require("../utils/functions");
 
 module.exports = {
   name: "find-user",
-  usage: "!find-user @user_name",
+  usage: `${prefix}find-user @user_name`,
   description: "Gives information about given user",
 
   /**

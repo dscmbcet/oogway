@@ -1,6 +1,9 @@
+require("dotenv").config();
 const Discord = require("discord.js");
 
 module.exports = {
+
+    prefix: JSON.parse(process.env.CONFIG).prefix,
 
     /**
     * @param {Discord.Message} message
@@ -15,9 +18,9 @@ module.exports = {
     findRoleByName(message, roleName) { return message.guild.roles.cache.find(role => role.name === roleName) },
 
     /**
-   * @param {Discord.Message} message
-   * @param {string} channelID
-   */
+    * @param {Discord.Message} message
+    * @param {string} channelID
+    */
     findChannelById(message, channelID) { return message.guild.channels.cache.find(category => category.id === channelID) },
 
     /**
@@ -45,4 +48,5 @@ module.exports = {
         }
         return BEST_LENGTH;
     }
+
 }

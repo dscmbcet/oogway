@@ -1,10 +1,11 @@
 const Discord = require("discord.js");
 const { welcome_channel_name } = require("../config");
+const { prefix } = require("../utils/functions");
 const colors = require("../utils/colors");
 
 module.exports = {
   name: "invite",
-  usage: "!invite <USERNAME> [EMAIL]",
+  usage: `${prefix}invite <USERNAME> [EMAIL]`,
   description: "Creates an invite for USERNAME, and sends email the code to EMAIL",
 
   /**

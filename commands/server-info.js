@@ -1,9 +1,10 @@
 const Discord = require("discord.js");
+const { prefix } = require("../utils/functions");
 const colors = require("../utils/colors");
 
 module.exports = {
   name: "server-info",
-  usage: "!server-info",
+  usage: `${prefix}server-info`,
   description: "Gives information about the server",
 
   /**

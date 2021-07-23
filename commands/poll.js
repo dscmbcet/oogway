@@ -1,9 +1,10 @@
 const Discord = require("discord.js");
+const { prefix } = require("../utils/functions");
 const colors = require("../utils/colors");
 
 module.exports = {
   name: "poll",
-  usage: "!poll <NUMBER> <TITLE> [DESCRIPTION]",
+  usage: `${prefix}poll <NUMBER> <TITLE> [DESCRIPTION]`,
   description: "Creates a poll of given NUMBER with a TITLE and a DESCRIPTION",
 
   /**

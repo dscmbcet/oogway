@@ -1,10 +1,10 @@
 const Discord = require("discord.js");
 const colors = require("../utils/colors");
-const { findRoleByName } = require("../utils/functions");
+const { prefix, findRoleByName } = require("../utils/functions");
 
 module.exports = {
     name: "team-create-category",
-    usage: "!team-create-category <TEAM_NO> <CATEGORY_NAME>",
+    usage: `${prefix}team-create-category <TEAM_NO> <CATEGORY_NAME>`,
     description: "Creates category CATEGORY_NAME with given no. of TEAM_NO as sub channels having roles and text and creates role for each team",
 
     /**
