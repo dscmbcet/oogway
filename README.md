@@ -15,7 +15,7 @@ Discord bot for DSC MBCET Server
 #### clear
 
 - Usage: `!clear <NUMBER>`
-- Description: CLear upto 100 messages
+- Description: Clear upto 100 messages
 
 #### find-role-name
 
