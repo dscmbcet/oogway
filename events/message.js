@@ -7,10 +7,24 @@ module.exports = {
     name: 'message',
 
     /** 
-     * @param {Discord.GuildMember} message
+     * @param {Discord.Message} message
      * @param {Discord.Client} client
      * */
     async execute(message, client) {
+        if (!message.content.startsWith(prefix) || message.author.bot) return;
+
+        //Disable DM's to Bot
+        if (message.channel.type === 'dm') {
+            let embed = new Discord.MessageEmbed({
+                description: [
+                    `I cannot serve you here my friend ${message.author}`,
+                    'Text me within the \`GDSC MBCET\` server',
+                ].join('\n'),
+                color: colors.red,
+            });
+            return message.channel.send(embed)
+        }
+
         // Getting commands from ./commands
         client.commands = new Discord.Collection();
         const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
@@ -19,7 +33,7 @@ module.exports = {
             client.commands.set(command.name, command);
         }
 
-        if (!message.content.startsWith(prefix) || message.author.bot) return;
+
         const args = message.content.slice(prefix.length).trim().split(" ");
         const command = args.shift().toLowerCase();
 
@@ -36,18 +50,18 @@ module.exports = {
                 ].join('\n'),
                 color: colors.red,
             });
-            return message.channel.send({ embed });
+            return message.channel.send(embed);
         }
 
         try { await commandFileData.execute(message, args, client) }
         catch (e) {
-            console.error(`${command} Error: ${e.name}: ${e.message}`);
+            console.error(`Command: ${command} Error: ${e.name}: ${e.message}`);
             let embed = new Discord.MessageEmbed({
                 title: "Error Occured",
                 description: `I am not feeling too well my friend`,
                 color: colors.red,
             });
-            return message.channel.send({ embed });
+            return message.channel.send(embed);
         }
     }
 }
