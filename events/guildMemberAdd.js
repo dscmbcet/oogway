@@ -11,15 +11,13 @@ module.exports = {
     async execute(member, client) {
         const guild = member.guild;
         const server_config = client.configs.get(guild.id);
-        const new_member_default_role_name = server_config.new_member_default_role_name;
-        const welcome_channel_name = server_config.welcome_channel_name;
-
-        const channel = guild.channels.cache.find(ch => ch.name === welcome_channel_name);
-        const new_member_role = guild.roles.cache.find(role => role.name === new_member_default_role_name);
+        const channel = guild.channels.cache.get(server_config.welcome_channel_id);
+        const new_member_role = guild.roles.cache.get(server_config.new_member_default_role_id);
 
         try {
             await member.roles.add(new_member_role.id);
         } catch (e) {
+            console.log(e);
             console.error(`Event: ${this.name} Error: ${e.name}: ${e.message}`);
         }
 
@@ -29,9 +27,9 @@ module.exports = {
         let embed = new Discord.MessageEmbed({
             title: `A new member just arrived!`,
             description: [
-                `Welcome ${member} we hope you enjoy your stay here!`,
-                `I am **Master Oogway**, bot of GDSC MBCET`,
-                `\nTo get to know me type: \`!help-v\``,
+                `Welcome **${member.user.tag}** we hope you enjoy your stay here!`,
+                `\nI am **Master Oogway**, bot of GDSC MBCET`,
+                `To get to know me type: \`!help-v\``,
             ].join('\n'),
             thumbnail: { url: member.user.displayAvatarURL() },
             color: colors.cyan,
@@ -44,9 +42,9 @@ module.exports = {
             color: colors.orange,
             thumbnail: { url: member.guild.iconURL() },
             description: [
-                `Welcome ${member} we hope you enjoy your stay here!`,
-                `I am **Master Oogway**, bot of GDSC MBCET`,
-                `\nTo get to know me type: \`!help-v\` in GDSC Discord Channel`,
+                `Welcome **${member.user.tag}** we hope you enjoy your stay here!`,
+                `\nI am **Master Oogway**, bot of GDSC MBCET`,
+                `To get to know me type: \`!help-v\` in GDSC Discord Channel`,
             ].join('\n'),
         });
 

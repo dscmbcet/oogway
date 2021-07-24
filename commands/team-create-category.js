@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const { addReactionRole } = require('../firebase/firebase_handler');
 const colors = require('../utils/colors');
-const { prefix, findRoleByName, team_emojis, REACTION_TYPE } = require('../utils/functions');
+const { prefix, team_emojis, REACTION_TYPE, findRoleById } = require('../utils/functions');
 
 module.exports = {
     name: 'team-create-category',
@@ -40,9 +40,7 @@ module.exports = {
             const CATEGORY_NAME = args.join(' ').trim().toLocaleUpperCase();
 
             const server_config = client.configs.get(message.guild.id);
-            const new_member_default_role_name = server_config.new_member_default_role_name;
-            const core_team_role_name = server_config.core_team_role_name;
-            const core_team_role = findRoleByName(message, core_team_role_name);
+            const core_team_role = findRoleById(message, server_config.core_team_role_id);
 
             const general_permissions = [
                 {
@@ -59,7 +57,7 @@ module.exports = {
             const channel = message.guild.channels;
 
             const categoryRole = await role.create({ data: { name: CATEGORY_NAME, color: 'BLACK' } });
-            const memberRolePermissions = findRoleByName(message, new_member_default_role_name).permissions;
+            const memberRolePermissions = findRoleById(message, server_config.new_member_default_role_id).permissions;
 
             const category = await channel.create(CATEGORY_NAME, {
                 type: 'category',
