@@ -9,11 +9,8 @@ module.exports = {
 
   /**
    * @param {Discord.Message} message
-   * @param {string[]} args
-   * @param {Discord.Client} client
    */
-  async execute(message, args, client) {
-
+  async execute(message) {
     const member = message.guild.member(message.author.id);
     let embed;
 
