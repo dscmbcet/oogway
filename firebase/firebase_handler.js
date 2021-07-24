@@ -67,7 +67,7 @@ exports.addToTreatList = async (message, user, description) => {
 };
 
 exports.listenForReactionRoles = async () => {
-    const observer = db.collection('rection-roles').onSnapshot(querySnapshot => {
+    db.collection('rection-roles').onSnapshot(querySnapshot => {
         querySnapshot.docChanges().forEach(async change => {
             const data = change.doc.data();
             if (change.type === 'added') {
@@ -82,7 +82,7 @@ exports.listenForReactionRoles = async () => {
 };
 
 exports.listenForTreat = async () => {
-    const observer = db.collection('treat-list').onSnapshot(querySnapshot => {
+    db.collection('treat-list').onSnapshot(querySnapshot => {
         querySnapshot.docChanges().forEach(async change => {
             const data = change.doc.data();
             if (change.type === 'added') {
