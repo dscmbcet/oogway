@@ -17,7 +17,7 @@ module.exports = {
       const member = message.guild.member(tag_user);
       const embed = new Discord.MessageEmbed()
         .setColor(member.roles.color.hexColor)
-        .setThumbnail(message.author.displayAvatarURL())
+        .setThumbnail(tag_user.displayAvatarURL())
         .addField(`${tag_user.tag}`, `${member}`, true)
         .addField("ID:", `${member.id}`, true)
         .addField("Nickname:", `${member.nickname !== null ? `${member.nickname}` : 'None'}`, true)
