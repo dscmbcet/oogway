@@ -5,12 +5,15 @@ module.exports = {
 
     prefix: JSON.parse(process.env.CONFIG).prefix,
     team_emojis: ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟", "❤️", "🧡", "💛", "💚", "💙", "💜", "🤎", "🖤", "🤍"],
-
+    REACTION_TYPE: {
+        TEAM: 'TEAM',
+        ANNOYMOUS: 'ANNOYMOUS'
+    },
     /**
     * @param {Discord.Message} message
     * @param {string} roleID
     */
-    findRoleById(message, roleID) { return message.guild.roles.cache.find(role => role.id === roleID) },
+    findRoleById(message, roleID) { return message.guild.roles.cache.get(roleID) },
 
     /**
     * @param {Discord.Message} message
@@ -22,7 +25,7 @@ module.exports = {
     * @param {Discord.Message} message
     * @param {string} channelID
     */
-    findChannelById(message, channelID) { return message.guild.channels.cache.find(category => category.id === channelID) },
+    findChannelById(message, channelID) { return message.guild.channels.cache.get(channelID) },
 
     /**
     * @param {Discord.Message} message

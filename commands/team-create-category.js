@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const { addReactionRole } = require("../firebase/firebase_handler");
 const colors = require("../utils/colors");
-const { prefix, findRoleByName, team_emojis } = require("../utils/functions");
+const { prefix, findRoleByName, team_emojis, REACTION_TYPE } = require("../utils/functions");
 
 module.exports = {
     name: "team-create-category",
@@ -136,7 +136,7 @@ module.exports = {
             let reaction_msg = await annoucementChannel.send(reaction_embed);
             for (let i = 0; i < TEAM_NO; i++) await reaction_msg.react(team_emojis[i]);
 
-            await addReactionRole(reaction_msg, team_data);
+            await addReactionRole(reaction_msg, team_data, REACTION_TYPE.TEAM);
         }
     }
 };

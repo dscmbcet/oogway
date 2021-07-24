@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const { prefix, team_emojis } = require("../utils/functions");
+const { prefix, team_emojis, REACTION_TYPE } = require("../utils/functions");
 const colors = require("../utils/colors");
 const { addReactionRole } = require("../firebase/firebase_handler");
 
@@ -48,7 +48,7 @@ module.exports = {
             let reaction_msg = await message.channel.send(reaction_embed);
             for (let i = 0; i < TEAM_NO; i++) await reaction_msg.react(team_emojis[i]);
 
-            await addReactionRole(reaction_msg, team_data);
+            await addReactionRole(reaction_msg, team_data, REACTION_TYPE.TEAM);
         }
     }
 };

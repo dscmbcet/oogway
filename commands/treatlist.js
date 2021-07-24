@@ -11,10 +11,12 @@ module.exports = {
     /**
      * @param {Discord.Message} message
      * @param {string[]} args
+     * @param {Discord.Client} client
      */
-    async execute(message, args) {
+    async execute(message, args, client) {
         let toSend = treatDataArray.map(e => {
-            const user = message.guild.members.cache.find(person => person.id == e.user_id).user;
+            const guild = client.guilds.cache.get(e.guild_id);
+            const user = guild.members.cache.get(e.user_id).user;
             const description = e.description;
             return `${user} : ${description}`
         }).join('\n');
