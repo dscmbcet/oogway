@@ -39,7 +39,7 @@ exports.addReactionRole = async (reaction_message, team_data) => {
     colRef.doc(reaction_message.id).set({
         id: reaction_message.id,
         guild_id: reaction_message.guild.id,
-        channel_name: reaction_message.channel.name,
+        channel_name: `${reaction_message.channel.parent.name}:${reaction_message.channel.name}`,
         channel_id: reaction_message.channel.id,
         timestamp: reaction_message.createdAt.toISOString(),
         team_data: new_team_data
@@ -60,11 +60,11 @@ listenForNewReactionRoles = async () => {
         .onSnapshot(querySnapshot => {
             querySnapshot.docChanges().forEach(async change => {
                 if (change.type === 'added') {
-                    console.log(`New reaction role: ${change.doc.data().id} @Channel: ${change.doc.data().channel_name}`);
+                    console.log(`New reaction role: ${change.doc.data().id} @Channel ${change.doc.data().channel_name}`);
                     this.reactionDataArray.push(change.doc.data());
                 }
                 if (change.type === 'removed') {
-                    console.log(`Removed reaction role: ${change.doc.data().id} @Channel: ${change.doc.data().channel_name}`);
+                    console.log(`Removed reaction role: ${change.doc.data().id} @Channel ${change.doc.data().channel_name}`);
                 }
             });
         });
