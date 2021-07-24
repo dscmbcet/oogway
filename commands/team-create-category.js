@@ -6,7 +6,7 @@ const { prefix, findRoleByName, team_emojis } = require("../utils/functions");
 module.exports = {
     name: "team-create-category",
     usage: `${prefix}team-create-category <TEAM_NO> <CATEGORY_NAME>`,
-    description: "Creates category CATEGORY_NAME with given no. of TEAM_NO as sub channels having roles and text and creates role for each team",
+    description: "Creates category CATEGORY_NAME with given no. of TEAM_NO as sub channels for voice and text and creates role for each team",
 
     /**
      * @param {Discord.Message} message

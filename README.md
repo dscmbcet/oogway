@@ -80,7 +80,7 @@ Discord bot for DSC MBCET Server
 #### team-create-category
 
 - Usage: `!team-create-category <TEAM_NO> <CATEGORY_NAME>`
-- Description: Creates category CATEGORY_NAME with given no. of TEAM_NO as sub channels having roles and text and creates role for each team
+- Description: Creates category CATEGORY_NAME with given no. of TEAM_NO as sub channels for voice and text and creates role for each team
 
 #### team-delete-category
 
