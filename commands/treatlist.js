@@ -17,9 +17,9 @@ module.exports = {
         let toSend = treatDataArray
             .map(e => {
                 const guild = client.guilds.cache.get(e.guild_id);
-                const user = guild.members.cache.get(e.user_id).user;
+                const user = guild.members.cache.get(e.user_id).displayName;
                 const description = e.description;
-                return `${user} : ${description}`;
+                return `\`\`${user}\`\` : ${description}`;
             })
             .join('\n');
 
