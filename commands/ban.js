@@ -3,18 +3,20 @@ const { prefix } = require("../utils/functions");
 const colors = require("../utils/colors");
 
 module.exports = {
-  name: "kick-user",
-  usage: `${prefix}kick-user <@user-name>`,
-  description: "Kicks a member from server",
+  name: "ban",
+  usage: `${prefix}ban <@user-name>`,
+  description: "Bans a member from server",
 
   /**
    * @param {Discord.Message} message
+   * @param {string[]} args
    */
-  async execute(message) {
+  async execute(message, args) {
+
     const member = message.guild.member(message.author.id);
     let embed;
 
-    if (!message.member.hasPermission('KICK_MEMBERS')) {
+    if (!message.member.hasPermission('BAN_MEMBERS')) {
       embed = new Discord.MessageEmbed({
         description: `You are not wise enough to make that call my friend** ${member}**`,
         color: colors.red,
@@ -33,30 +35,23 @@ module.exports = {
 
       if (member == taggedUser) {
         embed = new Discord.MessageEmbed({
-          description: `Why do you want to kick yourself my friend ${member}`,
+          description: `Why do you want to ban yourself my friend** ${member}**`,
           color: colors.red,
         });
       }
-      else if (taggedUser.user.bot) {
-        embed = new Discord.MessageEmbed({
-          description: `If you kick me who will guide you my friend ${member}`,
-          color: colors.red,
-        });
-      }
-
       else {
         try {
-          await taggedUser.kick();
+          await taggedUser.ban();
           embed = new Discord.MessageEmbed({
             footer: {
-              text: `${taggedUser.displayName} has been kicked`,
-              icon_url: taggedUser.user.displayAvatarURL(),
+              text: `${taggedUser.displayName} has been banned`,
+              icon_url: taggedUser.user.displayAvatarURL()
             },
             color: colors.cyan,
           });
-        } catch (e) {
+        } catch {
           embed = new Discord.MessageEmbed({
-            description: `I am sorry but that person is wiser than you my friend ${member}`,
+            description: `I am sorry but that person is wiser than you my friend** ${member}**`,
             color: colors.red,
           })
         }

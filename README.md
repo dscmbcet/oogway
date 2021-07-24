@@ -7,9 +7,9 @@ Discord bot for DSC MBCET Server
 
 ## Commands
 
-#### ban-user
+#### ban
 
-- Usage: `!ban-user <@user-name>`
+- Usage: `!ban <@user-name>`
 - Description: Bans a member from server
 
 #### clear
@@ -52,9 +52,9 @@ Discord bot for DSC MBCET Server
 - Usage: `!joke`
 - Description: Tells a joke for you
 
-#### kick-user
+#### kick
 
-- Usage: `!kick-user <@user-name>`
+- Usage: `!kick <@user-name>`
 - Description: Kicks a member from server
 
 #### master
