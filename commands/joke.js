@@ -14,21 +14,19 @@ module.exports = {
    * @param {string[]} args
    */
   async execute(message, args) {
-    let embed;
+    let embed = new Discord.MessageEmbed();
     try {
       const response = await fetch(API_URL.joke)
       const data = await response.json();
-      embed = new Discord.MessageEmbed({
-        title: `Here is your joke for the day`,
-        description: data.joke,
-        color: colors.cyan,
-      });
-      return message.channel.send({ embed });
+      embed
+        .setTitle(`Here is your joke for the day`)
+        .setDescription(data.joke)
+        .setColor(colors.cyan);
+      return message.channel.send(embed);
     } catch (e) {
-      embed = new Discord.MessageEmbed({
-        title: `No Jokes For Now`,
-        color: colors.red,
-      });
+      embed
+        .setTitle(`No Jokes For Now`)
+        .setColor(colors.red);
       return message.channel.send({ embed });
     }
   },

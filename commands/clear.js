@@ -21,10 +21,10 @@ module.exports = {
     const messages = await message.channel.messages.fetch({ limit: args[0] })
     message.channel.bulkDelete(messages);
 
-    embed = new Discord.MessageEmbed({
-      description: `${messages.size} Messages Deleted`,
-      color: colors.green,
-    });
+    embed = new Discord.MessageEmbed()
+      .setDescription(`${messages.size} Messages Deleted`)
+      .setColor(colors.green);
+
     return message.channel.send(embed);
   }
 }

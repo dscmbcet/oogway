@@ -36,6 +36,6 @@ module.exports = {
       fields: commandsArray
     });
 
-    return message.channel.send({ embed });
+    return message.channel.send(embed);
   },
 };

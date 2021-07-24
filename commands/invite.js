@@ -37,24 +37,12 @@ module.exports = {
         reason: `For username:${username}`
       })
 
-      embed = new Discord.MessageEmbed({
-        title: `Invite Created`,
-        fields: [
-          {
-            name: 'Link',
-            value: invtite.url
-          },
-          {
-            name: 'Expires',
-            value: invtite.expiresAt.toDateString()
-          },
-          {
-            name: 'Person',
-            value: `\`${username}\`\n${!email ? '' : email}`
-          }
-        ],
-        color: colors.green
-      });
+      embed = new Discord.MessageEmbed()
+        .setTitle(`Invite Created`)
+        .addField('Link', invtite.url)
+        .addField('Expires', invtite.expiresAt.toDateString(), true)
+        .addField('Person', `\`${username}\`\n${!email ? '' : email}`, true)
+        .setColor(colors.cyan);
 
       return message.channel.send(embed);
     }

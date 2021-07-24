@@ -21,13 +21,13 @@ module.exports = {
         description: `“${data.content}”\n- ${data.author}\n\nHow are you doing my friend **${member}**`,
         color: member.displayHexColor,
       });
-      message.channel.send({ embed });
+      return message.channel.send(embed);
     } catch (e) {
       let embed = new Discord.MessageEmbed({
         description: `How are you doing my friend **${member}**`,
         color: member.displayHexColor,
       });
-      return message.channel.send({ embed });
+      return message.channel.send(embed);
     }
   },
 };

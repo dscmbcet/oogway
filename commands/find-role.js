@@ -63,7 +63,7 @@ module.exports = {
           title: `Invalid Role`,
           color: colors.red,
         });
-        return message.channel.send({ embed, split: true });
+        return message.channel.send(embed);
       }
     }
   }

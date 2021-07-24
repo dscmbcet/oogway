@@ -39,12 +39,13 @@ module.exports = {
         const BEST_LENGTH = findBestMessageSize(users);
         for (let i = 0; i < users.length; i += BEST_LENGTH) {
           const toSend = users.slice(i, Math.min(users.length, i + BEST_LENGTH)).join("\n");
-          if (i === 0)
+          if (i === 0) {
             embed = new Discord.MessageEmbed({
               title: `Users with the '@${roleName}' role`,
               color: role.hexColor,
               description: toSend
             });
+          }
           else {
             embed = new Discord.MessageEmbed({
               color: role.hexColor,
@@ -53,14 +54,14 @@ module.exports = {
           }
           await message.channel.send(embed);
         }
-
         return;
+
       } catch {
         embed = new Discord.MessageEmbed({
           title: `Invalid Role`,
           color: colors.red,
         });
-        return message.channel.send({ embed, split: true });
+        return message.channel.send(embed);
       }
     }
   }

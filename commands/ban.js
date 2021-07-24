@@ -14,50 +14,42 @@ module.exports = {
   async execute(message, args) {
 
     const member = message.guild.member(message.author.id);
-    let embed;
+    let embed = new Discord.MessageEmbed();
 
     if (!message.member.hasPermission('BAN_MEMBERS')) {
-      embed = new Discord.MessageEmbed({
-        description: `You are not wise enough to make that call my friend** ${member}**`,
-        color: colors.red,
-      })
-      return message.channel.send({ embed });
+      embed
+        .setDescription(`You are not wise enough to make that call my friend ${member}`)
+        .setColor(colors.red);
+      return message.channel.send(embed);
     }
 
     if (!message.mentions.users.size) {
-      embed = new Discord.MessageEmbed({
-        description: `You need to tag someone! ${member}`,
-        color: member.displayHexColor,
-      });
+      embed
+        .setDescription(`You need to tag someone! ${member}`)
+        .setColor(member.displayHexColor);
     }
     else {
       const taggedUser = message.guild.member(message.mentions.users.first());
 
       if (member == taggedUser) {
-        embed = new Discord.MessageEmbed({
-          description: `Why do you want to ban yourself my friend** ${member}**`,
-          color: colors.red,
-        });
+        embed
+          .setDescription(`Why do you want to ban yourself my friend ${member}`)
+          .setColor(colors.red);
       }
       else {
         try {
           await taggedUser.ban();
-          embed = new Discord.MessageEmbed({
-            footer: {
-              text: `${taggedUser.displayName} has been banned`,
-              icon_url: taggedUser.user.displayAvatarURL()
-            },
-            color: colors.cyan,
-          });
+          embed
+            .setFooter(`${taggedUser.displayName} has been banned`, taggedUser.user.displayAvatarURL())
+            .setColor(colors.cyan);
         } catch {
-          embed = new Discord.MessageEmbed({
-            description: `I am sorry but that person is wiser than you my friend** ${member}**`,
-            color: colors.red,
-          })
+          embed
+            .setFooter(`I am sorry but that person is wiser than you my friend ${member}`)
+            .setColor(colors.red);
         }
       }
     }
 
-    return message.channel.send({ embed });
+    return message.channel.send(embed);
   },
 };

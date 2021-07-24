@@ -39,7 +39,7 @@ module.exports = {
           color: colors.orange,
         });
 
-      const embedMessage = await message.channel.send(description, embed);
+      const embedMessage = await message.channel.send(embed);
 
       if (!(poll_no === 0 || poll_no > emojiArr.length))
         for (let i = 0; i < poll_no; i++) await embedMessage.react(emojiArr[i]);
