@@ -10,8 +10,9 @@ module.exports = {
   /**
    * @param {Discord.Message} message
    * @param {string[]} args
+   * @param {Discord.Client} client
    */
-  async execute(message, args) {
+  async execute(message, args, client) {
 
     const member = message.guild.member(message.author.id);
     let embed;
@@ -35,10 +36,17 @@ module.exports = {
 
       if (member == taggedUser) {
         embed = new Discord.MessageEmbed({
-          description: `Why do you want to kick yourself my friend** ${member}**`,
+          description: `Why do you want to kick yourself my friend ${member}`,
           color: colors.red,
         });
       }
+      else if (taggedUser.user.bot) {
+        embed = new Discord.MessageEmbed({
+          description: `If you kick me who will guide you my friend ${member}`,
+          color: colors.red,
+        });
+      }
+
       else {
         try {
           await taggedUser.kick();
@@ -51,7 +59,7 @@ module.exports = {
           });
         } catch (e) {
           embed = new Discord.MessageEmbed({
-            description: `I am sorry but that person is wiser than you my friend** ${member}**`,
+            description: `I am sorry but that person is wiser than you my friend ${member}`,
             color: colors.red,
           })
         }
