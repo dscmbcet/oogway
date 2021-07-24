@@ -86,11 +86,11 @@ exports.listenForTreat = async () => {
         querySnapshot.docChanges().forEach(async change => {
             const data = change.doc.data();
             if (change.type === 'added') {
-                console.log(`New treat: ${data.id} @User ${data.user_name} , Reason: ${data.description}`);
+                console.log(`New treat: ${data.user_name} , Reason: ${data.description}`);
                 this.treatDataArray.push(data);
             }
             if (change.type === 'removed') {
-                console.log(`Removed treat: ${data.id} @User ${data.user_name} , Reason: ${data.description}`);
+                console.log(`Removed treat: ${data.user_name} , Reason: ${data.description}`);
             }
         });
     });
