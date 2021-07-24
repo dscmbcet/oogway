@@ -25,7 +25,7 @@ module.exports = {
             const embed = new Discord.MessageEmbed()
                 .setColor(member.roles.color.hexColor)
                 .setFooter(description, tag_user.displayAvatarURL())
-                .setTitle(`${member.user.tag} Added to treat list`)
+                .setTitle(`${member.user.tag} added to treat list`)
             return message.channel.send(embed);
         }
     },
