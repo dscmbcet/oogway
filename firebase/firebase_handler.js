@@ -8,21 +8,9 @@ admin.initializeApp({
 
 const db = admin.firestore();
 exports.reactionDataArray = [];
+exports.treatDataArray = [];
 
 console.log('Initialising firebase');
-
-exports.getConfig = async (code) => {
-    const colRef = db.collection('configs');
-    const docs = await colRef.get();
-    if (docs.empty) {
-        return undefined;
-    }
-    let token
-    docs.forEach((doc) => {
-        token = doc.data()
-    })
-    return token
-}
 
 /**
  * @param {Discord.Message} reaction_message
@@ -46,7 +34,9 @@ exports.addReactionRole = async (reaction_message, team_data) => {
     });
 }
 
-
+/**
+ * @param {string} reaction_message
+ */
 exports.removeReactionRole = async (reaction_message_id) => {
     const colRef = db.collection('rection-roles');
     await colRef.doc(reaction_message_id).delete();
@@ -54,8 +44,25 @@ exports.removeReactionRole = async (reaction_message_id) => {
     if (deleteIndex != -1) this.reactionDataArray.splice(deleteIndex);
 }
 
+/**
+ * @param {Discord.Message} message
+ * @param {Discord.User} user
+ * @param {string} description
+ */
+exports.addToTreatList = async (message, user, description) => {
+    const colRef = db.collection('treat-list');
+    colRef.doc(message.id).set({
+        id: message.id,
+        guild_id: message.guild.id,
+        user_id: user.id,
+        user_name: user.tag,
+        description: description,
+        timestamp: message.createdAt.toISOString(),
+    });
+}
 
-exports.listenForNewReactionRoles = async () => {
+
+exports.listenForReactionRoles = async () => {
     const observer = db.collection('rection-roles')
         .onSnapshot(querySnapshot => {
             querySnapshot.docChanges().forEach(async change => {
@@ -70,3 +77,17 @@ exports.listenForNewReactionRoles = async () => {
         });
 }
 
+exports.listenForTreat = async () => {
+    const observer = db.collection('treat-list')
+        .onSnapshot(querySnapshot => {
+            querySnapshot.docChanges().forEach(async change => {
+                if (change.type === 'added') {
+                    console.log(`New treat: ${change.doc.data().id} @User ${change.doc.data().user_name} , Reason: ${change.doc.data().description}`);
+                    this.treatDataArray.push(change.doc.data());
+                }
+                if (change.type === 'removed') {
+                    console.log(`Removed treat: ${change.doc.data().id} @User ${change.doc.data().user_name} , Reason: ${change.doc.data().description}`);
+                }
+            });
+        });
+}
