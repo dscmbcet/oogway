@@ -8,8 +8,6 @@ module.exports = {
 
     /** @param {Discord.GuildMember} member*/
     async execute(member) {
-        if (prefix === '~' && member.guild.id !== test_server_id) return console.log(`Ignoring production requests`);
-
         const guild = member.guild;
         const channel = guild.channels.cache.find((ch) => ch.name === welcome_channel_name);
         const new_member_role = guild.roles.cache.find(role => role.name === new_member_default_role_name);
