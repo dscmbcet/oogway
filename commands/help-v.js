@@ -1,41 +1,39 @@
-const Discord = require("discord.js");
-const fs = require("fs");
-const { prefix } = require("../utils/functions");
-const colors = require("../utils/colors");
+const Discord = require('discord.js');
+const fs = require('fs');
+const { prefix } = require('../utils/functions');
+const colors = require('../utils/colors');
 
 module.exports = {
-  name: "help-v",
-  usage: `${prefix}help-v`,
-  description: "Gives detailed information about commands",
+    name: 'help-v',
+    usage: `${prefix}help-v`,
+    description: 'Gives detailed information about commands',
 
-  /**
-   * @param {Discord.Message} message
-   * @param {string[]} args
-   */
-  async execute(message, args) {
-    const commandFiles = fs
-      .readdirSync("./commands/")
-      .filter((file) => file.endsWith(".js"));
+    /**
+     * @param {Discord.Message} message
+     * @param {string[]} args
+     */
+    async execute(message, args) {
+        const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 
-    let commandsArray = commandFiles.map((file) => {
-      const command = require(`./${file}`);
-      return {
-        name: command.name,
-        value: [
-          `\`${command.usage === undefined ? "-" : command.usage}\``,
-          `${command.description === undefined ? "-" : command.description}`
-        ].join("\n"),
-      };
-    });
+        let commandsArray = commandFiles.map(file => {
+            const command = require(`./${file}`);
+            return {
+                name: command.name,
+                value: [
+                    `\`${command.usage === undefined ? '-' : command.usage}\``,
+                    `${command.description === undefined ? '-' : command.description}`,
+                ].join('\n'),
+            };
+        });
 
-    commandsArray.sort();
+        commandsArray.sort();
 
-    let embed = new Discord.MessageEmbed({
-      title: `Commands`,
-      color: colors.purple,
-      fields: commandsArray
-    });
+        let embed = new Discord.MessageEmbed({
+            title: `Commands`,
+            color: colors.purple,
+            fields: commandsArray,
+        });
 
-    return message.channel.send(embed);
-  },
+        return message.channel.send(embed);
+    },
 };

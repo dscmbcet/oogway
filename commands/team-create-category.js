@@ -1,12 +1,13 @@
-const Discord = require("discord.js");
-const { addReactionRole } = require("../firebase/firebase_handler");
-const colors = require("../utils/colors");
-const { prefix, findRoleByName, team_emojis, REACTION_TYPE } = require("../utils/functions");
+const Discord = require('discord.js');
+const { addReactionRole } = require('../firebase/firebase_handler');
+const colors = require('../utils/colors');
+const { prefix, findRoleByName, team_emojis, REACTION_TYPE } = require('../utils/functions');
 
 module.exports = {
-    name: "team-create-category",
+    name: 'team-create-category',
     usage: `${prefix}team-create-category <TEAM_NO> <CATEGORY_NAME>`,
-    description: "Creates category CATEGORY_NAME with given no. of TEAM_NO as sub channels for voice and text and creates role for each team",
+    description:
+        'Creates category CATEGORY_NAME with given no. of TEAM_NO as sub channels for voice and text and creates role for each team',
 
     /**
      * @param {Discord.Message} message
@@ -14,16 +15,16 @@ module.exports = {
      * @param {Discord.Client} client
      */
     async execute(message, args, client) {
-        if (args.length < 2)
-            return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
+        if (args.length < 2) return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
         else {
-            let team_data = [], embed;
+            let team_data = [],
+                embed;
 
             if (!message.member.hasPermission('ADMINISTRATOR')) {
                 embed = new Discord.MessageEmbed({
                     description: `You are not wise enough to make those channels my friend** ${message.member}**`,
                     color: colors.red,
-                })
+                });
                 return message.channel.send(embed);
             }
 
@@ -36,7 +37,7 @@ module.exports = {
                 return message.channel.send(embed);
             }
             args.splice(0, 1);
-            const CATEGORY_NAME = args.join(" ").trim().toLocaleUpperCase();
+            const CATEGORY_NAME = args.join(' ').trim().toLocaleUpperCase();
 
             const server_config = client.configs.get(message.guild.id);
             const new_member_default_role_name = server_config.new_member_default_role_name;
@@ -46,13 +47,13 @@ module.exports = {
             const general_permissions = [
                 {
                     id: core_team_role.id,
-                    allow: core_team_role.permissions
+                    allow: core_team_role.permissions,
                 },
                 {
                     id: message.guild.roles.everyone,
-                    deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT']
-                }
-            ]
+                    deny: ['VIEW_CHANNEL', 'SEND_MESSAGES', 'CONNECT'],
+                },
+            ];
 
             const role = message.guild.roles;
             const channel = message.guild.channels;
@@ -65,10 +66,10 @@ module.exports = {
                 permissionOverwrites: [
                     {
                         id: categoryRole.id,
-                        allow: memberRolePermissions
+                        allow: memberRolePermissions,
                     },
-                    ...general_permissions
-                ]
+                    ...general_permissions,
+                ],
             });
 
             /** @type {Discord.Channel} */
@@ -79,10 +80,10 @@ module.exports = {
                     {
                         id: categoryRole.id,
                         allow: ['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY', 'ADD_REACTIONS'],
-                        deny: ['SEND_MESSAGES']
+                        deny: ['SEND_MESSAGES'],
                     },
-                    ...general_permissions
-                ]
+                    ...general_permissions,
+                ],
             });
 
             for (let i = 1; i <= TEAM_NO; i++) {
@@ -96,10 +97,10 @@ module.exports = {
                 const team_permission = [
                     {
                         id: team_role.id,
-                        allow: memberRolePermissions
+                        allow: memberRolePermissions,
                     },
-                    ...general_permissions
-                ]
+                    ...general_permissions,
+                ];
 
                 const team_channel = await channel.create(`team ${i}`, {
                     type: 'text',
@@ -110,14 +111,14 @@ module.exports = {
                 await channel.create(`team ${i}`, {
                     type: 'voice',
                     parent: category.id,
-                    permissionOverwrites: team_permission
+                    permissionOverwrites: team_permission,
                 });
 
                 team_data.push({ channel: team_channel, role: team_role });
             }
 
             embed = new Discord.MessageEmbed({
-                title: "Created Category Succesfully",
+                title: 'Created Category Succesfully',
                 description: `${CATEGORY_NAME} with ${TEAM_NO} teams}`,
                 color: colors.green,
             });
@@ -128,7 +129,7 @@ module.exports = {
             for (let i = 0; i < TEAM_NO; i++) desc.push(`${team_data[i].role} :  ${team_emojis[i]}\n`);
 
             let reaction_embed = new Discord.MessageEmbed({
-                title: "React the following emojis to get roles",
+                title: 'React the following emojis to get roles',
                 description: desc.join('\n'),
                 color: colors.orange,
             });
@@ -138,5 +139,5 @@ module.exports = {
 
             await addReactionRole(reaction_msg, team_data, REACTION_TYPE.TEAM);
         }
-    }
+    },
 };

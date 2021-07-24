@@ -1,13 +1,13 @@
-const fs = require("fs");
+const fs = require('fs');
 
 async function generate() {
-    const commandFiles = fs.readdirSync("./commands/").filter(file => file.endsWith(".js"));
-    let infoArr = commandFiles.map((file) => {
+    const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+    let infoArr = commandFiles.map(file => {
         const command = require(`../commands/${file}`);
         return {
             name: command.name,
-            usage: `\`${command.usage === undefined ? "-" : command.usage}\``,
-            description: `${command.description === undefined ? "-" : command.description}`,
+            usage: `\`${command.usage === undefined ? '-' : command.usage}\``,
+            description: `${command.description === undefined ? '-' : command.description}`,
         };
     });
 
@@ -15,8 +15,8 @@ async function generate() {
     let dataCommands = ['## Commands'];
     for (const command of infoArr) {
         dataCommands.push(`\n#### ${command.name}`);
-        dataCommands.push(`\n- Usage: ${command.usage.replace('~', '!')}`)
-        dataCommands.push(`- Description: ${command.description}`)
+        dataCommands.push(`\n- Usage: ${command.usage.replace('~', '!')}`);
+        dataCommands.push(`- Description: ${command.description}`);
     }
 
     fs.readFile('README.md', 'utf8', function (err, data) {
@@ -33,6 +33,6 @@ async function generate() {
     console.log('Updated README.md commands');
 }
 
-; (async () => {
+(async () => {
     await generate();
-})()
+})();

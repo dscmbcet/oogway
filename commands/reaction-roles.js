@@ -1,12 +1,12 @@
-const Discord = require("discord.js");
-const { prefix, team_emojis, REACTION_TYPE } = require("../utils/functions");
-const colors = require("../utils/colors");
-const { addReactionRole } = require("../firebase/firebase_handler");
+const Discord = require('discord.js');
+const { prefix, team_emojis, REACTION_TYPE } = require('../utils/functions');
+const colors = require('../utils/colors');
+const { addReactionRole } = require('../firebase/firebase_handler');
 
 module.exports = {
-    name: "reaction-roles",
+    name: 'reaction-roles',
     usage: `${prefix}reaction-roles <@role_1> [..@role_N]`,
-    description: "Creates reaction role with given no. of role tags",
+    description: 'Creates reaction role with given no. of role tags',
 
     /**
      * @param {Discord.Message} message
@@ -17,13 +17,18 @@ module.exports = {
         if (message.mentions.roles.size === 0)
             return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
         else {
-            let team_data = message.mentions.roles.array().sort().map(e => { return { role: e } });
+            let team_data = message.mentions.roles
+                .array()
+                .sort()
+                .map(e => {
+                    return { role: e };
+                });
 
             if (!message.member.hasPermission('ADMINISTRATOR')) {
                 embed = new Discord.MessageEmbed({
                     description: `You are not wise enough to give roles to others** ${message.member}**`,
                     color: colors.red,
-                })
+                });
                 return message.channel.send(embed);
             }
 
@@ -40,7 +45,7 @@ module.exports = {
             for (let i = 0; i < TEAM_NO; i++) desc.push(`${team_data[i].role} :  ${team_emojis[i]}\n`);
 
             let reaction_embed = new Discord.MessageEmbed({
-                title: "React the following emojis to get roles",
+                title: 'React the following emojis to get roles',
                 description: desc.join('\n'),
                 color: colors.orange,
             });
@@ -50,5 +55,5 @@ module.exports = {
 
             await addReactionRole(reaction_msg, team_data, REACTION_TYPE.TEAM);
         }
-    }
+    },
 };

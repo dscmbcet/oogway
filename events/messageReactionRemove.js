@@ -1,7 +1,7 @@
-const Discord = require("discord.js");
-const { reactionDataArray } = require("../firebase/firebase_handler");
-const colors = require("../utils/colors");
-const { findRoleById, findChannelById, team_emojis } = require("../utils/functions");
+const Discord = require('discord.js');
+const { reactionDataArray } = require('../firebase/firebase_handler');
+const colors = require('../utils/colors');
+const { findRoleById, findChannelById, team_emojis } = require('../utils/functions');
 
 module.exports = {
     name: 'messageReactionRemove',
@@ -21,27 +21,25 @@ module.exports = {
 
         if (reactionRole) {
             const team_data = reactionRole.team_data.map(e => {
-                if (!e.channel)
-                    return { role: findRoleById(reaction.message, e.role) }
+                if (!e.channel) return { role: findRoleById(reaction.message, e.role) };
                 else
                     return {
                         role: findRoleById(reaction.message, e.role),
                         channel: findChannelById(reaction.message, e.channel),
-                    }
-            })
+                    };
+            });
 
             const team_no = team_emojis.findIndex(e => e === reaction.emoji.name);
             try {
                 const user_roles = await reaction.message.guild.members.cache.get(user.id).roles;
                 user_roles.remove(team_data[team_no].role.id);
-            }
-            catch (e) {
+            } catch (e) {
                 console.error(`Event: ${this.name}, User:  ${user.username} Error: ${e.name}: ${e.message}`);
                 embed = new Discord.MessageEmbed({
                     description: `Some error occured removing your ${team_data[team_no].role} role my friend** ${user}**`,
                     color: colors.red,
-                })
-                return reaction.message.channel.send(embed)
+                });
+                return reaction.message.channel.send(embed);
             }
 
             if (team_data[team_no].channel) {
@@ -55,5 +53,5 @@ module.exports = {
                 await team_data[team_no].channel.send(embed);
             }
         }
-    }
-}
+    },
+};
