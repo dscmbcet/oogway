@@ -14,14 +14,14 @@ module.exports = {
   async execute(message, args) {
     if (!args.length) return message.channel.send(`You didn't specify any role, ${message.author}!`);
     else {
-      let embed;
+      let embed = new Discord.MessageEmbed();
       try {
         const { id: roleID, name: roleName } = message.mentions.roles.first();
         const role = findRoleById(message, roleID);
+        embed.setColor(role.hexColor);
 
         let users = role === undefined ? ["No Role Found"] : role.members.map(m => m.displayName);
         users = users.length == undefined || users.length == 0 ? "No User Found" : users;
-
 
         if (users == "No User Found") {
           embed.title(`No Users with the '@${roleName}' role`);
@@ -32,12 +32,11 @@ module.exports = {
         for (let i = 0; i < users.length; i += BEST_LENGTH) {
           const toSend = users.slice(i, Math.min(users.length, i + BEST_LENGTH)).join("\n");
           embed.setDescription(toSend);
-          if (i === 0) embed.title(`Users with the '@${roleName}' role`)
+          if (i === 0) embed.setTitle(`Users with the '@${roleName}' role`)
           await message.channel.send(embed);
         }
 
         return;
-
       } catch {
         embed
           .setTitle(`Invalid Role`)
