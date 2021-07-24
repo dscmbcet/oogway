@@ -15,5 +15,3 @@ const handleFiles = fs.readdirSync('./handlers').filter(file => file.endsWith('.
 for (const file of handleFiles) require(`./handlers/${file}`)(client);
 
 firebase.listenForNewReactionRoles();
-
-module.exports = client;
