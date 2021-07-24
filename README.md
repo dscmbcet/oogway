@@ -69,7 +69,7 @@ Discord bot for DSC MBCET Server
 
 #### reaction-roles
 
-- Usage: `!reaction-role <@role_1> [..@role_N]`
+- Usage: `!reaction-roles <@role_1> [..@role_N]`
 - Description: Creates reaction role with given no. of role tags
 
 #### server-info

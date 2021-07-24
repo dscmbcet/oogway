@@ -1,6 +1,7 @@
 require("dotenv").config();
 const Discord = require("discord.js");
 const fs = require("fs");
+const firebase = require("./firebase/firebase_handler");
 const { token } = JSON.parse(process.env.CONFIG);
 
 const client = new Discord.Client();
@@ -12,5 +13,7 @@ client.configs = new Discord.Collection();
 
 const handleFiles = fs.readdirSync('./handlers').filter(file => file.endsWith('.js'));
 for (const file of handleFiles) require(`./handlers/${file}`)(client);
+
+firebase.listenForNewReactionRoles();
 
 module.exports = client;

@@ -55,7 +55,7 @@ exports.removeReactionRole = async (reaction_message_id) => {
 }
 
 
-listenForNewReactionRoles = async () => {
+exports.listenForNewReactionRoles = async () => {
     const observer = db.collection('rection-roles')
         .onSnapshot(querySnapshot => {
             querySnapshot.docChanges().forEach(async change => {
@@ -69,6 +69,4 @@ listenForNewReactionRoles = async () => {
             });
         });
 }
-
-listenForNewReactionRoles();
 

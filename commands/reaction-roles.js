@@ -5,7 +5,7 @@ const { addReactionRole } = require("../firebase/firebase_handler");
 
 module.exports = {
     name: "reaction-roles",
-    usage: `${prefix}reaction-role <@role_1> [..@role_N]`,
+    usage: `${prefix}reaction-roles <@role_1> [..@role_N]`,
     description: "Creates reaction role with given no. of role tags",
 
     /**
