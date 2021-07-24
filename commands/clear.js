@@ -22,7 +22,7 @@ module.exports = {
     message.channel.bulkDelete(messages);
 
     embed = new Discord.MessageEmbed()
-      .setDescription(`${messages.size} Messages Deleted`)
+      .setDescription(`${messages.size} Messages Deleted By ${message.author}`)
       .setColor(colors.green);
 
     return message.channel.send(embed);
