@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
+const { addReactionRole } = require("../firebase/firebase_handler");
 const colors = require("../utils/colors");
-const { prefix, findRoleByName } = require("../utils/functions");
+const { prefix, findRoleByName, team_emojis } = require("../utils/functions");
 
 module.exports = {
     name: "team-create-category",
@@ -16,7 +17,6 @@ module.exports = {
         if (args.length < 2)
             return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
         else {
-            let emojiArr = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟", "❤️", "🧡", "💛", "💚", "💙", "💜", "🤎", "🖤", "🤍"];
             let team_data = [], embed;
 
             if (!message.member.hasPermission('ADMINISTRATOR')) {
@@ -28,9 +28,9 @@ module.exports = {
             }
 
             const TEAM_NO = args[0];
-            if (TEAM_NO > emojiArr.length) {
+            if (TEAM_NO > team_emojis.length) {
                 embed = new Discord.MessageEmbed({
-                    title: `Team Number Can't Be Greater Than ${emojiArr.length}`,
+                    title: `Team Number Can't Be Greater Than ${team_emojis.length}`,
                     color: colors.red,
                 });
                 return message.channel.send(embed);
@@ -124,7 +124,7 @@ module.exports = {
             await message.reply(embed);
 
             let desc = [];
-            for (let i = 0; i < TEAM_NO; i++) desc.push(`${team_data[i].role} :  ${emojiArr[i]}\n`);
+            for (let i = 0; i < TEAM_NO; i++) desc.push(`${team_data[i].role} :  ${team_emojis[i]}\n`);
 
             let reaction_embed = new Discord.MessageEmbed({
                 title: "React the following emojis to get roles",
@@ -133,57 +133,9 @@ module.exports = {
             });
 
             let reaction_msg = await annoucementChannel.send(reaction_embed);
-            for (let i = 0; i < TEAM_NO; i++) await reaction_msg.react(emojiArr[i]);
+            for (let i = 0; i < TEAM_NO; i++) await reaction_msg.react(team_emojis[i]);
 
-            client.on('messageReactionAdd', async (...args) =>
-                await this.handleReaction(...args, true, emojiArr, reaction_msg, team_data));
-
-            client.on('messageReactionRemove', async (...args) =>
-                await this.handleReaction(...args, false, emojiArr, reaction_msg, team_data));
-        }
-    },
-
-
-    /**
-     * @param {Discord.MessageReaction} reaction
-     * @param {Discord.User | Discord.PartialUser} user
-     * @param {boolean} roleAddEvent
-     * @param {string[]} emojiArr
-     * @param {Discord.Message} reaction_message
-     * @param {any[]} team_data
-     */
-    async handleReaction(reaction, user, roleAddEvent, emojiArr, reaction_message, team_data) {
-        if (reaction.message.partial) await reaction.message.fetch();
-        if (reaction.partial) await reaction.fetch();
-        if (user.bot) return;
-
-        if (reaction.message.id === reaction_message.id) {
-            const team_no = emojiArr.findIndex(e => e === reaction.emoji.name);
-            try {
-                const user_roles = await reaction.message.guild.members.cache.get(user.id).roles;
-                if (roleAddEvent) user_roles.add(team_data[team_no].role.id);
-                else user_roles.remove(team_data[team_no].role.id);
-            }
-            catch (e) {
-                console.error(`Command: ${this.name}, User:  ${user.username} Error: ${e.name}: ${e.message}`);
-                embed = new Discord.MessageEmbed({
-                    description: roleAddEvent ?
-                        `Some error occured assigning your ${team_data[team_no].role} role my friend** ${user}**` :
-                        `Some error occured removing your ${team_data[team_no].role} role my friend** ${user}**`,
-                    color: colors.red,
-                })
-                return reaction_message.channel.send(embed)
-            }
-            let embed = new Discord.MessageEmbed({
-                footer: {
-                    text: roleAddEvent ?
-                        `${user.username} has joined this team` :
-                        `${user.username} has left this team`,
-                    icon_url: user.displayAvatarURL(),
-                },
-                color: roleAddEvent ? colors.green : colors.red,
-            });
-            await team_data[team_no].channel.send(embed);
+            await addReactionRole(reaction_msg, team_data);
         }
     }
 };

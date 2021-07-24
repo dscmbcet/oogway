@@ -12,3 +12,5 @@ client.configs = new Discord.Collection();
 
 const handleFiles = fs.readdirSync('./handlers').filter(file => file.endsWith('.js'));
 for (const file of handleFiles) require(`./handlers/${file}`)(client);
+
+module.exports = client;
