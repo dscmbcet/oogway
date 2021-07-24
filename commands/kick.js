@@ -29,7 +29,8 @@ module.exports = {
       });
     }
     else {
-      const taggedUser = message.guild.member(message.mentions.users.first());
+      const tagUser = message.mentions.users.first();
+      const taggedUser = message.guild.member(tagUser);
 
       if (member == taggedUser) {
         embed = new Discord.MessageEmbed({
@@ -49,7 +50,7 @@ module.exports = {
           await taggedUser.kick();
           embed = new Discord.MessageEmbed({
             footer: {
-              text: `${taggedUser.displayName} has been kicked`,
+              text: `${tagUser.tag} has been kicked`,
               icon_url: taggedUser.user.displayAvatarURL(),
             },
             color: colors.cyan,

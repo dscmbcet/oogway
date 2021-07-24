@@ -29,7 +29,8 @@ module.exports = {
         .setColor(member.displayHexColor);
     }
     else {
-      const taggedUser = message.guild.member(message.mentions.users.first());
+      const tagUser = message.mentions.users.first();
+      const taggedUser = message.guild.member(tagUser);
 
       if (member == taggedUser) {
         embed
@@ -40,7 +41,7 @@ module.exports = {
         try {
           await taggedUser.ban();
           embed
-            .setFooter(`${taggedUser.displayName} has been banned`, taggedUser.user.displayAvatarURL())
+            .setFooter(`${tagUser.tag} has been banned`, taggedUser.user.displayAvatarURL())
             .setColor(colors.cyan);
         } catch {
           embed
