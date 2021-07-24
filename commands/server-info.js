@@ -12,39 +12,19 @@ module.exports = {
    * @param {string[]} args
    */
   async execute(message, args) {
-    const { name, memberCount, region, channels } = message.guild;
-    let info = [
-      {
-        name: "Server Name",
-        value: name,
-      },
-      {
-        name: "Total members",
-        value: memberCount,
-      },
-      {
-        name: "Server Region",
-        value: region,
-      },
-      {
-        name: "Categories",
-        value: channels.cache.filter(channel => channel.type == "category").size,
-      },
-      {
-        name: "Text Channels",
-        value: channels.cache.filter(channel => channel.type == "text").size,
-      },
-      {
-        name: "Voice Channels",
-        value: channels.cache.filter(channel => channel.type == "voice").size,
-      }
-    ];
-    let embed = new Discord.MessageEmbed({
-      title: "Server Information",
-      fields: info,
-      color: colors.orange,
-      thumbnail: { url: message.guild.iconURL() },
-    });
-    message.channel.send({ embed });
+    const { name, memberCount, region, channels, roles } = message.guild;
+    const channelData = channels.cache;
+    let embed = new Discord.MessageEmbed()
+      .setTitle("Server Information")
+      .setColor(colors.orange)
+      .setThumbnail(message.guild.iconURL())
+      .addField("Server Name", name, true)
+      .addField("Total members", memberCount, true)
+      .addField("Server Region", region, true)
+      .addField("Categories", channelData.filter(channel => channel.type == "category").size, true)
+      .addField("Text Channels", channelData.filter(channel => channel.type == "text").size, true)
+      .addField("Voice Channels", channelData.filter(channel => channel.type == "voice").size, true)
+      .addField("Roles", roles.cache.map(roles => `${roles}`).sort().join(' '));
+    return message.channel.send(embed);
   },
 };

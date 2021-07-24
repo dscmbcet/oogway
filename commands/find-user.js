@@ -13,22 +13,17 @@ module.exports = {
   async execute(message, args) {
     if (!args.length) return message.channel.send(`You didn't tag a user, ${message.author}!`);
     else {
-      const tagged_user = message.guild.member(message.mentions.users.first());
-      const formattedMessage = [
-        `**User ID**: ${tagged_user.id}`,
-        `**Display Name**: ${tagged_user.displayName}`,
-        `**Nickname**: ${tagged_user.nickname == null ? "-" : tagged_user.nickname}`,
-        `**Highest Role**: ${tagged_user.roles.highest.name}`,
-        `**Joined sever on**: ${tagged_user.joinedAt.toDateString()}`,
-      ];
-
-      const embed = new Discord.MessageEmbed({
-        description: formattedMessage.join("\n"),
-        thumbnail: { url: tagged_user.user.displayAvatarURL() },
-        color: tagged_user.roles.color.hexColor,
-      });
-
-      return message.channel.send({ embed });
+      const tag_user = message.mentions.users.first()
+      const member = message.guild.member(tag_user);
+      const embed = new Discord.MessageEmbed()
+        .setColor(member.roles.color.hexColor)
+        .setThumbnail(message.author.displayAvatarURL())
+        .addField(`${tag_user.tag}`, `${member}`, true)
+        .addField("ID:", `${member.id}`, true)
+        .addField("Nickname:", `${member.nickname !== null ? `${member.nickname}` : 'None'}`, true)
+        .addField(`Joined`, `${member.joinedAt.toDateString()}`, true)
+        .addField("Roles:", member.roles.cache.map(roles => `${roles}`).join(' '), true)
+      return message.channel.send(embed);
     }
   },
 };
