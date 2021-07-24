@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
+const { prefix } = require("../utils/functions");
 const colors = require("../utils/colors");
-const { prefix, findRoleByName } = require("../utils/functions");
 
 module.exports = {
     name: "reaction-roles",

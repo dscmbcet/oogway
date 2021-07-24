@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const { welcome_channel_name } = require("../config");
 const { prefix } = require("../utils/functions");
 const colors = require("../utils/colors");
 
@@ -30,7 +29,8 @@ module.exports = {
 
       const username = args[0];
       const email = args[1];
-      const channel = message.guild.channels.cache.find((ch) => ch.name === welcome_channel_name);
+      const welcome_channel_name = client.configs.get(message.guild.id).welcome_channel_name;
+      const channel = message.guild.channels.cache.find(ch => ch.name === welcome_channel_name);
       const invtite = await channel.createInvite({
         maxUses: 1,
         unique: true,

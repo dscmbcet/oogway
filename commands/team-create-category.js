@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const { core_team_role_name, new_member_default_role_name } = require("../config");
 const colors = require("../utils/colors");
 const { prefix, findRoleByName } = require("../utils/functions");
 
@@ -39,7 +38,11 @@ module.exports = {
             args.splice(0, 1);
             const CATEGORY_NAME = args.join(" ").trim().toLocaleUpperCase();
 
+            const server_config = client.configs.get(message.guild.id);
+            const new_member_default_role_name = server_config.new_member_default_role_name;
+            const core_team_role_name = server_config.core_team_role_name;
             const core_team_role = findRoleByName(message, core_team_role_name);
+
             const general_permissions = [
                 {
                     id: core_team_role.id,

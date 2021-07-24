@@ -1,14 +1,19 @@
 const Discord = require("discord.js");
-const { prefix } = require("../utils/functions");
-const { welcome_channel_name, new_member_default_role_name, test_server_id } = require("../config");
 const colors = require("../utils/colors");
 
 module.exports = {
     name: 'guildMemberAdd',
 
-    /** @param {Discord.GuildMember} member*/
-    async execute(member) {
+    /** 
+     * @param {Discord.GuildMember} member
+     * @param {Discord.Client} client
+     * */
+    async execute(member, client) {
         const guild = member.guild;
+        const server_config = client.configs.get(guild.id);
+        const new_member_default_role_name = server_config.new_member_default_role_name;
+        const welcome_channel_name = server_config.welcome_channel_name;
+
         const channel = guild.channels.cache.find((ch) => ch.name === welcome_channel_name);
         const new_member_role = guild.roles.cache.find(role => role.name === new_member_default_role_name);
 

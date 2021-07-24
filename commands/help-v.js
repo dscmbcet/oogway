@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
-const { prefix } = require("../utils/functions");
 const fs = require("fs");
+const { prefix } = require("../utils/functions");
 const colors = require("../utils/colors");
 
 module.exports = {

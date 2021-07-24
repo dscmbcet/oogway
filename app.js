@@ -8,6 +8,7 @@ client.login(token);
 
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
+client.configs = new Discord.Collection();
 
 const handleFiles = fs.readdirSync('./handlers').filter(file => file.endsWith('.js'));
 for (const file of handleFiles) require(`./handlers/${file}`)(client);

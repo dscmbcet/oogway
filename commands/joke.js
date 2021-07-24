@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
-const { prefix } = require("../utils/functions");
 const fetch = require('node-fetch');
+const { prefix } = require("../utils/functions");
 const API_URL = require("../utils/api_urls");
 const colors = require("../utils/colors");
 
