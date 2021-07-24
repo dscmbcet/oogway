@@ -29,10 +29,11 @@ module.exports = {
 
             /**@type {Discord.CategoryChannel}*/
             const category = findChannelByName(message, CATEGORY_NAME);
-            if (!category) return message.reply(new Discord.MessageEmbed({
-                title: `Check your category name`,
-                color: colors.red,
-            }));
+            if (!category)
+                return message.reply(new Discord.MessageEmbed({
+                    title: `Check your category name`,
+                    color: colors.red,
+                }));
 
             category.children.forEach(async channel => {
                 channel.permissionOverwrites.forEach(async role => {
@@ -51,7 +52,7 @@ module.exports = {
             await category.delete();
 
             embed = new Discord.MessageEmbed({
-                title: `Deleted Category Succesfully`,
+                title: `Deleted ${CATEGORY_NAME} Category Succesfully`,
                 color: colors.red,
             });
 

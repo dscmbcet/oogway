@@ -118,6 +118,7 @@ module.exports = {
 
             embed = new Discord.MessageEmbed({
                 title: "Created Category Succesfully",
+                description: `${CATEGORY_NAME} with ${TEAM_NO} teams}`,
                 color: colors.green,
             });
 
