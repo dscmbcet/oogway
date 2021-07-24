@@ -15,7 +15,7 @@ async function generate() {
     let dataCommands = ['## Commands'];
     for (const command of infoArr) {
         dataCommands.push(`\n#### ${command.name}`);
-        dataCommands.push(`\n- Usage: ${command.usage}`)
+        dataCommands.push(`\n- Usage: ${command.usage.replace('~', '!')}`)
         dataCommands.push(`- Description: ${command.description}`)
     }
 
