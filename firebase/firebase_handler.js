@@ -15,6 +15,7 @@ exports.treatDataArray = [];
 console.log('Initialising firebase');
 
 /**
+ * Reactions added to this function are handled in ../events/messageReactionAdd.js
  * @param {Discord.MessageEmbed} reaction_message
  * @param {{channel: Discord.Channel;role: Discord.Role;emoji: string;count: number;users: any[]}[]} data
  * @param {string} type

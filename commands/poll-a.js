@@ -53,7 +53,7 @@ module.exports = {
                     });
                 }
 
-                addReactionRole(embedMessage, data, REACTION_TYPE.ANNOYMOUS);
+                await addReactionRole(embedMessage, data, REACTION_TYPE.ANNOYMOUS);
             }
         }
     },
