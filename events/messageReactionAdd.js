@@ -71,21 +71,20 @@ module.exports = {
 
             if (found) {
                 msg_embed.setFooter('❌You cannot vote again').setColor(colors.red);
-                user.send(msg_embed);
-                await reaction.message.reactions.resolve(reaction.emoji.name).users.remove(user);
-                return;
+                reaction.message.reactions.resolve(reaction.emoji.name).users.remove(user);
+                return user.send(msg_embed);
             }
 
             reactionRole.data.forEach(async (emojiData, index) => {
                 if (reaction.emoji.name === emojiData.emoji) {
                     reactionRole.data[index].count += 1;
                     reactionRole.data[index].users.push(user_id);
-                    await reaction.message.reactions.resolve(reaction.emoji.name).users.remove(user);
+                    reaction.message.reactions.resolve(reaction.emoji.name).users.remove(user);
                 }
                 msg_embed.addField(emojiData.emoji, reactionRole.data[index].count, true);
             });
 
-            await reaction.message.edit(msg_embed);
+            return reaction.message.edit(msg_embed);
         }
     },
 };
