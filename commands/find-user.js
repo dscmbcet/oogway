@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { prefix } = require('../utils/functions');
+const { prefix } = require('../utils/constants');
 
 module.exports = {
     name: 'find-user',

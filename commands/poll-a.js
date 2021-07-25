@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
-const { prefix, team_emojis, REACTION_TYPE } = require('../utils/functions');
-const colors = require('../utils/colors');
+const { colors, prefix, REACTION_TYPE, team_emojis } = require('../utils/constants');
 const { addReactionRole } = require('../firebase/firebase_handler');
 
 module.exports = {

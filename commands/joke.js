@@ -1,8 +1,6 @@
 const Discord = require('discord.js');
 const fetch = require('node-fetch');
-const { prefix } = require('../utils/functions');
-const API_URL = require('../utils/api_urls');
-const colors = require('../utils/colors');
+const { colors, API_URL, prefix } = require('../utils/constants');
 
 module.exports = {
     name: 'joke',

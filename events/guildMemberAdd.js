@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const colors = require('../utils/colors');
+const { colors } = require('../utils/constants');
 
 module.exports = {
     name: 'guildMemberAdd',

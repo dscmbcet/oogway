@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-const colors = require('../utils/colors');
-const { prefix, findChannelByName, findRoleById } = require('../utils/functions');
+const { colors, prefix } = require('../utils/constants');
+const { findChannelByName, findRoleById } = require('../utils/functions');
 
 module.exports = {
     name: 'team-delete-category',

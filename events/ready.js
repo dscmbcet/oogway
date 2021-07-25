@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const { reactionDataArray, removeReactionRole } = require('../firebase/firebase_handler');
-const { prefix } = require('../utils/functions');
+const { prefix } = require('../utils/constants');
+
 module.exports = {
     name: 'ready',
 

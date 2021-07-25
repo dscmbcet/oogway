@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const { addToTreatList } = require('../firebase/firebase_handler');
-const { prefix } = require('../utils/functions');
+const { prefix } = require('../utils/constants');
 
 module.exports = {
     name: 'treatlist-add',

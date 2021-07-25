@@ -1,7 +1,6 @@
 const fs = require('fs');
 const Discord = require('discord.js');
-const { prefix } = require('../utils/functions');
-const { test_server_id } = require('../config');
+const { prefix, test_server_id } = require('../utils/constants');
 
 /** @param {Discord.Client} client */
 module.exports = client => {
@@ -17,5 +16,6 @@ module.exports = client => {
             }
         });
     }
-    const productionRequests = parameter => (!parameter ? false : !parameter.guild ? false : prefix === '~' && parameter.guild.id !== test_server_id);
+    const productionRequests = parameter =>
+        !parameter ? false : !parameter.guild ? false : prefix === '~' && parameter.guild.id !== test_server_id;
 };

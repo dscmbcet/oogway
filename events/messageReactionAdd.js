@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const { reactionDataArray } = require('../firebase/firebase_handler');
-const { FirebaseReaction } = require('../models/firebase_custom_types');
-const colors = require('../utils/colors');
+const { FirebaseReaction } = require('../utils/models');
+const { colors } = require('../utils/constants');
 const { findRoleById, findChannelById, team_emojis, REACTION_TYPE } = require('../utils/functions');
 
 module.exports = {

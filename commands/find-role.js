@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-const colors = require('../utils/colors');
-const { prefix, findBestMessageSize, findRoleById } = require('../utils/functions');
+const { colors, prefix } = require('../utils/constants');
+const { findBestMessageSize, findRoleById } = require('../utils/functions');
 
 module.exports = {
     name: 'find-role',

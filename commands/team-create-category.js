@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const { addReactionRole } = require('../firebase/firebase_handler');
-const colors = require('../utils/colors');
-const { prefix, team_emojis, findRoleById, REACTION_TYPE } = require('../utils/functions');
+const { colors, prefix, team_emojis, REACTION_TYPE } = require('../utils/constants');
+const { findRoleById } = require('../utils/functions');
 
 module.exports = {
     name: 'team-create-category',
