@@ -63,8 +63,6 @@ module.exports = {
                 .setDescription(msg_embed.description)
                 .setColor(msg_embed.color);
 
-            console.log(JSON.stringify(reactionRole, null, 2));
-
             const found = reactionRole.data.find(emoji => {
                 return emoji.users.find(id => id === user_id);
             });
@@ -75,7 +73,7 @@ module.exports = {
                 return user.send(msg_embed);
             }
 
-            reactionRole.data.forEach(async (emojiData, index) => {
+            reactionRole.data.forEach((emojiData, index) => {
                 if (reaction.emoji.name === emojiData.emoji) {
                     reactionRole.data[index].count += 1;
                     reactionRole.data[index].users.push(user_id);
