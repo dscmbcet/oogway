@@ -15,11 +15,9 @@ module.exports = {
         if (args.length < 2) return message.channel.send(`Check your arguments, ${message.author}!`);
         else {
             let embed = new Discord.MessageEmbed();
-            let team_no = args[1];
+            let team_no = parseInt(argsp1);
             if (isNaN(team_no)) return message.channel.send(`You didn't specify a number, ${message.author}!`);
-
             try {
-                team_no = parseInt(team_no);
                 if (team_no <= 0) return message.channel.send(`Specify a greater number, ${message.author}!`);
                 const { id: roleID, name: roleName } = message.mentions.roles.first();
                 const role = findRoleById(message, roleID);
