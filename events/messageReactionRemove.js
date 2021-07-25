@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const { reactionDataArray } = require('../firebase/firebase_handler');
 const colors = require('../utils/colors');
-const { findRoleById, findChannelById, team_emojis } = require('../utils/functions');
+const { findRoleById, findChannelById, team_emojis, REACTION_TYPE } = require('../utils/functions');
 
 module.exports = {
     name: 'messageReactionRemove',
@@ -18,8 +18,9 @@ module.exports = {
         let embed;
 
         const reactionRole = reactionDataArray.find(e => e.id == reaction.message.id);
+        if (!reactionRole) return;
 
-        if (reactionRole) {
+        if (reactionRole.type == REACTION_TYPE.TEAM) {
             const team_data = reactionRole.team_data.map(e => {
                 if (!e.channel) return { role: findRoleById(reaction.message, e.role) };
                 else

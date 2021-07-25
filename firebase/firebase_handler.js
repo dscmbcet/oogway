@@ -45,8 +45,6 @@ exports.addReactionRole = async (reaction_message, team_data, type) => {
 exports.removeReactionRole = async reaction_message_id => {
     const colRef = db.collection('rection-roles');
     await colRef.doc(reaction_message_id).delete();
-    const deleteIndex = this.reactionDataArray.findIndex(e => e.id === reaction_message_id);
-    if (deleteIndex != -1) this.reactionDataArray.splice(deleteIndex);
 };
 
 /**
@@ -66,16 +64,26 @@ exports.addToTreatList = async (message, user, description) => {
     });
 };
 
+/**
+ * @param {string} message_id
+ */
+exports.removeFromTreatList = async message_id => {
+    const colRef = db.collection('treat-list');
+    await colRef.doc(message_id).delete();
+};
+
 exports.listenForReactionRoles = async () => {
     db.collection('rection-roles').onSnapshot(querySnapshot => {
         querySnapshot.docChanges().forEach(async change => {
             const data = change.doc.data();
             if (change.type === 'added') {
-                console.log(`New reaction role: ${data.id} @Channel ${data.channel_name}`);
+                console.log(`New reaction role:${data.id} @type: ${data.type} @Channel: ${data.channel_name}`);
                 this.reactionDataArray.push(data);
             }
             if (change.type === 'removed') {
-                console.log(`Removed reaction role: ${data.id} @Channel ${data.channel_name}`);
+                console.log(`Removed reaction role:${data.id} @type: ${data.type} @Channel: ${data.channel_name}`);
+                const deleteIndex = this.reactionDataArray.findIndex(e => e.id === data.id);
+                if (deleteIndex != -1) this.reactionDataArray.splice(deleteIndex);
             }
         });
     });
