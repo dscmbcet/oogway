@@ -12,12 +12,13 @@ module.exports = {
      * @param {string[]} args
      */
     async execute(message, args) {
-        if (args.length < 2) return message.channel.send(`Invalid Syntax, ${message.author}!`);
+        if (args.length < 2) return message.channel.send(`Check your arguments, ${message.author}!`);
         else {
             let emojiArr = team_emojis.slice(0, 10),
                 embed;
 
-            const poll_no = args[0];
+            const poll_no = parseInt(args[0]);
+            if (isNaN(poll_no)) return message.channel.send(`You didn't specify a number, ${message.author}!`);
 
             args.splice(0, 1);
             const description = args.join(' ');

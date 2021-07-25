@@ -12,10 +12,10 @@ module.exports = {
      * @param {string[]} args
      */
     async execute(message, args) {
-        if (args.length < 2) return message.channel.send(`Check your arguments, ${message.author}!`);
+        if (args.length != 2) return message.channel.send(`Check your arguments, ${message.author}!`);
         else {
             let embed = new Discord.MessageEmbed();
-            let team_no = parseInt(argsp1);
+            let team_no = parseInt(args[1]);
             if (isNaN(team_no)) return message.channel.send(`You didn't specify a number, ${message.author}!`);
             try {
                 if (team_no <= 0) return message.channel.send(`Specify a greater number, ${message.author}!`);

@@ -18,7 +18,7 @@ module.exports = {
      * @param {Discord.Client} client
      */
     async execute(message, args, client) {
-        if (args.length < 1) return message.channel.send(`You didn't specify any username, ${message.author}!`);
+        if (args.length != 1) return message.channel.send(`You didn't specify any username, ${message.author}!`);
         else {
             let embed = new Discord.MessageEmbed({
                 title: `I am sorry you are not wise enough to invite someone here`,

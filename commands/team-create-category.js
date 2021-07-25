@@ -28,7 +28,9 @@ module.exports = {
                 return message.channel.send(embed);
             }
 
-            const TEAM_NO = args[0];
+            const TEAM_NO = parseInt(args[0]);
+            if (isNaN(TEAM_NO)) return message.channel.send(`You didn't specify a number, ${message.author}!`);
+
             if (TEAM_NO > team_emojis.length) {
                 embed = new Discord.MessageEmbed({
                     title: `Team Number Can't Be Greater Than ${team_emojis.length}`,
