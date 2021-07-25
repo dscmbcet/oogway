@@ -1,7 +1,7 @@
 const admin = require('firebase-admin');
 const Discord = require('discord.js');
 const serviceAccount = require('./firebase-config.json');
-const { REACTION_TYPE } = require('../utils/functions');
+const { REACTION_TYPE } = require('../utils/constants');
 const { FirebaseReaction, FirebaseTreat } = require('../utils/models');
 
 admin.initializeApp({
