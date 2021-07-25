@@ -17,6 +17,16 @@ Discord bot for DSC MBCET Server
 - Usage: `!clear <NUMBER>`
 - Description: Clear upto 100 messages
 
+#### distribute-role-name
+
+- Usage: `!distribute-role-name <@role_name> <TEAM_NO>`
+- Description: Distributes the users (username) belonging to given role into TEAM_NO of teams
+
+#### distribute-role
+
+- Usage: `!distribute-role <@role_name> <TEAM_NO>`
+- Description: Distributes the users belonging to given role into TEAM_NO of teams
+
 #### find-role-name
 
 - Usage: `!find-role-name <@role_name>`

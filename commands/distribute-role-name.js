@@ -3,9 +3,9 @@ const colors = require('../utils/colors');
 const { prefix, findRoleById } = require('../utils/functions');
 
 module.exports = {
-    name: 'distribute-role',
-    usage: `${prefix}distribute-role <@role_name> <TEAM_NO>`,
-    description: 'Distributes the users belonging to given role into TEAM_NO of teams',
+    name: 'distribute-role-name',
+    usage: `${prefix}distribute-role-name <@role_name> <TEAM_NO>`,
+    description: 'Distributes the users (username) belonging to given role into TEAM_NO of teams',
 
     /**
      * @param {Discord.Message} message
@@ -26,7 +26,7 @@ module.exports = {
 
                 embed.setColor(role.hexColor);
 
-                let users = role === undefined ? ['No Role Found'] : role.members.array();
+                let users = role === undefined ? ['No Role Found'] : role.members.map(e => e.displayName);
                 users = users.length == undefined || users.length == 0 ? 'No User Found' : users;
 
                 if (users == 'No User Found') {
