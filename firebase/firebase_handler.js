@@ -9,7 +9,10 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
+/** @type {FirebaseReaction[]} */
 exports.reactionDataArray = [];
+
+/** @type {FirebaseTreat[]} */
 exports.treatDataArray = [];
 
 console.log('Initialising firebase');

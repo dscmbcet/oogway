@@ -25,6 +25,7 @@ module.exports = {
     /**
      * @param {Discord.MessageReaction} reaction
      * @param {Discord.User | Discord.PartialUser} user
+     * @param {FirebaseReaction} reactionRole
      */
     async handleTeamReaction(reaction, user, reactionRole) {
         let embed;

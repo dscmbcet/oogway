@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 const { reactionDataArray } = require('../firebase/firebase_handler');
 const colors = require('../utils/colors');
 const { findRoleById, findChannelById, team_emojis, REACTION_TYPE } = require('../utils/functions');
-
 module.exports = {
     name: 'messageReactionAdd',
 
@@ -26,6 +25,7 @@ module.exports = {
     /**
      * @param {Discord.MessageReaction} reaction
      * @param {Discord.User | Discord.PartialUser} user
+     * @param {FirebaseReaction} reactionRole
      */
     async handleTeamReaction(reaction, user, reactionRole) {
         let embed;
@@ -66,6 +66,7 @@ module.exports = {
     /**
      * @param {Discord.MessageReaction} reaction
      * @param {Discord.User | Discord.PartialUser} user
+     * @param {FirebaseReaction} reactionRole
      */
     async handleAnnonymousReaction(reaction, user, reactionRole) {
         let user_id = user.id;
