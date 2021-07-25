@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { reactionDataArray } = require('../firebase/firebase_handler');
+const { reactionDataArray, addReactionRole, updateReactionRole } = require('../firebase/firebase_handler');
 const colors = require('../utils/colors');
 const { findRoleById, findChannelById, team_emojis, REACTION_TYPE } = require('../utils/functions');
 
@@ -21,7 +21,7 @@ module.exports = {
         if (!reactionRole) return;
 
         if (reactionRole.type == REACTION_TYPE.TEAM) {
-            const team_data = reactionRole.team_data.map(e => {
+            const team_data = reactionRole.data.map(e => {
                 if (!e.channel) return { role: findRoleById(reaction.message, e.role) };
                 else
                     return {
@@ -53,6 +53,39 @@ module.exports = {
                 });
                 await team_data[team_no].channel.send(embed);
             }
+        } else if (reactionRole.type == REACTION_TYPE.ANNOYMOUS) {
+            let user_id = user.id;
+
+            let msg_embed = reaction.message.embeds[0];
+            console.log(msg_embed);
+            msg_embed = new Discord.MessageEmbed()
+                .setTitle(msg_embed.title)
+                .setDescription(msg_embed.description)
+                .setColor(msg_embed.color);
+
+            console.log(JSON.stringify(reactionRole, null, 2));
+
+            const found = reactionRole.data.find(emoji => {
+                return emoji.users.find(id => id === user_id);
+            });
+
+            if (found) {
+                msg_embed.setFooter('❌You cannot vote again').setColor(colors.red);
+                user.send(msg_embed);
+                await reaction.message.reactions.resolve(reaction.emoji.name).users.remove(user);
+                return;
+            }
+
+            reactionRole.data.forEach((emojiData, index) => {
+                if (reaction.emoji.name === emojiData.emoji) {
+                    reactionRole.data[index].count += 1;
+                    reactionRole.data[index].users.push(user_id);
+                    await reaction.message.reactions.resolve(reaction.emoji.name).users.remove(user);
+                }
+                msg_embed.addField(emojiData.emoji, reactionRole.data[index].count, true);
+            });
+
+            await reaction.message.edit(msg_embed);
         }
     },
 };

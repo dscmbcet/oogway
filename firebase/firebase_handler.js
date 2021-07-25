@@ -1,6 +1,7 @@
 const admin = require('firebase-admin');
 const Discord = require('discord.js');
 const serviceAccount = require('./firebase-config.json');
+const { REACTION_TYPE } = require('../utils/functions');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -15,28 +16,28 @@ console.log('Initialising firebase');
 
 /**
  * @param {Discord.Message} reaction_message
- * @param {{channel: Discord.Channel;role: Discord.Role;}[]} team_data
+ * @param {{channel: Discord.Channel;role: Discord.Role;emoji: string;count: number;users: any[]}[]} data
  * @param {string} type
  */
-exports.addReactionRole = async (reaction_message, team_data, type) => {
+exports.addReactionRole = async (reaction_message, data, type) => {
     const colRef = db.collection('rection-roles');
 
-    const new_team_data = team_data.map(e => {
-        if (e.channel) return { role: e.role.id, channel: e.channel.id };
-        else return { role: e.role.id };
+    const new_data = data.map(e => {
+        if (type == REACTION_TYPE.TEAM) {
+            if (e.channel) return { role: e.role.id, channel: e.channel.id };
+            else return { role: e.role.id };
+        } else if (type == REACTION_TYPE.ANNOYMOUS) return e;
     });
 
-    const data = {
+    colRef.doc(reaction_message.id).set({
         id: reaction_message.id,
         type: type,
         guild_id: reaction_message.guild.id,
         channel_name: `${reaction_message.channel.parent.name}:${reaction_message.channel.name}`,
         channel_id: reaction_message.channel.id,
         timestamp: reaction_message.createdAt.toISOString(),
-        team_data: new_team_data,
-    };
-
-    colRef.doc(reaction_message.id).set(data);
+        data: new_data,
+    });
 };
 
 /**
