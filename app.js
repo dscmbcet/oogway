@@ -16,3 +16,15 @@ for (const file of handleFiles) require(`./handlers/${file}`)(client);
 
 firebase.listenForReactionRoles();
 firebase.listenForTreat();
+
+process
+    .on('unhandledRejection', (reason, p) => {
+        console.error(reason, 'Unhandled Rejection at Promise', p);
+    })
+    .on('uncaughtException', err => {
+        console.error(err);
+        //process.exit(1);
+    })
+    .on('SIGINT', (reason, p) => {
+        console.error('Process Exiting');
+    });
