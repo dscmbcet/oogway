@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 const { reactionDataArray } = require('../firebase/firebase_handler');
 const { FirebaseReaction } = require('../utils/models');
-const { colors } = require('../utils/constants');
-const { findRoleById, findChannelById, team_emojis, REACTION_TYPE } = require('../utils/functions');
+const { colors, REACTION_TYPE, team_emojis } = require('../utils/constants');
+const { findRoleById, findChannelById } = require('../utils/functions');
 
 module.exports = {
     name: 'messageReactionAdd',
