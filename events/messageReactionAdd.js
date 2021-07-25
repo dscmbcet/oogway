@@ -57,7 +57,6 @@ module.exports = {
             let user_id = user.id;
 
             let msg_embed = reaction.message.embeds[0];
-            console.log(msg_embed);
             msg_embed = new Discord.MessageEmbed()
                 .setTitle(msg_embed.title)
                 .setDescription(msg_embed.description)
