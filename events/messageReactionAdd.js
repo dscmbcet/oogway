@@ -76,7 +76,7 @@ module.exports = {
                 return;
             }
 
-            reactionRole.data.forEach((emojiData, index) => {
+            reactionRole.data.forEach(async (emojiData, index) => {
                 if (reaction.emoji.name === emojiData.emoji) {
                     reactionRole.data[index].count += 1;
                     reactionRole.data[index].users.push(user_id);
