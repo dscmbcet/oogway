@@ -70,7 +70,9 @@ module.exports = {
             if (found) {
                 msg_embed.setFooter('❌You cannot vote again').setColor(colors.red);
                 reaction.message.reactions.resolve(reaction.emoji.name).users.remove(user);
-                return user.send(msg_embed);
+                return user.send(msg_embed).then(msg => {
+                    msg.delete({ timeout: 30000 });
+                });
             }
 
             let votemsg = [];
