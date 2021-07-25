@@ -56,6 +56,9 @@ module.exports = {
         } else if (reactionRole.type == REACTION_TYPE.ANNOYMOUS) {
             let user_id = user.id;
             let msg_embed = reaction.message.embeds[0];
+            const reacted_emoji = reaction.emoji.name;
+            reaction.message.reactions.resolve(reacted_emoji).users.remove(user);
+
             if (!reactionRole.content) reactionRole.content = msg_embed.description;
 
             msg_embed = new Discord.MessageEmbed()
@@ -69,7 +72,6 @@ module.exports = {
 
             if (found) {
                 msg_embed.setFooter('❌You cannot vote again').setColor(colors.red);
-                reaction.message.reactions.resolve(reaction.emoji.name).users.remove(user);
                 return user.send(msg_embed).then(msg => {
                     msg.delete({ timeout: 30000 });
                 });
@@ -77,10 +79,9 @@ module.exports = {
 
             let votemsg = [];
             reactionRole.data.forEach((emojiData, index) => {
-                if (reaction.emoji.name === emojiData.emoji) {
+                if (reacted_emoji === emojiData.emoji) {
                     reactionRole.data[index].count += 1;
                     reactionRole.data[index].users.push(user_id);
-                    reaction.message.reactions.resolve(reaction.emoji.name).users.remove(user);
                 }
                 votemsg.push(`${emojiData.emoji} - ${reactionRole.data[index].count}`);
             });
