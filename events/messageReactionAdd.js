@@ -55,8 +55,9 @@ module.exports = {
             }
         } else if (reactionRole.type == REACTION_TYPE.ANNOYMOUS) {
             let user_id = user.id;
-
             let msg_embed = reaction.message.embeds[0];
+            if (!reactionRole.content) reactionRole.content = msg_embed.description;
+
             msg_embed = new Discord.MessageEmbed()
                 .setTitle(msg_embed.title)
                 .setDescription(msg_embed.description)
@@ -72,14 +73,16 @@ module.exports = {
                 return user.send(msg_embed);
             }
 
+            let votemsg = [];
             reactionRole.data.forEach((emojiData, index) => {
                 if (reaction.emoji.name === emojiData.emoji) {
                     reactionRole.data[index].count += 1;
                     reactionRole.data[index].users.push(user_id);
                     reaction.message.reactions.resolve(reaction.emoji.name).users.remove(user);
                 }
-                msg_embed.addField(emojiData.emoji, reactionRole.data[index].count, true);
+                votemsg.push(`${emojiData.emoji} - ${reactionRole.data[index].count}`);
             });
+            msg_embed.setDescription(`${reactionRole.content}\n\nVotes\n` + votemsg.join('\n'));
 
             return reaction.message.edit(msg_embed);
         }

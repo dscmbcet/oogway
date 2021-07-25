@@ -15,7 +15,7 @@ exports.treatDataArray = [];
 console.log('Initialising firebase');
 
 /**
- * @param {Discord.Message} reaction_message
+ * @param {Discord.MessageEmbed} reaction_message
  * @param {{channel: Discord.Channel;role: Discord.Role;emoji: string;count: number;users: any[]}[]} data
  * @param {string} type
  */
