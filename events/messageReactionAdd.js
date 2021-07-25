@@ -82,7 +82,7 @@ module.exports = {
                 }
                 votemsg.push(`${emojiData.emoji} - ${reactionRole.data[index].count}`);
             });
-            msg_embed.setDescription(`${reactionRole.content}\n\nVotes\n` + votemsg.join('\n'));
+            msg_embed.setDescription(`${reactionRole.content}\n\nVotes\n\n` + votemsg.join('\n'));
 
             return reaction.message.edit(msg_embed);
         }
