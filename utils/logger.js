@@ -16,8 +16,11 @@ function sendlogs(args, isError) {
     const oogway = require('../configs/ooway-test');
 
     let msg;
-    if (isError) msg = 'ERROR: ' + args.join(' ');
-    else msg = 'LOG: ' + args.join(' ');
+    const INDIA_TZ_OFFSET = 1.98e7;
+    const createdTime = new Date(new Date().valueOf() + INDIA_TZ_OFFSET).toUTCString().replace('GMT', 'IST');
+
+    if (isError) msg = createdTime + '| ERROR: ' + args.join(' ');
+    else msg = createdTime + '| LOG: ' + args.join(' ');
 
     const channel = client.channels.cache.get(oogway.log_channel_id);
     channel.send(msg);
