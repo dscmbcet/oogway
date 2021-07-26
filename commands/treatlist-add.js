@@ -13,9 +13,9 @@ module.exports = {
      */
     async execute(message, args) {
         if (args.length < 2) return message.channel.send(`Check your arguments, ${message.author}!`);
+        else if (!message.mentions.users.first()) return message.channel.send(`You didn't tag a user, ${message.author}!`);
         else {
             const tag_user = message.mentions.users.first();
-            if (!tag_user) return message.channel.send(`You didn't tag a user, ${message.author}!`);
 
             args.splice(0, 1);
             const description = args.join(' ').trim();

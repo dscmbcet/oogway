@@ -21,7 +21,7 @@ module.exports = {
             return message.channel.send({ embed });
         }
 
-        if (!message.mentions.users.size) {
+        if (message.mentions.users.first()) {
             embed = new Discord.MessageEmbed({
                 description: `You need to tag someone! ${member}`,
                 color: member.displayHexColor,

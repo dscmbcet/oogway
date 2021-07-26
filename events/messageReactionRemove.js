@@ -41,7 +41,7 @@ module.exports = {
 
         const team_no = team_emojis.findIndex(e => e === reaction.emoji.name);
         try {
-            const user_roles = await reaction.message.guild.members.cache.get(user.id).roles;
+            const user_roles = reaction.message.guild.members.cache.get(user.id).roles;
             user_roles.remove(team_data[team_no].role.id);
         } catch (e) {
             console.error(`Event: ${this.name}, User:  ${user.username} Error: ${e.name}: ${e.message}`);

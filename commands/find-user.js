@@ -11,7 +11,7 @@ module.exports = {
      * @param {string[]} args
      */
     async execute(message, args) {
-        if (!args.length) return message.channel.send(`You didn't tag a user, ${message.author}!`);
+        if (!message.mentions.users.first()) return message.channel.send(`You didn't tag a user, ${message.author}!`);
         else {
             const tag_user = message.mentions.users.first();
             const member = message.guild.member(tag_user);

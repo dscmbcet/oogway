@@ -14,7 +14,7 @@ module.exports = {
      */
     async execute(message, args, client) {
         if (message.mentions.roles.size === 0)
-            return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
+            return message.channel.send(`You didn't provide any roles, ${message.author}!`);
         else {
             let team_data = message.mentions.roles
                 .array()

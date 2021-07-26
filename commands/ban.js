@@ -19,7 +19,7 @@ module.exports = {
             return message.channel.send(embed);
         }
 
-        if (!message.mentions.users.size) {
+        if (!message.mentions.users.first()) {
             embed.setDescription(`You need to tag someone! ${member}`).setColor(member.displayHexColor);
         } else {
             const tagUser = message.mentions.users.first();
