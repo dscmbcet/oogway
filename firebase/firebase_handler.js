@@ -17,6 +17,7 @@ exports.reactionDataArray = [];
 /** @type {FirebaseTreat[]} */
 exports.treatDataArray = [];
 
+let INIT = 0;
 logger.firebase('Initializing');
 
 /**
@@ -84,7 +85,8 @@ exports.listenForReactionRoles = async () => {
         querySnapshot.docChanges().forEach(async change => {
             const data = change.doc.data();
             if (change.type === 'added') {
-                logger.firebase(`New reaction role:${data.id} @type: ${data.type} @Channel: ${data.channel_name}`);
+                if (checkDate(data.timestamp))
+                    logger.firebase(`New reaction role:${data.id} @type: ${data.type} @Channel: ${data.channel_name}`);
                 this.reactionDataArray.push(data);
             }
             if (change.type === 'removed') {
@@ -101,7 +103,7 @@ exports.listenForTreat = async () => {
         querySnapshot.docChanges().forEach(async change => {
             const data = change.doc.data();
             if (change.type === 'added') {
-                logger.firebase(`New treat: ${data.user_name} , Reason: ${data.description}`);
+                if (checkDate(data.timestamp)) logger.firebase(`New treat: ${data.user_name} , Reason: ${data.description}`);
                 this.treatDataArray.push(data);
             }
             if (change.type === 'removed') {
@@ -110,3 +112,9 @@ exports.listenForTreat = async () => {
         });
     });
 };
+
+function checkDate(timestamp) {
+    let date = new Date();
+    date.setDate(date.getDate() - 1);
+    return new Date(timestamp) > date;
+}
