@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const { colors, prefix } = require('../utils/constants');
+const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'server-info',
@@ -11,8 +12,7 @@ module.exports = {
      * @param {string[]} args
      */
     async execute(message, args) {
-        const { name, memberCount, region, channels, roles, owner, id, members, premiumSubscriptionCount } =
-            message.guild;
+        const { name, memberCount, region, channels, roles, owner, id, members, premiumSubscriptionCount } = message.guild;
         let embed = new Discord.MessageEmbed()
             .setTitle('Server Information')
             .setColor(colors.orange)

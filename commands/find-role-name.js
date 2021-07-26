@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const { prefix } = require('../utils/constants');
 const { findRoleById, findBestMessageSize, sendDissapearingMessage } = require('../utils/functions');
+const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'find-role-name',

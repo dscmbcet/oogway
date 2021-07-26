@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const { colors, prefix } = require('../utils/constants');
 const { sendDissapearingMessage } = require('../utils/functions');
+const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'clear',

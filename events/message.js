@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const { colors, prefix } = require('../utils/constants');
+const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'message',
@@ -14,10 +15,9 @@ module.exports = {
 
         if (message.channel.type === 'dm') {
             embed = new Discord.MessageEmbed({
-                description: [
-                    `I cannot serve you here my friend ${message.author}`,
-                    'Text me within the `GDSC MBCET` server',
-                ].join('\n'),
+                description: [`I cannot serve you here my friend ${message.author}`, 'Text me within the `GDSC MBCET` server'].join(
+                    '\n'
+                ),
                 color: colors.red,
             });
             return message.channel.send(embed);
@@ -43,12 +43,11 @@ module.exports = {
             });
         }
 
-        console.log(`Recieved command from:${message.author.username} , command: ${message.content} `);
+        logger.log(`Recieved command from:${message.author.username} , command: ${message.content} `);
         try {
             await commandFileData.execute(message, args, client);
         } catch (e) {
-            console.log(e);
-            console.error(`Command: ${command} Error: ${e.name}: ${e.message}`);
+            logger.error(`Command: ${command} Error: ${e}`);
             embed = new Discord.MessageEmbed({
                 title: 'Error Occured',
                 description: 'I am not feeling too well my friend',

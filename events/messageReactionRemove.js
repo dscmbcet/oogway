@@ -3,6 +3,7 @@ const { reactionDataArray } = require('../firebase/firebase_handler');
 const { FirebaseReaction } = require('../utils/models');
 const { colors, team_emojis, REACTION_TYPE } = require('../utils/constants');
 const { findRoleById, findChannelById, sendDissapearingMessage } = require('../utils/functions');
+const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'messageReactionRemove',
@@ -44,7 +45,7 @@ module.exports = {
             const user_roles = reaction.message.guild.members.cache.get(user.id).roles;
             user_roles.remove(team_data[team_no].role.id);
         } catch (e) {
-            console.error(`Event: ${this.name}, User:  ${user.username} Error: ${e.name}: ${e.message}`);
+            logger.error(`Event: ${this.name}, User:  ${user.username} Error: ${e.name}: ${e.message}`);
             return sendDissapearingMessage(
                 reaction.message,
                 `Some error occured removing your ${team_data[team_no].role} role my friend ${user}`

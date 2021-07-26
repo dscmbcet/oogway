@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const { colors, prefix } = require('../utils/constants');
+const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'help-v',

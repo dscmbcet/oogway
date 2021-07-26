@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const { colors, prefix, REACTION_TYPE, team_emojis } = require('../utils/constants');
 const { addReactionRole } = require('../firebase/firebase_handler');
 const { sendDissapearingMessage } = require('../utils/functions');
+const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'poll-a',

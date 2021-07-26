@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { logger } = require('./utils/logger');
 const Discord = require('discord.js');
 const fs = require('fs');
 const firebase = require('./firebase/firebase_handler');
@@ -19,12 +20,12 @@ firebase.listenForTreat();
 
 process
     .on('unhandledRejection', (reason, p) => {
-        console.error(reason, 'Unhandled Rejection at Promise', p);
+        logger.error(reason, 'Unhandled Rejection at Promise', p);
     })
     .on('uncaughtException', err => {
-        console.error(err);
+        logger.error(err);
         //process.exit(1);
     })
     .on('SIGINT', (reason, p) => {
-        console.error('Process Exiting');
+        logger.error('Process Exiting');
     });

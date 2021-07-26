@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const fetch = require('node-fetch');
 const { API_URL, prefix } = require('../utils/constants');
+const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'master',

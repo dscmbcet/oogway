@@ -1,7 +1,13 @@
-class FirebaseReactionDataArray {
-    name = '';
+class PollData {
+    role = '';
+}
+
+class TeamData {
     role = '';
     channel = '';
+}
+
+class AnnoymousData {
     emoji = '';
     count = '';
     users = [''];
@@ -9,12 +15,14 @@ class FirebaseReactionDataArray {
 
 class FirebaseReaction {
     id = '';
+    /**  @default ['TEAM'|'ANNOYMOUS'] ReactionType */
     type = '';
     guild_id = '';
     channel_name = '';
     channel_id = '';
     timestamp = '';
-    data = [new FirebaseReactionDataArray()];
+    /** @type {PollData | AnnoymousData | TeamData} */
+    data;
 }
 
 class FirebaseTreat {

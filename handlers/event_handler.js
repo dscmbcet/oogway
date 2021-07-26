@@ -1,6 +1,7 @@
 const fs = require('fs');
 const Discord = require('discord.js');
 const { prefix, test_server_id } = require('../utils/constants');
+const { logger } = require('../utils/logger');
 
 /** @param {Discord.Client} client */
 module.exports = client => {
@@ -12,7 +13,7 @@ module.exports = client => {
             try {
                 await event.execute(...args, client);
             } catch (e) {
-                console.error(`Event ${event.name} Error: ${e.name}: ${e.message}`);
+                logger.error(`Event ${event.name} Error: ${e.name}: ${e.message}`);
             }
         });
     }

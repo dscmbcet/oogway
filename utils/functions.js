@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { logger } = require('../utils/logger');
 const { colors } = require('./constants');
 
 module.exports = {
@@ -68,7 +69,7 @@ module.exports = {
         try {
             await msg.delete({ timeout: timeout ? timeout : 30000 });
         } catch (e) {
-            console.error('Tried deleting a message that has already been deleted');
+            logger.error('Tried deleting a message that has already been deleted');
         }
     },
 };

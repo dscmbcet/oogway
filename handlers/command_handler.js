@@ -1,5 +1,6 @@
 const fs = require('fs');
 const Discord = require('discord.js');
+const { logger } = require('../utils/logger');
 
 /** @param {Discord.Client} client */
 module.exports = client => {

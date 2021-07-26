@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const { colors } = require('../utils/constants');
+const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'guildMemberAdd',
@@ -17,11 +18,11 @@ module.exports = {
         try {
             await member.roles.add(new_member_role.id);
         } catch (e) {
-            console.log(e);
-            console.error(`Event: ${this.name} Error: ${e.name}: ${e.message}`);
+            logger.log(e);
+            logger.error(`Event: ${this.name} Error: ${e.name}: ${e.message}`);
         }
 
-        console.log(`${guild.name}:A new member just arrived: ${member.user.tag}`);
+        logger.log(`${guild.name}:A new member just arrived: ${member.user.tag}`);
 
         if (!channel) return;
         let embed = new Discord.MessageEmbed({

@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 const serviceAccount = require('./firebase-config.json');
 const { REACTION_TYPE } = require('../utils/constants');
 const { FirebaseReaction, FirebaseTreat } = require('../utils/models');
+const { logger } = require('../utils/logger');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -16,7 +17,7 @@ exports.reactionDataArray = [];
 /** @type {FirebaseTreat[]} */
 exports.treatDataArray = [];
 
-console.log('Initialising firebase');
+logger.info('Initialising firebase');
 
 /**
  * Reactions added to this function are handled in ../events/messageReactionAdd.js
@@ -83,11 +84,11 @@ exports.listenForReactionRoles = async () => {
         querySnapshot.docChanges().forEach(async change => {
             const data = change.doc.data();
             if (change.type === 'added') {
-                console.log(`New reaction role:${data.id} @type: ${data.type} @Channel: ${data.channel_name}`);
+                logger.firebase(`New reaction role:${data.id} @type: ${data.type} @Channel: ${data.channel_name}`);
                 this.reactionDataArray.push(data);
             }
             if (change.type === 'removed') {
-                console.log(`Removed reaction role:${data.id} @type: ${data.type} @Channel: ${data.channel_name}`);
+                logger.firebase(`Removed reaction role:${data.id} @type: ${data.type} @Channel: ${data.channel_name}`);
                 const deleteIndex = this.reactionDataArray.findIndex(e => e.id === data.id);
                 if (deleteIndex != -1) this.reactionDataArray.splice(deleteIndex);
             }
@@ -100,11 +101,11 @@ exports.listenForTreat = async () => {
         querySnapshot.docChanges().forEach(async change => {
             const data = change.doc.data();
             if (change.type === 'added') {
-                console.log(`New treat: ${data.user_name} , Reason: ${data.description}`);
+                logger.firebase(`New treat: ${data.user_name} , Reason: ${data.description}`);
                 this.treatDataArray.push(data);
             }
             if (change.type === 'removed') {
-                console.log(`Removed treat: ${data.user_name} , Reason: ${data.description}`);
+                logger.firebase(`Removed treat: ${data.user_name} , Reason: ${data.description}`);
             }
         });
     });

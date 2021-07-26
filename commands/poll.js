@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const { colors, prefix, team_emojis } = require('../utils/constants');
+const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'poll',

@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const fetch = require('node-fetch');
 const { colors, API_URL, prefix } = require('../utils/constants');
 const { sendDissapearingMessage } = require('../utils/functions');
+const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'joke',

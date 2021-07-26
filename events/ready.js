@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const { reactionDataArray, removeReactionRole } = require('../firebase/firebase_handler');
 const { prefix } = require('../utils/constants');
+const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'ready',
@@ -8,11 +9,11 @@ module.exports = {
     /** @param {Discord.Client} client */
     execute(client) {
         const guilds = client.guilds.cache.map(guild => guild.name);
-        if (prefix === '!') console.warn('\x1b[31m\x1b[1m%s\x1b[0m', 'PRODUCTION_MODE');
-        else console.warn('\x1b[33m\x1b[1m%s\x1b[0m', 'DEVELOPMENT_MODE');
-        console.log('Master Oogway Is Ready!');
-        console.log(`Prefix: ${prefix}`);
-        console.log(`Handling Guilds:`, guilds.join(', '));
+        if (prefix === '!') logger.debug('PRODUCTION_MODE');
+        else logger.debug('DEVELOPMENT_MODE');
+        logger.info('Master Oogway Is Ready!');
+        logger.info(`Prefix: ${prefix}`);
+        logger.info(`Handling Guilds:`, guilds.join(', '));
 
         reactionDataArray.forEach(async reaction => {
             const guild = client.guilds.cache.find(guild => guild.id == reaction.guild_id);

@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const { addReactionRole } = require('../firebase/firebase_handler');
 const { colors, prefix, team_emojis, REACTION_TYPE } = require('../utils/constants');
 const { findRoleById, sendDissapearingMessage } = require('../utils/functions');
+const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'team-create-category',
