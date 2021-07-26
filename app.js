@@ -24,8 +24,10 @@ process
     })
     .on('uncaughtException', err => {
         logger.error(err);
-        //process.exit(1);
+        process.exit(1);
     })
     .on('SIGINT', (reason, p) => {
         logger.error('Process Exiting');
     });
+
+module.exports = { client };

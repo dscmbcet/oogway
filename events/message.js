@@ -43,7 +43,7 @@ module.exports = {
             });
         }
 
-        logger.log(`Recieved command from:${message.author.username} , command: ${message.content} `);
+        logger.log(`Recieved command from: ${message.author.tag} , command: ${message.content} `);
         try {
             await commandFileData.execute(message, args, client);
         } catch (e) {

@@ -10,6 +10,19 @@ const colors = {
     PURPLE: '\x1b[35m\x1b[1m',
 };
 
+function sendlogs(args, isError) {
+    if (prefix !== '!') return;
+    const { client } = require('../app');
+    const oogway = require('../configs/ooway-test');
+
+    let msg;
+    if (isError) msg = 'ERROR: ' + args.join(' ');
+    else msg = 'LOG: ' + args.join(' ');
+
+    const channel = client.channels.cache.get(oogway.log_channel_id);
+    channel.send(msg);
+}
+
 const logger = {
     log: function (...args) {
         console.log(`${colors.WHITE}LOG:${colors.DEFAULT}`, ...args);
@@ -19,16 +32,17 @@ const logger = {
     },
     error: function (...args) {
         console.error(`${colors.RED}ERROR:${colors.DEFAULT}`, ...args);
+        sendlogs(args, true);
     },
     warn: function (...args) {
         console.warn(`${colors.YELLOW}WARN:${colors.DEFAULT}`, ...args);
     },
     info: function (...args) {
         console.info(`${colors.BLUE}INFO:${colors.DEFAULT}`, ...args);
+        sendlogs(args, false);
     },
     firebase: function (...args) {
         console.info(`${colors.PURPLE}FIREBASE:${colors.DEFAULT}`, ...args);
     },
 };
-
 module.exports = { logger };
