@@ -12,7 +12,7 @@ const colors = {
 
 const logger = {
     log: function (...args) {
-        console.log(...args);
+        console.log(`LOG:`, ...args);
     },
     debug: function (...args) {
         if (prefix !== '!') console.debug(`${colors.YELLOW_RED} DEBUG ${colors.DEFAULT}`, ...args);

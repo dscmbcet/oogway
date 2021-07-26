@@ -46,7 +46,7 @@ module.exports = {
             const user_roles = await reaction.message.guild.members.cache.get(user.id).roles;
             user_roles.add(team_data[team_no].role.id);
         } catch (e) {
-            logger.error(`Event: ${this.name}, User:  ${user.username} Error: ${e.name}: ${e.message}`);
+            logger.error(`Event: ${this.name}, User:  ${user.username} Error: ${e}`);
             return sendDissapearingMessage(
                 reaction.message,
                 `Some error occured assigning your ${team_data[team_no].role} role my friend ${user}`
