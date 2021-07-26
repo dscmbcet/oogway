@@ -65,6 +65,10 @@ module.exports = {
             color: color ? color : colors.red,
         });
         const msg = await message.channel.send(embed);
-        msg.delete({ timeout: timeout ? timeout : 30000 });
+        try {
+            await msg.delete({ timeout: timeout ? timeout : 30000 });
+        } catch (e) {
+            console.error('Tried deleting a message that has already been deleted');
+        }
     },
 };
