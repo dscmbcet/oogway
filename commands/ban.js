@@ -17,9 +17,7 @@ module.exports = {
         if (!message.member.hasPermission('BAN_MEMBERS')) {
             embed.setDescription(`You are not wise enough to make that call my friend ${member}`).setColor(colors.red);
             return message.channel.send(embed);
-        }
-
-        if (!message.mentions.users.first()) {
+        } else if (!message.mentions.users.first()) {
             embed.setDescription(`You need to tag someone! ${member}`).setColor(member.displayHexColor);
         } else {
             const tagUser = message.mentions.users.first();

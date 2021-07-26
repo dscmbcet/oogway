@@ -12,7 +12,8 @@ module.exports = {
      * @param {string[]} args
      */
     async execute(message, args) {
-        if (!args.length) return message.channel.send(`You didn't specify any role, ${message.author}!`);
+        if (!message.mentions.roles.first())
+            return message.channel.send(`You didn't specify any role, ${message.author}!`);
         else {
             let embed = new Discord.MessageEmbed();
             try {
