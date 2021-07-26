@@ -21,6 +21,7 @@ function sendlogs(args, isError) {
 
     if (isError) msg = createdTime + '| ERROR: ' + args.join(' ');
     else msg = createdTime + '| LOG: ' + args.join(' ');
+    msg = `\`\`\`${msg}\`\`\``;
 
     const channel = client.channels.cache.get(oogway.log_channel_id);
     channel.send(msg);
