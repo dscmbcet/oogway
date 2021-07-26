@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const fetch = require('node-fetch');
 const { colors, API_URL, prefix } = require('../utils/constants');
+const { sendDissapearingMessage } = require('../utils/functions');
 
 module.exports = {
     name: 'joke',
@@ -19,8 +20,7 @@ module.exports = {
             embed.setTitle(`Here is your joke for the day`).setDescription(data.joke).setColor(colors.cyan);
             return message.channel.send(embed);
         } catch (e) {
-            embed.setTitle(`No Jokes For Now`).setColor(colors.red);
-            return message.channel.send({ embed });
+            return sendDissapearingMessage(message, `Sorry No Jokes For Now`);
         }
     },
 };

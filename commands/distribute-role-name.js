@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-const { colors, prefix } = require('../utils/constants');
-const { findRoleById } = require('../utils/functions');
+const { prefix } = require('../utils/constants');
+const { findRoleById, sendDissapearingMessage } = require('../utils/functions');
 
 module.exports = {
     name: 'distribute-role-name',
@@ -12,16 +12,15 @@ module.exports = {
      * @param {string[]} args
      */
     async execute(message, args) {
-        if (args.length != 2) return message.channel.send(`Check your arguments, ${message.author}!`);
-        else if (!message.mentions.roles.first())
-            return message.channel.send(`You didn't tag a role, ${message.author}!`);
+        if (args.length != 2) return sendDissapearingMessage(message, `Check your arguments, ${message.author}!`);
+        else if (!message.mentions.roles.first()) return sendDissapearingMessage(message, `You didn't tag a role, ${message.author}!`);
         else {
-            let embed = new Discord.MessageEmbed();
             let team_no = parseInt(args[1]);
-            if (isNaN(team_no)) return message.channel.send(`You didn't specify a number, ${message.author}!`);
+            if (isNaN(team_no)) return sendDissapearingMessage(message, `You didn't specify a number, ${message.author}!`);
+            if (team_no <= 0) return sendDissapearingMessage(message, `Specify a greater number, ${message.author}!`);
 
             try {
-                if (team_no <= 0) return message.channel.send(`Specify a greater number, ${message.author}!`);
+                let embed = new Discord.MessageEmbed();
                 const { id: roleID, name: roleName } = message.mentions.roles.first();
                 const role = findRoleById(message, roleID);
 
@@ -42,9 +41,7 @@ module.exports = {
                 let teams = [];
 
                 if (distribute_no <= 0)
-                    return message.channel.send(
-                        `Specify a lesser number, ${message.author}!\nMembers Size : ${users.length}`
-                    );
+                    return message.channel.send(`Specify a lesser number, ${message.author}!\nMembers Size : ${users.length}`);
 
                 for (let i = 0, j = 1; i < users.length - remaining; i += distribute_no, j++) {
                     const team_members = users.slice(i, Math.min(users.length, i + distribute_no));
@@ -60,9 +57,7 @@ module.exports = {
                 }
 
                 let messageSend = [
-                    `**Distributed Teams For Role ${message.mentions.roles.first()}**\n**Members Size: ${
-                        users.length
-                    }**`,
+                    `**Distributed Teams For Role ${message.mentions.roles.first()}**\n**Members Size: ${users.length}**`,
                 ];
                 teams.forEach(team => {
                     messageSend.push(`\n\`${team.team_name} : ${team.members.length}\`\n\n${team.members.join('\n')}`);
@@ -70,8 +65,7 @@ module.exports = {
 
                 return await message.channel.send(messageSend.join('\n'), { split: true });
             } catch {
-                embed.setTitle(`Invalid Role`).setColor(colors.red);
-                return message.channel.send(embed);
+                return sendDissapearingMessage(message, `You mentioned a invalid role, ${message.author}`);
             }
         }
     },

@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const { addToTreatList } = require('../firebase/firebase_handler');
 const { prefix } = require('../utils/constants');
+const { sendDissapearingMessage } = require('../utils/functions');
 
 module.exports = {
     name: 'treatlist-add',
@@ -12,9 +13,8 @@ module.exports = {
      * @param {string[]} args
      */
     async execute(message, args) {
-        if (args.length < 2) return message.channel.send(`Check your arguments, ${message.author}!`);
-        else if (!message.mentions.users.first())
-            return message.channel.send(`You didn't tag a user, ${message.author}!`);
+        if (args.length < 2) return sendDissapearingMessage(message, `Check your arguments, ${message.author}!`);
+        else if (!message.mentions.users.first()) return sendDissapearingMessage(message, `You need to tag someone! ${member}`);
         else {
             const tag_user = message.mentions.users.first();
 

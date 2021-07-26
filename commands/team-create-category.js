@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const { addReactionRole } = require('../firebase/firebase_handler');
 const { colors, prefix, team_emojis, REACTION_TYPE } = require('../utils/constants');
-const { findRoleById } = require('../utils/functions');
+const { findRoleById, sendDissapearingMessage } = require('../utils/functions');
 
 module.exports = {
     name: 'team-create-category',
@@ -15,29 +15,17 @@ module.exports = {
      * @param {Discord.Client} client
      */
     async execute(message, args, client) {
-        if (args.length < 2) return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
+        const TEAM_NO = parseInt(args[0]);
+        if (!message.member.hasPermission('ADMINISTRATOR'))
+            return sendDissapearingMessage(message, `You are not wise enough to make those channels my friend ${member}`);
+        else if (args.length < 2) return sendDissapearingMessage(message, `Check your arguments, ${message.author}!`);
+        else if (isNan(TEAM_NO)) return sendDissapearingMessage(message, `You didn't specify a number, ${message.author}!`);
+        else if (TEAM_NO > team_emojis.length)
+            return sendDissapearingMessage(message, `Team Number Can't Be Greater Than ${team_emojis.length}, ${message.author}!`);
         else {
             let team_data = [],
                 embed;
 
-            if (!message.member.hasPermission('ADMINISTRATOR')) {
-                embed = new Discord.MessageEmbed({
-                    description: `You are not wise enough to make those channels my friend** ${message.member}**`,
-                    color: colors.red,
-                });
-                return message.channel.send(embed);
-            }
-
-            const TEAM_NO = parseInt(args[0]);
-            if (isNaN(TEAM_NO)) return message.channel.send(`You didn't specify a number, ${message.author}!`);
-
-            if (TEAM_NO > team_emojis.length) {
-                embed = new Discord.MessageEmbed({
-                    title: `Team Number Can't Be Greater Than ${team_emojis.length}`,
-                    color: colors.red,
-                });
-                return message.channel.send(embed);
-            }
             args.splice(0, 1);
             const CATEGORY_NAME = args.join(' ').trim().toLocaleUpperCase();
 

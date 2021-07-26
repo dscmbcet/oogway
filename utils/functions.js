@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { colors } = require('./constants');
 
 module.exports = {
     /**
@@ -50,5 +51,20 @@ module.exports = {
             BEST_LENGTH += 1;
         }
         return BEST_LENGTH;
+    },
+
+    /**
+     * @param {Discord.Message} message
+     * @param {string} content
+     * @param {string} [color] default = colors.red
+     * @param {Number} [timeout] default = 30000
+     */
+    async sendDissapearingMessage(message, content, color, timeout) {
+        let embed = new Discord.MessageEmbed({
+            description: content,
+            color: color ? color : colors.red,
+        });
+        const msg = await message.channel.send(embed);
+        msg.delete({ timeout: timeout ? timeout : 30000 });
     },
 };

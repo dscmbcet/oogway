@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const { colors, prefix } = require('../utils/constants');
+const { sendDissapearingMessage } = require('../utils/functions');
 
 module.exports = {
     name: 'kick',
@@ -11,54 +12,32 @@ module.exports = {
      */
     async execute(message) {
         const member = message.guild.member(message.author.id);
-        let embed;
 
-        if (!message.member.hasPermission('KICK_MEMBERS')) {
-            embed = new Discord.MessageEmbed({
-                description: `You are not wise enough to make that call my friend** ${member}**`,
-                color: colors.red,
-            });
-            return message.channel.send({ embed });
-        }
-
-        if (message.mentions.users.first()) {
-            embed = new Discord.MessageEmbed({
-                description: `You need to tag someone! ${member}`,
-                color: member.displayHexColor,
-            });
-        } else {
+        if (!message.member.hasPermission('KICK_MEMBERS'))
+            return sendDissapearingMessage(message, `You are not wise enough to make that call my friend ${member}`);
+        else if (!message.mentions.users.first()) return sendDissapearingMessage(message, `You need to tag someone! ${member}`);
+        else {
             const tagUser = message.mentions.users.first();
             const taggedUser = message.guild.member(tagUser);
 
-            if (member == taggedUser) {
-                embed = new Discord.MessageEmbed({
-                    description: `Why do you want to kick yourself my friend ${member}`,
-                    color: colors.red,
-                });
-            } else if (taggedUser.user.bot) {
-                embed = new Discord.MessageEmbed({
-                    description: `If you kick me who will guide you my friend ${member}`,
-                    color: colors.red,
-                });
-            } else {
+            if (member == taggedUser) return sendDissapearingMessage(message, `Why do you want to kick yourself my friend ${member}`);
+            else if (taggedUser.user.bot)
+                return sendDissapearingMessage(message, `If you kick me who will guide you my friend ${member}`);
+            else {
                 try {
                     await taggedUser.kick();
-                    embed = new Discord.MessageEmbed({
+                    let embed = new Discord.MessageEmbed({
                         footer: {
                             text: `${tagUser.tag} has been kicked`,
                             icon_url: taggedUser.user.displayAvatarURL(),
                         },
                         color: colors.cyan,
                     });
-                } catch (e) {
-                    embed = new Discord.MessageEmbed({
-                        description: `I am sorry but that person is wiser than you my friend ${member}`,
-                        color: colors.red,
-                    });
+                    return message.channel.send(embed);
+                } catch {
+                    return sendDissapearingMessage(message, `I am sorry but that person is wiser than you my friend ${member}`);
                 }
             }
         }
-
-        return message.channel.send(embed);
     },
 };

@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const { reactionDataArray } = require('../firebase/firebase_handler');
 const { FirebaseReaction } = require('../utils/models');
 const { colors, team_emojis, REACTION_TYPE } = require('../utils/constants');
-const { findRoleById, findChannelById } = require('../utils/functions');
+const { findRoleById, findChannelById, sendDissapearingMessage } = require('../utils/functions');
 
 module.exports = {
     name: 'messageReactionRemove',
@@ -45,11 +45,10 @@ module.exports = {
             user_roles.remove(team_data[team_no].role.id);
         } catch (e) {
             console.error(`Event: ${this.name}, User:  ${user.username} Error: ${e.name}: ${e.message}`);
-            embed = new Discord.MessageEmbed({
-                description: `Some error occured removing your ${team_data[team_no].role} role my friend** ${user}**`,
-                color: colors.red,
-            });
-            return reaction.message.channel.send(embed);
+            return sendDissapearingMessage(
+                reaction.message,
+                `Some error occured removing your ${team_data[team_no].role} role my friend ${user}`
+            );
         }
 
         if (team_data[team_no].channel) {

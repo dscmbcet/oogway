@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const { colors, prefix, team_emojis, REACTION_TYPE } = require('../utils/constants');
 const { addReactionRole } = require('../firebase/firebase_handler');
+const { sendDissapearingMessage } = require('../utils/functions');
 
 module.exports = {
     name: 'reaction-roles',
@@ -13,8 +14,10 @@ module.exports = {
      * @param {Discord.Client} client
      */
     async execute(message, args, client) {
-        if (message.mentions.roles.size === 0)
-            return message.channel.send(`You didn't provide any roles, ${message.author}!`);
+        if (!message.member.hasPermission('BAN_MEMBERS'))
+            return sendDissapearingMessage(message, `You are not wise enough to give roles to others ${message.member}`);
+        else if (message.mentions.roles.size === 0)
+            return sendDissapearingMessage(message, `You didn't tag a role, ${message.author}!`);
         else {
             let team_data = message.mentions.roles
                 .array()
@@ -23,22 +26,12 @@ module.exports = {
                     return { role: e };
                 });
 
-            if (!message.member.hasPermission('ADMINISTRATOR')) {
-                embed = new Discord.MessageEmbed({
-                    description: `You are not wise enough to give roles to others** ${message.member}**`,
-                    color: colors.red,
-                });
-                return message.channel.send(embed);
-            }
-
             const TEAM_NO = message.mentions.roles.size;
-            if (TEAM_NO > team_emojis.length) {
-                embed = new Discord.MessageEmbed({
-                    title: `Roles Can't Be Greater Than ${team_emojis.length}`,
-                    color: colors.red,
-                });
-                return message.channel.send(embed);
-            }
+            if (TEAM_NO > team_emojis.length)
+                return sendDissapearingMessage(
+                    message,
+                    `Roles number can't be greater than ${team_emojis.length}, ${message.author}!`
+                );
 
             let desc = [];
             for (let i = 0; i < TEAM_NO; i++) desc.push(`${team_data[i].role} :  ${team_emojis[i]}\n`);

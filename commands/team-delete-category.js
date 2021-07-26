@@ -12,18 +12,11 @@ module.exports = {
      * @param {string[]} args
      */
     async execute(message, args) {
-        if (!args.length) return message.channel.send(`You didn't provide any arguments, ${message.author}!`);
+        if (!message.member.hasPermission('ADMINISTRATOR'))
+            return sendDissapearingMessage(message, `You are not wise enough to make those channels my friend ${member}`);
+        else if (!args.length) return sendDissapearingMessage(message, `Check your arguments, ${message.author}!`);
         else {
             let embed;
-
-            if (!message.member.hasPermission('ADMINISTRATOR')) {
-                embed = new Discord.MessageEmbed({
-                    description: `You are not wise enough to delete those channels my friend** ${message.member}**`,
-                    color: colors.red,
-                });
-                return message.channel.send({ embed });
-            }
-
             const CATEGORY_NAME = args.join(' ').trim().toLocaleUpperCase();
 
             /**@type {Discord.CategoryChannel}*/

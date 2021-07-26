@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-const { colors, prefix } = require('../utils/constants');
-const { findRoleById, findBestMessageSize } = require('../utils/functions');
+const { prefix } = require('../utils/constants');
+const { findRoleById, findBestMessageSize, sendDissapearingMessage } = require('../utils/functions');
 
 module.exports = {
     name: 'find-role-name',
@@ -12,8 +12,7 @@ module.exports = {
      * @param {string[]} args
      */
     async execute(message, args) {
-        if (!message.mentions.roles.first())
-            return message.channel.send(`You didn't specify any role, ${message.author}!`);
+        if (!message.mentions.roles.first()) return sendDissapearingMessage(message, `You didn't tag a role, ${message.author}!`);
         else {
             let embed = new Discord.MessageEmbed();
             try {
@@ -39,8 +38,7 @@ module.exports = {
 
                 return;
             } catch {
-                embed.setTitle(`Invalid Role`).setColor(colors.red);
-                return message.channel.send(embed);
+                return sendDissapearingMessage(message, `You mentioned a invalid role, ${message.author}`);
             }
         }
     },
