@@ -47,7 +47,7 @@ module.exports = {
         try {
             await commandFileData.execute(message, args, client);
         } catch (e) {
-            logger.error(`Command: ${command} Error: ${e}`);
+            logger.error(`Command: ${command} Error:`, e);
             embed = new Discord.MessageEmbed({
                 title: 'Error Occured',
                 description: 'I am not feeling too well my friend',

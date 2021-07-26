@@ -30,23 +30,27 @@ module.exports = {
 
             const username = args[0];
             const email = args[1];
-            const welcome_channel_name = client.configs.get(message.guild.id).welcome_channel_name;
-            const channel = message.guild.channels.cache.find(ch => ch.name === welcome_channel_name);
-            const invtite = await channel.createInvite({
-                maxUses: 1,
-                unique: true,
-                reason: `For username:${username}`,
-            });
+            const welcome_channel_id = client.configs.get(message.guild.id).welcome_channel_id;
+            const channel = message.guild.channels.cache.get(welcome_channel_id);
+            try {
+                const invtite = await channel.createInvite({
+                    maxUses: 1,
+                    unique: true,
+                    reason: `For username:${username}`,
+                });
 
-            embed = new Discord.MessageEmbed()
-                .setTitle(`Invite Created`)
-                .addField('Link', invtite.url)
-                .addField('Expires', invtite.expiresAt.toDateString(), true)
-                .addField('Person', `\`${username}\`\n${!email ? '' : email}`, true)
-                .setColor(colors.cyan);
+                embed = new Discord.MessageEmbed()
+                    .setTitle(`Invite Created`)
+                    .addField('Link', invtite.url)
+                    .addField('Expires', invtite.expiresAt.toDateString(), true)
+                    .addField('Person', `\`${username}\`\n${!email ? '' : email}`, true)
+                    .setColor(colors.cyan);
 
-            logger.info(`Invite Created For ${username}`);
-            return message.channel.send(embed);
+                logger.info(`Invite Created For ${username}`);
+                return message.channel.send(embed);
+            } catch (error) {
+                logger.debug(error);
+            }
         }
     },
 };

@@ -18,7 +18,7 @@ module.exports = {
         try {
             await member.roles.add(new_member_role.id);
         } catch (e) {
-            logger.error(`Event: ${this.name} Error: ${e}`);
+            logger.error(`Event: ${this.name} Error: `, e);
         }
 
         logger.info(`${guild.name}:A new member just arrived: ${member.user.tag}`);

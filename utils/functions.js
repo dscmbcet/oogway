@@ -69,7 +69,7 @@ module.exports = {
         try {
             await msg.delete({ timeout: timeout ? timeout : 30000 });
         } catch (e) {
-            logger.error('Tried deleting a message that has already been deleted');
+            logger.warn('Tried deleting a message that has already been deleted');
         }
     },
 };
