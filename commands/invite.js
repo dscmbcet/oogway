@@ -45,6 +45,7 @@ module.exports = {
                 .addField('Person', `\`${username}\`\n${!email ? '' : email}`, true)
                 .setColor(colors.cyan);
 
+            logger.info(`Invite Created For ${username}`);
             return message.channel.send(embed);
         }
     },

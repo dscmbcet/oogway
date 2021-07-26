@@ -43,6 +43,8 @@ module.exports = {
                 color: colors.orange,
             });
 
+            logger.info(`Reaction roles created by ${message.author.tag}`);
+
             let reaction_msg = await message.channel.send(reaction_embed);
             for (let i = 0; i < TEAM_NO; i++) await reaction_msg.react(team_emojis[i]);
 

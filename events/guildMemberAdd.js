@@ -21,7 +21,7 @@ module.exports = {
             logger.error(`Event: ${this.name} Error: ${e}`);
         }
 
-        logger.log(`${guild.name}:A new member just arrived: ${member.user.tag}`);
+        logger.info(`${guild.name}:A new member just arrived: ${member.user.tag}`);
 
         if (!channel) return;
         let embed = new Discord.MessageEmbed({

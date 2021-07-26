@@ -29,6 +29,7 @@ module.exports = {
                 try {
                     await taggedUser.ban();
                     embed.setFooter(`${tagUser.tag} has been banned`, taggedUser.user.displayAvatarURL()).setColor(colors.cyan);
+                    logger.info(`${tagUser.tag} has been banned`);
                 } catch {
                     embed.setFooter(`I am sorry but that person is wiser than you my friend ${member}`).setColor(colors.red);
                 }

@@ -34,6 +34,7 @@ module.exports = {
                         },
                         color: colors.cyan,
                     });
+                    logger.info(`${tagUser.tag} has been kicked`);
                     return message.channel.send(embed);
                 } catch {
                     return sendDissapearingMessage(message, `I am sorry but that person is wiser than you my friend ${member}`);

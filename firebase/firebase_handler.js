@@ -17,7 +17,7 @@ exports.reactionDataArray = [];
 /** @type {FirebaseTreat[]} */
 exports.treatDataArray = [];
 
-logger.info('Initialising firebase');
+logger.firebase('Initializing');
 
 /**
  * Reactions added to this function are handled in ../events/messageReactionAdd.js

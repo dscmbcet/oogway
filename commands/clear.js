@@ -29,6 +29,7 @@ module.exports = {
                 embed = new Discord.MessageEmbed()
                     .setDescription(`${messages.size} Messages Deleted By ${message.author}`)
                     .setColor(colors.green);
+                logger.info(`${messages.size} Messages Deleted By ${message.author.tag}`);
             } catch (e) {
                 embed = new Discord.MessageEmbed()
                     .setDescription(`Messages older than 2 weeks cannot be deleted`)
