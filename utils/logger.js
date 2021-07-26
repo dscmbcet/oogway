@@ -20,7 +20,7 @@ function sendlogs(args, isError) {
     const createdTime = new Date(new Date().valueOf() + INDIA_TZ_OFFSET).toUTCString().replace('GMT', 'IST');
 
     if (isError) msg = createdTime + '| ERROR: ' + args.join(' ');
-    else msg = createdTime + '| LOG: ' + args.join(' ');
+    else msg = createdTime + '| INFO: ' + args.join(' ');
     msg = `\`\`\`${msg}\`\`\``;
 
     const channel = client.channels.cache.get(oogway.log_channel_id);
