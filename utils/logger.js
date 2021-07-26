@@ -7,6 +7,7 @@ const colors = {
     BLUE: '\x1b[34m\x1b[1m',
     YELLOW: '\x1b[33m\x1b[1m',
     PURPLE: '\x1b[35m\x1b[1m',
+    YELLOW_RED: '\x1b[41m\x1b[37m\x1b[1m',
 };
 
 const logger = {
@@ -14,7 +15,7 @@ const logger = {
         console.log(...args);
     },
     debug: function (...args) {
-        if (prefix !== '!') console.debug(`${colors.PURPLE}DEBUG:${colors.DEFAULT}`, ...args);
+        if (prefix !== '!') console.debug(`${colors.YELLOW_RED} DEBUG ${colors.DEFAULT}`, ...args);
     },
     error: function (...args) {
         console.error(`${colors.RED}ERROR:${colors.DEFAULT}`, ...args);
@@ -26,7 +27,7 @@ const logger = {
         console.info(`${colors.BLUE}INFO:${colors.DEFAULT}`, ...args);
     },
     firebase: function (...args) {
-        console.info(`${colors.GREEN}FIREBASE:${colors.DEFAULT}`, ...args);
+        console.info(`${colors.PURPLE}FIREBASE:${colors.DEFAULT}`, ...args);
     },
 };
 
