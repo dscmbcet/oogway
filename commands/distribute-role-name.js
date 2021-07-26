@@ -13,7 +13,7 @@ module.exports = {
      */
     async execute(message, args) {
         if (args.length != 2) return message.channel.send(`Check your arguments, ${message.author}!`);
-        if (!message.mentions.roles.first()) return message.channel.send(`You didn't tag a role, ${message.author}!`);
+        else if (!message.mentions.roles.first()) return message.channel.send(`You didn't tag a role, ${message.author}!`);
         else {
             let embed = new Discord.MessageEmbed();
             let team_no = parseInt(args[1]);
