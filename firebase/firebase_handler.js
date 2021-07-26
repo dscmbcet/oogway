@@ -17,7 +17,6 @@ exports.reactionDataArray = [];
 /** @type {FirebaseTreat[]} */
 exports.treatDataArray = [];
 
-let INIT = 0;
 logger.firebase('Initializing');
 
 /**
@@ -72,9 +71,7 @@ exports.addToTreatList = async (message, user, description) => {
     });
 };
 
-/**
- * @param {string} message_id
- */
+/** @param {string} message_id */
 exports.removeFromTreatList = async message_id => {
     const colRef = db.collection('treat-list');
     await colRef.doc(message_id).delete();
@@ -113,6 +110,11 @@ exports.listenForTreat = async () => {
     });
 };
 
+/**
+ * Checks whether given timestamp is older than today
+ * @param {string} timestamp
+ * @returns {boolean}
+ */
 function checkDate(timestamp) {
     let date = new Date();
     date.setDate(date.getDate() - 1);
