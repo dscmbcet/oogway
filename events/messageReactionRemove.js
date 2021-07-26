@@ -30,7 +30,7 @@ module.exports = {
      */
     async handleTeamReaction(reaction, user, reactionRole) {
         let embed;
-        const team_data = reactionRole.team_data.map(e => {
+        const team_data = reactionRole.data.map(e => {
             if (!e.channel) return { role: findRoleById(reaction.message, e.role) };
             else
                 return {
