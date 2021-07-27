@@ -128,16 +128,15 @@ module.exports = {
 
         if (!reactionObject.content) reactionObject.content = msg_embed.description;
 
-        msg_embed = new Discord.MessageEmbed()
-            .setTitle(msg_embed.title)
-            .setDescription(msg_embed.description)
-            .setFooter(msg_embed.footer)
-            .setColor(msg_embed.color);
         let treatData = reactionObject.data[0];
-
         const user_to_be_removed = reaction.message.guild.members.cache.get(treatData.user_id);
         const selfVoteFound = user_id === user_to_be_removed.id;
         const found = reactionObject.data[0].users.find(id => id === user_id);
+
+        msg_embed = new Discord.MessageEmbed()
+            .setTitle(msg_embed.title)
+            .setThumbnail(user_to_be_removed.user.displayAvatarURL())
+            .setColor(msg_embed.color);
 
         if (selfVoteFound) {
             msg_embed.setFooter('❌ You cannot self vote').setColor(colors.red);
@@ -169,7 +168,7 @@ module.exports = {
             await reaction.message.channel.send(msg_embed);
             return reaction.message.delete();
         } else {
-            msg_embed.setDescription(`${reactionObject.content}\n\nVotes - ${treatData.count}`);
+            msg_embed.setDescription(`${reactionObject.content}\n\n**Votes** - ${treatData.count}\n`);
             return reaction.message.edit(msg_embed);
         }
     },

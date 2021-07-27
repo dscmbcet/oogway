@@ -28,9 +28,9 @@ module.exports = {
             const member = message.guild.member(tag_user);
             const embed = new Discord.MessageEmbed()
                 .setTitle(`To remove ${member.user.tag} from treat list`)
-                .setDescription(`Mininum ${minimum_count} members should react to ${tick}`)
+                .setDescription(`Treat Reason: ${description}\n\nMininum ${minimum_count} members should react to ${tick}`)
                 .setColor(colors.orange)
-                .setFooter(description, tag_user.displayAvatarURL());
+                .setThumbnail(tag_user.displayAvatarURL());
 
             const reactMsg = await message.channel.send(embed);
             await reactMsg.react(tick);
