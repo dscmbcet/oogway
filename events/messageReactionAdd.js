@@ -168,7 +168,7 @@ module.exports = {
             await reaction.message.channel.send(msg_embed);
             return reaction.message.delete();
         } else {
-            msg_embed.setDescription(`${reactionObject.content}\n\n**Votes** - ${treatData.count}\n`);
+            msg_embed.setDescription(`Treat Reason: ${treatData.description}\n\n**Votes** - ${treatData.count}\n`);
             return reaction.message.edit(msg_embed);
         }
     },
