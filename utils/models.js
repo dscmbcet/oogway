@@ -9,7 +9,17 @@ class TeamData {
 
 class AnnoymousData {
     emoji = '';
-    count = '';
+    count = 0;
+    users = [''];
+}
+
+class AnnoymousTreatData {
+    emoji = '';
+    count = 0;
+    min_count = 0;
+    user_id = '';
+    treat_id = '';
+    description = '';
     users = [''];
 }
 
@@ -21,8 +31,20 @@ class FirebaseReaction {
     channel_name = '';
     channel_id = '';
     timestamp = '';
-    /** @type {PollData | AnnoymousData | TeamData} */
-    data;
+    data = [new PollData(), new AnnoymousData(), new TeamData(), new AnnoymousTreatData()];
+}
+
+class FirebaseReactionPoll extends FirebaseReaction {
+    data = [new PollData()];
+}
+class FirebaseReactionTeam extends FirebaseReaction {
+    data = [new TeamData()];
+}
+class FirebaseReactionAnnoymous extends FirebaseReaction {
+    data = [new AnnoymousData()];
+}
+class FirebaseReactionAnnoymousTreat extends FirebaseReaction {
+    data = [new AnnoymousTreatData()];
 }
 
 class FirebaseTreat {
@@ -34,4 +56,11 @@ class FirebaseTreat {
     timestamp = '';
 }
 
-module.exports = { FirebaseReaction, FirebaseTreat };
+module.exports = {
+    FirebaseReaction,
+    FirebaseTreat,
+    FirebaseReactionAnnoymous,
+    FirebaseReactionAnnoymousTreat,
+    FirebaseReactionPoll,
+    FirebaseReactionTeam,
+};

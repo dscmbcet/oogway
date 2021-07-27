@@ -32,7 +32,7 @@ exports.addReactionRole = async (reaction_message, data, type) => {
         if (type == REACTION_TYPE.TEAM) {
             if (e.channel) return { role: e.role.id, channel: e.channel.id };
             else return { role: e.role.id };
-        } else if (type == REACTION_TYPE.ANNOYMOUS) return e;
+        } else if (type == REACTION_TYPE.ANNOYMOUS || type == REACTION_TYPE.TREAT) return e;
     });
 
     colRef.doc(reaction_message.id).set({
@@ -105,6 +105,8 @@ exports.listenForTreat = async () => {
             }
             if (change.type === 'removed') {
                 logger.firebase(`Removed treat: ${data.user_name} , Reason: ${data.description}`);
+                const deleteIndex = this.treatDataArray.findIndex(e => e.id === data.id);
+                if (deleteIndex != -1) this.treatDataArray.splice(deleteIndex);
             }
         });
     });

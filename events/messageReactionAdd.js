@@ -1,6 +1,12 @@
 const Discord = require('discord.js');
-const { reactionDataArray } = require('../firebase/firebase_handler');
-const { FirebaseReaction } = require('../utils/models');
+const { reactionDataArray, removeReactionRole, removeFromTreatList } = require('../firebase/firebase_handler');
+const {
+    FirebaseReaction,
+    FirebaseReactionTeam,
+    FirebaseReactionAnnoymous,
+    FirebaseReactionAnnoymousTreat,
+    FirebaseReactionPoll,
+} = require('../utils/models');
 const { colors, REACTION_TYPE, team_emojis } = require('../utils/constants');
 const { findRoleById, findChannelById, sendDissapearingMessage } = require('../utils/functions');
 const { logger } = require('../utils/logger');
@@ -23,16 +29,18 @@ module.exports = {
         const args = [reaction, user, reactionRole];
         if (reactionRole.type == REACTION_TYPE.TEAM) this.handleTeamReaction(...args);
         if (reactionRole.type == REACTION_TYPE.ANNOYMOUS) this.handleAnnonymousReaction(...args);
+        if (reactionRole.type == REACTION_TYPE.TREAT) this.handleAnnonymoustTreatReaction(...args);
     },
 
     /**
      * @param {Discord.MessageReaction} reaction
      * @param {Discord.User | Discord.PartialUser} user
-     * @param {FirebaseReaction} reactionRole
+     * @param {FirebaseReactionTeam | FirebaseReactionPoll} reactionObject
      */
-    async handleTeamReaction(reaction, user, reactionRole) {
+    async handleTeamReaction(reaction, user, reactionObject) {
+        reactionObject.data.map(e => e);
         let embed;
-        const team_data = reactionRole.data.map(e => {
+        const team_data = reactionObject.data.map(e => {
             if (!e.channel) return { role: findRoleById(reaction.message, e.role) };
             else
                 return {
@@ -68,22 +76,22 @@ module.exports = {
     /**
      * @param {Discord.MessageReaction} reaction
      * @param {Discord.User | Discord.PartialUser} user
-     * @param {FirebaseReaction} reactionRole
+     * @param {FirebaseReactionAnnoymous} reactionObject
      */
-    async handleAnnonymousReaction(reaction, user, reactionRole) {
+    async handleAnnonymousReaction(reaction, user, reactionObject) {
         let user_id = user.id;
         let msg_embed = reaction.message.embeds[0];
         const reacted_emoji = reaction.emoji.name;
         reaction.message.reactions.resolve(reacted_emoji).users.remove(user);
 
-        if (!reactionRole.content) reactionRole.content = msg_embed.description;
+        if (!reactionObject.content) reactionObject.content = msg_embed.description;
 
         msg_embed = new Discord.MessageEmbed()
             .setTitle(msg_embed.title)
             .setDescription(msg_embed.description)
             .setColor(msg_embed.color);
 
-        const found = reactionRole.data.find(emoji => {
+        const found = reactionObject.data.find(emoji => {
             return emoji.users.find(id => id === user_id);
         });
 
@@ -95,15 +103,74 @@ module.exports = {
         }
 
         let votemsg = [];
-        reactionRole.data.forEach((emojiData, index) => {
+        reactionObject.data.forEach((emojiData, index) => {
             if (reacted_emoji === emojiData.emoji) {
-                reactionRole.data[index].count += 1;
-                reactionRole.data[index].users.push(user_id);
+                reactionObject.data[index].count += 1;
+                reactionObject.data[index].users.push(user_id);
             }
-            votemsg.push(`${emojiData.emoji} - ${reactionRole.data[index].count}`);
+            votemsg.push(`${emojiData.emoji} - ${reactionObject.data[index].count}`);
         });
-        msg_embed.setDescription(`${reactionRole.content}\n\nVotes\n\n` + votemsg.join('\n'));
+        msg_embed.setDescription(`${reactionObject.content}\n\nVotes\n\n` + votemsg.join('\n'));
 
         return reaction.message.edit(msg_embed);
+    },
+
+    /**
+     * @param {Discord.MessageReaction} reaction
+     * @param {Discord.User | Discord.PartialUser} user
+     * @param {FirebaseReactionAnnoymousTreat} reactionObject
+     */
+    async handleAnnonymoustTreatReaction(reaction, user, reactionObject) {
+        let user_id = user.id;
+        let msg_embed = reaction.message.embeds[0];
+        const reacted_emoji = reaction.emoji.name;
+        reaction.message.reactions.resolve(reacted_emoji).users.remove(user);
+
+        if (!reactionObject.content) reactionObject.content = msg_embed.description;
+
+        msg_embed = new Discord.MessageEmbed()
+            .setTitle(msg_embed.title)
+            .setDescription(msg_embed.description)
+            .setFooter(msg_embed.footer)
+            .setColor(msg_embed.color);
+        let treatData = reactionObject.data[0];
+
+        const user_to_be_removed = reaction.message.guild.members.cache.get(treatData.user_id);
+        const selfVoteFound = user_id === user_to_be_removed.id;
+        const found = reactionObject.data[0].users.find(id => id === user_id);
+
+        if (selfVoteFound) {
+            msg_embed.setFooter('❌ You cannot self vote').setColor(colors.red);
+            return user.send(msg_embed).then(msg => {
+                msg.delete({ timeout: 30000 });
+            });
+        } else if (found) {
+            msg_embed.setFooter('❌ You cannot vote again').setColor(colors.red);
+            return user.send(msg_embed).then(msg => {
+                msg.delete({ timeout: 30000 });
+            });
+        }
+
+        if (reacted_emoji === treatData.emoji) {
+            reactionObject.data[0].count += 1;
+            reactionObject.data[0].users.push(user_id);
+        }
+        treatData = reactionObject.data[0];
+
+        if (treatData.count >= treatData.min_count) {
+            msg_embed
+                .setTitle(`${user_to_be_removed.user.tag} removed from treat list`)
+                .setDescription('')
+                .setColor(colors.green)
+                .setFooter(treatData.description, user_to_be_removed.user.displayAvatarURL());
+
+            await removeReactionRole(reactionObject.id);
+            await removeFromTreatList(treatData.treat_id);
+            await reaction.message.channel.send(msg_embed);
+            return reaction.message.delete();
+        } else {
+            msg_embed.setDescription(`${reactionObject.content}\n\nVotes - ${treatData.count}`);
+            return reaction.message.edit(msg_embed);
+        }
     },
 };
