@@ -27,7 +27,7 @@ process
         logger.error(err);
         process.exit(1);
     })
-    .on('SIGINT', (reason, p) => {
+    .on('SIGINT', () => {
         logger.error('Process Exiting');
     });
 
