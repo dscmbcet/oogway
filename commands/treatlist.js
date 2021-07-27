@@ -1,11 +1,10 @@
 const Discord = require('discord.js');
 const { treatDataArray } = require('../firebase/firebase_handler');
-const { colors, prefix } = require('../utils/constants');
-const { logger } = require('../utils/logger');
+const { PREFIX, COLORS } = require('../utils/constants');
 
 module.exports = {
     name: 'treatlist',
-    usage: `${prefix}treatlist`,
+    usage: `${PREFIX}treatlist`,
     description: 'Gives the current treatlist',
 
     /**
@@ -15,16 +14,15 @@ module.exports = {
      */
     async execute(message, args, client) {
         let toSend = treatDataArray
-            .map(e => {
+            .map((e) => {
                 const guild = client.guilds.cache.get(e.guild_id);
                 const user = guild.members.cache.get(e.user_id).displayName;
-                const description = e.description;
-                return `\`${user}\` : ${description}`;
+                return `\`${user}\` : ${e.description}`;
             })
             .join('\n');
 
         if (!toSend) toSend = 'No one yet';
-        const embed = new Discord.MessageEmbed().setTitle('Treat List').setColor(colors.orange).setDescription(toSend);
+        const embed = new Discord.MessageEmbed().setTitle('Treat List').setColor(COLORS.orange).setDescription(toSend);
         return message.channel.send(embed);
     },
 };

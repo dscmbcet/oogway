@@ -107,6 +107,11 @@ Discord bot for DSC MBCET Server
 - Usage: `!treatlist-add <@user_name> <reason>`
 - Description: Adds the user to treatlist with given reason
 
+#### treatlist-remove
+
+- Usage: `!treatlist-remove <@user_name> <reason>`
+- Description: Removes the user in treatlist with given reason
+
 #### treatlist
 
 - Usage: `!treatlist`

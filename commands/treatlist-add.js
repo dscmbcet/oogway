@@ -1,12 +1,11 @@
 const Discord = require('discord.js');
 const { addToTreatList } = require('../firebase/firebase_handler');
-const { prefix } = require('../utils/constants');
+const { PREFIX } = require('../utils/constants');
 const { sendDissapearingMessage } = require('../utils/functions');
-const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'treatlist-add',
-    usage: `${prefix}treatlist-add <@user_name> <reason>`,
+    usage: `${PREFIX}treatlist-add <@user_name> <reason>`,
     description: 'Adds the user to treatlist with given reason',
 
     /**
@@ -14,21 +13,24 @@ module.exports = {
      * @param {string[]} args
      */
     async execute(message, args) {
-        if (args.length < 2) return sendDissapearingMessage(message, `Check your arguments, ${message.author}!`);
-        else if (!message.mentions.users.first()) return sendDissapearingMessage(message, `You need to tag someone! ${member}`);
-        else {
-            const tag_user = message.mentions.users.first();
-
-            args.splice(0, 1);
-            const description = args.join(' ').trim();
-            await addToTreatList(message, tag_user, description);
-
-            const member = message.guild.member(tag_user);
-            const embed = new Discord.MessageEmbed()
-                .setColor(member.roles.color.hexColor)
-                .setFooter(description, tag_user.displayAvatarURL())
-                .setTitle(`${member.user.tag} added to treat list`);
-            return message.channel.send(embed);
+        if (args.length < 2) {
+            return sendDissapearingMessage(message, `Check your arguments, ${message.author}!`);
         }
+        if (!message.mentions.users.first()) {
+            return sendDissapearingMessage(message, `You need to tag someone! ${message.author}`);
+        }
+
+        const taggedUser = message.mentions.users.first();
+
+        args.splice(0, 1);
+        const description = args.join(' ').trim();
+        await addToTreatList(message, taggedUser, description);
+
+        const member = message.guild.member(taggedUser);
+        const embed = new Discord.MessageEmbed()
+            .setColor(member.roles.color.hexColor)
+            .setFooter(description, taggedUser.displayAvatarURL())
+            .setTitle(`${member.user.tag} added to treat list`);
+        return message.channel.send(embed);
     },
 };

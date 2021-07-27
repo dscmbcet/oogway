@@ -1,21 +1,19 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-const { colors, prefix } = require('../utils/constants');
-const { logger } = require('../utils/logger');
+const { PREFIX, COLORS } = require('../utils/constants');
 
 module.exports = {
     name: 'help-v',
-    usage: `${prefix}help-v`,
+    usage: `${PREFIX}help-v`,
     description: 'Gives detailed information about commands',
 
     /**
      * @param {Discord.Message} message
-     * @param {string[]} args
      */
-    async execute(message, args) {
-        const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+    async execute(message) {
+        const commandFiles = fs.readdirSync('./commands/').filter((file) => file.endsWith('.js'));
 
-        let commandsArray = commandFiles.map(file => {
+        const commandsArray = commandFiles.map((file) => {
             const command = require(`./${file}`);
             return {
                 name: command.name,
@@ -28,9 +26,9 @@ module.exports = {
 
         commandsArray.sort();
 
-        let embed = new Discord.MessageEmbed({
-            title: `Commands`,
-            color: colors.purple,
+        const embed = new Discord.MessageEmbed({
+            title: 'Commands',
+            color: COLORS.purple,
             fields: commandsArray,
         });
 

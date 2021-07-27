@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-const { logger } = require('../utils/logger');
-const { colors } = require('./constants');
+const { logger } = require('./logger');
+const { COLORS } = require('./constants');
 
 module.exports = {
     /**
@@ -16,7 +16,7 @@ module.exports = {
      * @param {string} roleName
      */
     findRoleByName(message, roleName) {
-        return message.guild.roles.cache.find(role => role.name === roleName);
+        return message.guild.roles.cache.find((role) => role.name === roleName);
     },
 
     /**
@@ -32,10 +32,10 @@ module.exports = {
      * @param {string} channelName
      */
     findChannelByName(message, channelName) {
-        return message.guild.channels.cache.find(category => category.name === channelName);
+        return message.guild.channels.cache.find((category) => category.name === channelName);
     },
 
-    /** @param {string[]} data String Data Array*/
+    /** @param {string[]} data String Data Array */
     findBestMessageSize(data) {
         let BEST_LENGTH = 0;
         while (true) {
@@ -57,17 +57,17 @@ module.exports = {
     /**
      * @param {Discord.Message} message
      * @param {string} content
-     * @param {string} [color] default = colors.red
+     * @param {string} [color] default = COLORS.red
      * @param {Number} [timeout] default = 30000
      */
     async sendDissapearingMessage(message, content, color, timeout) {
-        let embed = new Discord.MessageEmbed({
+        const embed = new Discord.MessageEmbed({
             description: content,
-            color: color ? color : colors.red,
+            color: color || COLORS.red,
         });
         const msg = await message.channel.send(embed);
         try {
-            await msg.delete({ timeout: timeout ? timeout : 30000 });
+            await msg.delete({ timeout: timeout || 30000 });
         } catch (e) {
             logger.warn('Tried deleting a message that has already been deleted');
         }

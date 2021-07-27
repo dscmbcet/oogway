@@ -1,11 +1,10 @@
 const Discord = require('discord.js');
-const { prefix } = require('../utils/constants');
+const { PREFIX } = require('../utils/constants');
 const { findRoleById, sendDissapearingMessage } = require('../utils/functions');
-const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'distribute-role',
-    usage: `${prefix}distribute-role <@role_name> <TEAM_NO>`,
+    usage: `${PREFIX}distribute-role <@role_name> <TEAM_NO>`,
     description: 'Distributes the users belonging to given role into TEAM_NO of teams',
 
     /**
@@ -13,61 +12,59 @@ module.exports = {
      * @param {string[]} args
      */
     async execute(message, args) {
-        if (args.length != 2) return sendDissapearingMessage(message, `Check your arguments, ${message.author}!`);
-        else if (!message.mentions.roles.first()) return sendDissapearingMessage(message, `You didn't tag a role, ${message.author}!`);
-        else {
-            let team_no = parseInt(args[1]);
-            if (isNaN(team_no)) return sendDissapearingMessage(message, `You didn't specify a number, ${message.author}!`);
-            if (team_no <= 0) return sendDissapearingMessage(message, `Specify a greater number, ${message.author}!`);
+        if (args.length !== 2) return sendDissapearingMessage(message, `Check your arguments, ${message.author}!`);
+        if (!message.mentions.roles.first()) return sendDissapearingMessage(message, `You didn't tag a role, ${message.author}!`);
 
-            try {
-                let embed = new Discord.MessageEmbed();
-                const { id: roleID, name: roleName } = message.mentions.roles.first();
-                const role = findRoleById(message, roleID);
+        const teamNo = parseInt(args[1], 10);
+        if (Number.isNaN(teamNo)) return sendDissapearingMessage(message, `You didn't specify a number, ${message.author}!`);
+        if (teamNo <= 0) return sendDissapearingMessage(message, `Specify a greater number, ${message.author}!`);
 
-                embed.setColor(role.hexColor);
+        try {
+            const embed = new Discord.MessageEmbed();
+            const { id: roleID, name: roleName } = message.mentions.roles.first();
+            const role = findRoleById(message, roleID);
 
-                let users = role === undefined ? ['No Role Found'] : role.members.array();
-                users = users.length == undefined || users.length == 0 ? 'No User Found' : users;
+            embed.setColor(role.hexColor);
 
-                if (users == 'No User Found') {
-                    embed.title(`No Users with the '@${roleName}' role`);
-                    return message.channel.send(embed);
-                }
+            let users = role === undefined ? ['No Role Found'] : role.members.array();
+            users = users.length === undefined || users.length === 0 ? 'No User Found' : users;
 
-                users = users.sort(() => Math.random() - 0.5); //Shuffling users
-
-                const distribute_no = Math.floor(users.length / team_no);
-                const remaining = users.length % team_no;
-                let teams = [];
-
-                if (distribute_no <= 0)
-                    return message.channel.send(`Specify a lesser number, ${message.author}!\nMembers Size : ${users.length}`);
-
-                for (let i = 0, j = 1; i < users.length - remaining; i += distribute_no, j++) {
-                    const team_members = users.slice(i, Math.min(users.length, i + distribute_no));
-                    teams.push({
-                        team_name: `Team ${j}`,
-                        members: team_members,
-                    });
-                }
-
-                //Remaining people
-                for (let i = users.length - remaining, j = 0; i < users.length; i++, j++) {
-                    teams[j].members.push(users[i]);
-                }
-
-                let messageSend = [
-                    `**Distributed Teams For Role ${message.mentions.roles.first()}**\n**Members Size: ${users.length}**`,
-                ];
-                teams.forEach(team => {
-                    messageSend.push(`\n\`${team.team_name} : ${team.members.length}\`\n\n${team.members.join('\n')}`);
-                });
-
-                return await message.channel.send(messageSend.join('\n'), { split: true });
-            } catch {
-                return sendDissapearingMessage(message, `You mentioned a invalid role, ${message.author}`);
+            if (users === 'No User Found') {
+                embed.title(`No Users with the '@${roleName}' role`);
+                return message.channel.send(embed);
             }
+
+            users = users.sort(() => Math.random() - 0.5); // Shuffling users
+
+            const distributeNo = Math.floor(users.length / teamNo);
+            const remaining = users.length % teamNo;
+            const teams = [];
+
+            if (distributeNo <= 0) {
+                return message.channel.send(`Specify a lesser number, ${message.author}!\nMembers Size : ${users.length}`);
+            }
+
+            for (let i = 0, j = 1; i < users.length - remaining; i += distributeNo, j++) {
+                const teamMembers = users.slice(i, Math.min(users.length, i + distributeNo));
+                teams.push({
+                    team_name: `Team ${j}`,
+                    members: teamMembers,
+                });
+            }
+
+            // Remaining people
+            for (let i = users.length - remaining, j = 0; i < users.length; i++, j++) {
+                teams[j].members.push(users[i]);
+            }
+
+            const messageSend = [`**Distributed Teams For Role ${message.mentions.roles.first()}**\n**Members Size: ${users.length}**`];
+            teams.forEach((team) => {
+                messageSend.push(`\n\`${team.team_name} : ${team.members.length}\`\n\n${team.members.join('\n')}`);
+            });
+
+            return await message.channel.send(messageSend.join('\n'), { split: true });
+        } catch {
+            return sendDissapearingMessage(message, `You mentioned a invalid role, ${message.author}`);
         }
     },
 };

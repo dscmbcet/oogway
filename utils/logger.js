@@ -1,8 +1,8 @@
-const { prefix } = require('./constants');
+const { PREFIX } = require('./constants');
 
 const colors = {
     DEFAULT: '\x1b[0m',
-    RED: `\x1b[31m\x1b[1m`,
+    RED: '\x1b[31m\x1b[1m',
     RED_WHITEBG: '\x1b[41m\x1b[37m\x1b[1m',
     WHITE: '\x1b[1m',
     BLUE: '\x1b[34m\x1b[1m',
@@ -11,7 +11,7 @@ const colors = {
 };
 
 function sendlogs(args, isError) {
-    if (prefix !== '!') return;
+    if (PREFIX !== '!') return;
     const { client } = require('../app');
     const oogway = require('../configs/ooway-test');
 
@@ -19,8 +19,8 @@ function sendlogs(args, isError) {
     const INDIA_TZ_OFFSET = 1.98e7;
     const createdTime = new Date(new Date().valueOf() + INDIA_TZ_OFFSET).toUTCString().replace('GMT', 'IST');
 
-    if (isError) msg = createdTime + '| ERROR: ' + args.join(' ');
-    else msg = createdTime + '| INFO: ' + args.join(' ');
+    if (isError) msg = `${createdTime}| ERROR: ${args.join(' ')}`;
+    else msg = `${createdTime}| INFO: ${args.join(' ')}`;
     msg = `\`\`\`${msg}\`\`\``;
 
     const channel = client.channels.cache.get(oogway.log_channel_id);
@@ -28,24 +28,24 @@ function sendlogs(args, isError) {
 }
 
 const logger = {
-    log: function (...args) {
+    log(...args) {
         console.log(`${colors.WHITE}LOG:${colors.DEFAULT}`, ...args);
     },
-    debug: function (...args) {
-        if (prefix !== '!') console.debug(`${colors.RED_WHITEBG} DEBUG ${colors.DEFAULT}`, ...args);
+    debug(...args) {
+        if (PREFIX !== '!') console.debug(`${colors.RED_WHITEBG} DEBUG ${colors.DEFAULT}`, ...args);
     },
-    error: function (...args) {
+    error(...args) {
         console.error(`${colors.RED}ERROR:${colors.DEFAULT}`, ...args);
         sendlogs(args, true);
     },
-    warn: function (...args) {
+    warn(...args) {
         console.warn(`${colors.YELLOW}WARN:${colors.DEFAULT}`, ...args);
     },
-    info: function (...args) {
+    info(...args) {
         console.info(`${colors.BLUE}INFO:${colors.DEFAULT}`, ...args);
         sendlogs(args, false);
     },
-    firebase: function (...args) {
+    firebase(...args) {
         console.info(`${colors.PURPLE}FIREBASE:${colors.DEFAULT}`, ...args);
     },
 };
