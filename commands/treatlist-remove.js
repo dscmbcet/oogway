@@ -40,7 +40,7 @@ module.exports = {
         const reactMsg = await message.channel.send(embed);
         await reactMsg.react(tick);
 
-        const data = [
+        const parsedData = [
             {
                 emoji: tick,
                 count: 0,
@@ -51,6 +51,6 @@ module.exports = {
                 users: [],
             },
         ];
-        await addReactionRole(reactMsg, data, REACTION_TYPE.TREAT);
+        await addReactionRole(reactMsg, parsedData, REACTION_TYPE.TREAT);
     },
 };

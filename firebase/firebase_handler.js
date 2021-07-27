@@ -1,8 +1,7 @@
 const admin = require('firebase-admin');
-require('discord.js');
+// eslint-disable-next-line no-unused-vars
+const Discord = require('discord.js');
 const serviceAccount = require('./firebase-config.json');
-const { REACTION_TYPE } = require('../utils/constants');
-const { FirebaseReaction, FirebaseTreat } = require('../utils/models');
 const { logger } = require('../utils/logger');
 
 admin.initializeApp({
@@ -10,6 +9,11 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
+
+/**
+ * @typedef {import('../utils/models/FirebaseReaction').FirebaseReaction} FirebaseReaction
+ * @typedef {import('../utils/models/FirebaseTreat').FirebaseTreat} FirebaseTreat
+ */
 
 /** @type {FirebaseReaction[]} */
 exports.reactionDataArray = [];
@@ -22,29 +26,21 @@ logger.firebase('Initializing');
 /**
  * Reactions added to this function are handled in ../events/messageReactionAdd.js
  * @param {Discord.MessageEmbed} reactionMessage
- * @param {{channel: Discord.Channel;role: Discord.Role;emoji: string;count: number;users: any[]}[]} data
+ * @param {FirebaseReaction} parsedData
  * @param {string} type
  */
-exports.addReactionRole = async (reactionMessage, data, type) => {
+exports.addReactionRole = async (reactionMessage, parsedData, type) => {
     const colRef = db.collection('rection-roles');
-
-    const new_data = data.map((e) => {
-        if (type == REACTION_TYPE.TEAM) {
-            if (e.channel) return { role: e.role.id, channel: e.channel.id };
-            return { role: e.role.id };
-        }
-        if (type == REACTION_TYPE.ANNOYMOUS || type == REACTION_TYPE.TREAT) return e;
-    });
-
-    colRef.doc(reactionMessage.id).set({
+    const data = {
         id: reactionMessage.id,
         type,
         guild_id: reactionMessage.guild.id,
         channel_name: `${reactionMessage.channel.parent.name}:${reactionMessage.channel.name}`,
         channel_id: reactionMessage.channel.id,
         timestamp: reactionMessage.createdAt.toISOString(),
-        data: new_data,
-    });
+        data: parsedData,
+    };
+    colRef.doc(reactionMessage.id).set(data);
 };
 
 /**
@@ -78,42 +74,6 @@ exports.removeFromTreatList = async (messageid) => {
     await colRef.doc(messageid).delete();
 };
 
-exports.listenForReactionRoles = async () => {
-    db.collection('rection-roles').onSnapshot((querySnapshot) => {
-        querySnapshot.docChanges().forEach(async (change) => {
-            const data = change.doc.data();
-            if (change.type === 'added') {
-                if (checkDate(data.timestamp)) {
-                    logger.firebase(`New reaction role:${data.id} @type: ${data.type} @Channel: ${data.channel_name}`);
-                }
-                this.reactionDataArray.push(data);
-            }
-            if (change.type === 'removed') {
-                logger.firebase(`Removed reaction role:${data.id} @type: ${data.type} @Channel: ${data.channel_name}`);
-                const deleteIndex = this.reactionDataArray.findIndex((e) => e.id === data.id);
-                if (deleteIndex != -1) this.reactionDataArray.splice(deleteIndex);
-            }
-        });
-    });
-};
-
-exports.listenForTreat = async () => {
-    db.collection('treat-list').onSnapshot((querySnapshot) => {
-        querySnapshot.docChanges().forEach(async (change) => {
-            const data = change.doc.data();
-            if (change.type === 'added') {
-                if (checkDate(data.timestamp)) logger.firebase(`New treat: ${data.user_name} , Reason: ${data.description}`);
-                this.treatDataArray.push(data);
-            }
-            if (change.type === 'removed') {
-                logger.firebase(`Removed treat: ${data.user_name} , Reason: ${data.description}`);
-                const deleteIndex = this.treatDataArray.findIndex((e) => e.id === data.id);
-                if (deleteIndex != -1) this.treatDataArray.splice(deleteIndex);
-            }
-        });
-    });
-};
-
 /**
  * Checks whether given timestamp is older than today
  * @param {string} timestamp
@@ -124,3 +84,41 @@ function checkDate(timestamp) {
     date.setDate(date.getDate() - 1);
     return new Date(timestamp) > date;
 }
+
+exports.listenForReactionRoles = async () => {
+    db.collection('rection-roles').onSnapshot((querySnapshot) => {
+        querySnapshot.docChanges().forEach(async (change) => {
+            /** @type {FirebaseReaction} */
+            const data = change.doc.data();
+            if (change.type === 'added') {
+                if (checkDate(data.timestamp)) {
+                    logger.firebase(`New reaction role:${data.id} @type: ${data.type} @Channel: ${data.channel_name}`);
+                }
+                this.reactionDataArray.push(data);
+            }
+            if (change.type === 'removed') {
+                logger.firebase(`Removed reaction role:${data.id} @type: ${data.type} @Channel: ${data.channel_name}`);
+                const deleteIndex = this.reactionDataArray.findIndex((e) => e.id === data.id);
+                if (deleteIndex !== -1) this.reactionDataArray.splice(deleteIndex);
+            }
+        });
+    });
+};
+
+exports.listenForTreat = async () => {
+    db.collection('treat-list').onSnapshot((querySnapshot) => {
+        querySnapshot.docChanges().forEach(async (change) => {
+            /** @type {FirebaseTreat} */
+            const data = change.doc.data();
+            if (change.type === 'added') {
+                if (checkDate(data.timestamp)) logger.firebase(`New treat: ${data.user_name} , Reason: ${data.description}`);
+                this.treatDataArray.push(data);
+            }
+            if (change.type === 'removed') {
+                logger.firebase(`Removed treat: ${data.user_name} , Reason: ${data.description}`);
+                const deleteIndex = this.treatDataArray.findIndex((e) => e.id === data.id);
+                if (deleteIndex !== -1) this.treatDataArray.splice(deleteIndex);
+            }
+        });
+    });
+};

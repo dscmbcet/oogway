@@ -1,6 +1,6 @@
 {
   "name": "master_oogway",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Official DSC Bot for DSC Discord Server",
   "main": "app.js",
   "scripts": {

@@ -1,14 +1,15 @@
 const Discord = require('discord.js');
 const { reactionDataArray, removeReactionRole, removeFromTreatList } = require('../firebase/firebase_handler');
-const {
-    FirebaseReactionTeam,
-    FirebaseReactionAnnoymous,
-    FirebaseReactionAnnoymousTreat,
-    FirebaseReactionPoll,
-} = require('../utils/models');
-const { COLORS, REACTION_TYPE, team_emojis } = require('../utils/constants');
+const { COLORS, REACTION_TYPE, TEAM_EMOJIS } = require('../utils/constants');
 const { findRoleById, findChannelById, sendDissapearingMessage } = require('../utils/functions');
 const { logger } = require('../utils/logger');
+
+/**
+ * @typedef {import('../utils/models/FirebaseReaction').FirebaseReaction} FirebaseReaction
+ * @typedef {import('../utils/models/FirebaseReaction').FirebaseReactionTeamPoll} FirebaseReactionTeamPoll
+ * @typedef {import('../utils/models/FirebaseReaction').FirebaseReactionAnnoymous} FirebaseReactionAnnoymous
+ * @typedef {import('../utils/models/FirebaseReaction').FirebaseReactionAnnoymousTreat} FirebaseReactionAnnoymousTreat
+ */
 
 module.exports = {
     name: 'messageReactionAdd',
@@ -22,7 +23,7 @@ module.exports = {
         if (reaction.partial) await reaction.fetch();
         if (user.bot) return;
 
-        const reactionRole = reactionDataArray.find((e) => e.id == reaction.message.id);
+        const reactionRole = reactionDataArray.find((e) => e.type === reaction.message.id);
         if (!reactionRole) return;
 
         const args = [reaction, user, reactionRole];
@@ -34,10 +35,9 @@ module.exports = {
     /**
      * @param {Discord.MessageReaction} reaction
      * @param {Discord.User | Discord.PartialUser} user
-     * @param {FirebaseReactionTeam | FirebaseReactionPoll} reactionObject
+     * @param {FirebaseReactionTeamPoll} reactionObject
      */
     async handleTeamReaction(reaction, user, reactionObject) {
-        reactionObject.data.map((e) => e);
         let embed;
         const teamData = reactionObject.data.map((e) => {
             if (!e.channel) return { role: findRoleById(reaction.message, e.role) };
@@ -47,7 +47,7 @@ module.exports = {
             };
         });
 
-        const teamNo = team_emojis.findIndex((e) => e === reaction.emoji.name);
+        const teamNo = TEAM_EMOJIS.findIndex((e) => e === reaction.emoji.name);
         try {
             const userRoles = await reaction.message.guild.members.cache.get(user.id).roles;
             userRoles.add(teamData[teamNo].role.id);

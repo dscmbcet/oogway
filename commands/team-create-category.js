@@ -130,6 +130,7 @@ module.exports = {
         const reactionMessage = await annoucementChannel.send(reactionEmbed);
         for (let i = 0; i < TEAM_NO; i++) await reactionMessage.react(TEAM_EMOJIS[i]);
 
-        await addReactionRole(reactionMessage, teamData, REACTION_TYPE.TEAM);
+        const parsedData = teamData.map((e) => ({ role: e.role.id, channel: e.channel.id }));
+        await addReactionRole(reactionMessage, parsedData, REACTION_TYPE.TEAM);
     },
 };

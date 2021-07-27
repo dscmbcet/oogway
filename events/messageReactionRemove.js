@@ -1,9 +1,12 @@
 const Discord = require('discord.js');
 const { reactionDataArray } = require('../firebase/firebase_handler');
-const { FirebaseReaction, FirebaseReactionTeam, FirebaseReactionAnnoymousTreat, FirebaseReactionPoll } = require('../utils/models');
 const { COLORS, TEAM_EMOJIS, REACTION_TYPE } = require('../utils/constants');
 const { findRoleById, findChannelById, sendDissapearingMessage } = require('../utils/functions');
 const { logger } = require('../utils/logger');
+
+/**
+ * @typedef {import('../utils/models/FirebaseReaction').FirebaseReactionTeamPoll} FirebaseReactionTeamPoll
+ */
 
 module.exports = {
     name: 'messageReactionRemove',
@@ -27,7 +30,7 @@ module.exports = {
     /**
      * @param {Discord.MessageReaction} reaction
      * @param {Discord.User | Discord.PartialUser} user
-     * @param {(FirebaseReactionTeam)} reactionRole
+     * @param {FirebaseReactionTeamPoll} reactionRole
      */
     async handleTeamReaction(reaction, user, reactionRole) {
         let embed;
