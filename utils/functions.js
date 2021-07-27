@@ -38,6 +38,7 @@ module.exports = {
     /** @param {string[]} data String Data Array */
     findBestMessageSize(data) {
         let BEST_LENGTH = 0;
+        // eslint-disable-next-line no-constant-condition
         while (true) {
             const orginalSize = data.slice(0, data.length).join('\n').length;
             const size = data.slice(0, Math.min(data.length, BEST_LENGTH)).join('\n').length;

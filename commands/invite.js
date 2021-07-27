@@ -30,8 +30,7 @@ module.exports = {
 
         const username = args[0];
         const email = args[1];
-        const { welcome_channel_id: welcomeRoleID } = client.configs.get(message.guild.id);
-        const channel = message.guild.channels.cache.get(welcomeRoleID);
+        const channel = message.guild.channels.cache.get(client.configs.get(message.guild.id).welcome_channel_id);
         try {
             const invtite = await channel.createInvite({
                 maxUses: 1,
