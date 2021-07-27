@@ -30,7 +30,7 @@ logger.firebase('Initializing');
  * @param {string} type
  */
 exports.addReactionRole = async (reactionMessage, parsedData, type) => {
-    const colRef = db.collection('rection-roles');
+    const colRef = db.collection('reaction-roles');
     const data = {
         id: reactionMessage.id,
         type,
@@ -47,7 +47,7 @@ exports.addReactionRole = async (reactionMessage, parsedData, type) => {
  * @param {string} reaction_message
  */
 exports.removeReactionRole = async (reactionMessageId) => {
-    const colRef = db.collection('rection-roles');
+    const colRef = db.collection('reaction-roles');
     await colRef.doc(reactionMessageId).delete();
 };
 
@@ -86,7 +86,7 @@ function checkDate(timestamp) {
 }
 
 exports.listenForReactionRoles = async () => {
-    db.collection('rection-roles').onSnapshot((querySnapshot) => {
+    db.collection('reaction-roles').onSnapshot((querySnapshot) => {
         querySnapshot.docChanges().forEach(async (change) => {
             /** @type {FirebaseReaction} */
             const data = change.doc.data();
