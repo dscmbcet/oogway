@@ -22,7 +22,7 @@ module.exports = {
         if (args.length < 2) {
             return sendDissapearingMessage(message, `Check your arguments, ${message.author}!`);
         }
-        if (Number.isNan(TEAM_NO)) {
+        if (Number.isNaN(TEAM_NO)) {
             return sendDissapearingMessage(message, `You didn't specify a number, ${message.author}!`);
         }
         if (TEAM_NO > TEAM_EMOJIS.length) {
@@ -112,7 +112,7 @@ module.exports = {
 
         const embed = new Discord.MessageEmbed({
             title: 'Created Category Succesfully',
-            description: `${CATEGORY_NAME} with ${TEAM_NO} teams}`,
+            description: `${CATEGORY_NAME} with ${TEAM_NO} teams`,
             color: COLORS.green,
         });
 

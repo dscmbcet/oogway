@@ -40,7 +40,7 @@ exports.addReactionRole = async (reactionMessage, parsedData, type) => {
         timestamp: reactionMessage.createdAt.toISOString(),
         data: parsedData,
     };
-    colRef.doc(reactionMessage.id).set(data);
+    colRef.doc(reactionMessage.id).create(data);
 };
 
 /**
@@ -58,7 +58,7 @@ exports.removeReactionRole = async (reactionMessageId) => {
  */
 exports.addToTreatList = async (message, user, description) => {
     const colRef = db.collection('treat-list');
-    colRef.doc(message.id).set({
+    colRef.doc(message.id).create({
         id: message.id,
         guild_id: message.guild.id,
         user_id: user.id,
