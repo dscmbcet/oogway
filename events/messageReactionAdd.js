@@ -23,7 +23,7 @@ module.exports = {
         if (reaction.partial) await reaction.fetch();
         if (user.bot) return;
 
-        const reactionRole = reactionDataArray.find((e) => e.type === reaction.message.id);
+        const reactionRole = reactionDataArray.find((e) => e.id === reaction.message.id);
         if (!reactionRole) return;
 
         const args = [reaction, user, reactionRole];
@@ -49,7 +49,7 @@ module.exports = {
 
         const teamNo = TEAM_EMOJIS.findIndex((e) => e === reaction.emoji.name);
         try {
-            const userRoles = await reaction.message.guild.members.cache.get(user.id).roles;
+            const userRoles = reaction.message.guild.members.cache.get(user.id).roles;
             userRoles.add(teamData[teamNo].role.id);
         } catch (e) {
             logger.error(`Event: ${this.name}, User:  ${user.username} Error: `, e);
