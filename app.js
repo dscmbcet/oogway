@@ -17,6 +17,7 @@ handleFiles.forEach((file) => {
     require(`./handlers/${file}`)(client);
 });
 
+firebase.listenForReactionRoles();
 firebase.listenForTreat();
 
 process
