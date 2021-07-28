@@ -74,26 +74,13 @@ exports.removeFromTreatList = async (messageid) => {
     await colRef.doc(messageid).delete();
 };
 
-/**
- * Checks whether given timestamp is older than today
- * @param {string} timestamp
- * @returns {boolean}
- */
-function checkDate(timestamp) {
-    const date = new Date();
-    date.setDate(date.getDate() - 1);
-    return new Date(timestamp) > date;
-}
-
 exports.listenForReactionRoles = async () => {
     db.collection('reaction-roles').onSnapshot((querySnapshot) => {
         querySnapshot.docChanges().forEach(async (change) => {
             /** @type {FirebaseReaction} */
             const data = change.doc.data();
             if (change.type === 'added') {
-                if (checkDate(data.timestamp)) {
-                    logger.firebase(`New reaction role:${data.id} @type: ${data.type} @Channel: ${data.channel_name}`);
-                }
+                logger.firebase(`New reaction role:${data.id} @type: ${data.type} @Channel: ${data.channel_name}`);
                 this.reactionDataArray.push(data);
             }
             if (change.type === 'removed') {
@@ -111,7 +98,7 @@ exports.listenForTreat = async () => {
             /** @type {FirebaseTreat} */
             const data = change.doc.data();
             if (change.type === 'added') {
-                if (checkDate(data.timestamp)) logger.firebase(`New treat: ${data.user_name} , Reason: ${data.description}`);
+                logger.firebase(`New treat: ${data.user_name} , Reason: ${data.description}`);
                 this.treatDataArray.push(data);
             }
             if (change.type === 'removed') {
