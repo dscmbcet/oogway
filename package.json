@@ -6,9 +6,9 @@
   "scripts": {
     "start": "nodemon app.js",
     "update-command-readme": "node ./utils/update-command-readme.js",
-    "get-logs-heroku-app-only": "heroku logs --tail -a dsc-professor-bot --source app",
-    "get-logs-heroku": "heroku logs --tail -a dsc-professor-bot",
-    "connect-bash-heroku": "heroku run bash --app dsc-professor-bot",
+    "get-logs-heroku-app-only": "heroku logs --tail -a dsc-oogway-bot --source app",
+    "get-logs-heroku": "heroku logs --tail -a dsc-oogway-bot",
+    "connect-bash-heroku": "heroku run bash --app dsc-oogway-bot",
     "manual-deploy": "git push heroku main"
   },
   "author": "DSC MBCET",
@@ -17,6 +17,7 @@
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
     "firebase-admin": "^9.11.0",
+    "log4js": "^6.3.0",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.12"
   },

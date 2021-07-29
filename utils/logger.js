@@ -1,3 +1,5 @@
+const fs = require('fs');
+const os = require('os');
 const { PREFIX } = require('./constants');
 
 const colors = {
@@ -10,15 +12,18 @@ const colors = {
     PURPLE: '\x1b[35m\x1b[1m',
 };
 
+function getDate() {
+    const INDIA_TZ_OFFSET = 1.98e7;
+    return new Date(new Date().valueOf() + INDIA_TZ_OFFSET).toUTCString().replace('GMT', 'IST');
+}
+
 function sendlogs(args, isError) {
     if (PREFIX !== '!') return;
     const { client } = require('../app');
     const serverConifg = require('../configs/ooway-test');
 
     let msg;
-    const INDIA_TZ_OFFSET = 1.98e7;
-    const createdTime = new Date(new Date().valueOf() + INDIA_TZ_OFFSET).toUTCString().replace('GMT', 'IST');
-
+    const createdTime = getDate();
     if (isError) msg = `${createdTime}| ERROR: ${args.join(' ')}`;
     else msg = `${createdTime}| INFO: ${args.join(' ')}`;
     msg = `\`\`\`${msg}\`\`\``;
@@ -27,26 +32,34 @@ function sendlogs(args, isError) {
     channel.send(msg);
 }
 
+const log = fs.createWriteStream('info.log', { flags: 'a' });
+
 const logger = {
     log(...args) {
         console.log(`${colors.WHITE}LOG:${colors.DEFAULT}`, ...args);
+        log.write(`[${getDate()}] ${colors.WHITE}LOG:${colors.DEFAULT} ${args.join(' ')}\n`);
     },
     debug(...args) {
         if (PREFIX !== '!') console.debug(`${colors.RED_WHITEBG} DEBUG ${colors.DEFAULT}`, ...args);
     },
     error(...args) {
         console.error(`${colors.RED}ERROR:${colors.DEFAULT}`, ...args);
+        log.write(`[${getDate()}] ${colors.RED}ERROR:${colors.DEFAULT} ${args.join(' ')}\n`);
         sendlogs(args, true);
     },
     warn(...args) {
         console.warn(`${colors.YELLOW}WARN:${colors.DEFAULT}`, ...args);
+        log.write(`[${getDate()}] ${colors.YELLOW}WARN:${colors.DEFAULT} ${args.join(' ')}\n`);
     },
     info(...args) {
         console.info(`${colors.BLUE}INFO:${colors.DEFAULT}`, ...args);
+        log.write(`[${getDate()}] ${colors.BLUE}INFO:${colors.DEFAULT} ${args.join(' ')}\n`);
         sendlogs(args, false);
     },
     firebase(...args) {
         console.info(`${colors.PURPLE}FIREBASE:${colors.DEFAULT}`, ...args);
+        log.write(`[${getDate()}] ${colors.PURPLE}FIREBASE:${colors.DEFAULT} ${args.join(' ')}\n`);
     },
 };
+
 module.exports = { logger };

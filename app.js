@@ -1,5 +1,6 @@
 require('dotenv').config();
 const fs = require('fs');
+const os = require('os');
 const Discord = require('discord.js');
 const { logger } = require('./utils/logger');
 const firebase = require('./firebase/firebase_handler');
