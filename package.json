@@ -4,11 +4,12 @@
   "description": "Official DSC Bot for DSC Discord Server",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "dev": "nodemon app.js",
+    "start": "node .",
     "update-command-readme": "node ./utils/update-command-readme.js",
     "get-logs-heroku-app-only": "heroku logs --tail -a dsc-oogway-bot --source app",
     "get-logs-heroku": "heroku logs --tail -a dsc-oogway-bot",
-    "connect-bash-heroku": "heroku run bash --app dsc-oogway-bot",
+    "connect-bash": "heroku ps:exec --dyno=Worker.1 --app dsc-oogway-bot",
     "manual-deploy": "git push heroku main"
   },
   "author": "DSC MBCET",

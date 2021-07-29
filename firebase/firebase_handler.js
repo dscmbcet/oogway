@@ -6,9 +6,11 @@ const { logger } = require('../utils/logger');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
+    storageBucket: 'gs://master-oogway-bot.appspot.com/',
 });
 
-const db = admin.firestore();
+const dbFirebase = admin.firestore();
+const dbStorage = admin.storage().bucket();
 
 /**
  * @typedef {import('../utils/models/FirebaseReaction').FirebaseReaction} FirebaseReaction
@@ -30,7 +32,7 @@ logger.firebase('Initializing');
  * @param {string} type
  */
 exports.addReactionRole = async (reactionMessage, parsedData, type) => {
-    const colRef = db.collection('reaction-roles');
+    const colRef = dbFirebase.collection('reaction-roles');
     const data = {
         id: reactionMessage.id,
         type,
@@ -47,7 +49,7 @@ exports.addReactionRole = async (reactionMessage, parsedData, type) => {
  * @param {string} reaction_message
  */
 exports.removeReactionRole = async (reactionMessageId) => {
-    const colRef = db.collection('reaction-roles');
+    const colRef = dbFirebase.collection('reaction-roles');
     await colRef.doc(reactionMessageId).delete();
 };
 
@@ -57,7 +59,7 @@ exports.removeReactionRole = async (reactionMessageId) => {
  * @param {string} description
  */
 exports.addToTreatList = async (message, user, description) => {
-    const colRef = db.collection('treat-list');
+    const colRef = dbFirebase.collection('treat-list');
     colRef.doc(message.id).create({
         id: message.id,
         guild_id: message.guild.id,
@@ -70,8 +72,20 @@ exports.addToTreatList = async (message, user, description) => {
 
 /** @param {string} messageid */
 exports.removeFromTreatList = async (messageid) => {
-    const colRef = db.collection('treat-list');
+    const colRef = dbFirebase.collection('treat-list');
     await colRef.doc(messageid).delete();
+};
+
+exports.getLog = async () => {
+    logger.firebase('Importing Log');
+    await dbStorage.file('info.log').download({
+        destination: './info.log',
+    });
+};
+
+exports.writeLog = async () => {
+    logger.firebase('Exporting Log');
+    await dbStorage.upload('./info.log');
 };
 
 /**
@@ -87,7 +101,7 @@ function checkDate(timestamp) {
 
 exports.listenForReactionRoles = async () => {
     logger.firebase('Listening for reaction roles');
-    db.collection('reaction-roles').onSnapshot((querySnapshot) => {
+    dbFirebase.collection('reaction-roles').onSnapshot((querySnapshot) => {
         querySnapshot.docChanges().forEach(async (change) => {
             /** @type {FirebaseReaction} */
             const data = change.doc.data();
@@ -108,7 +122,7 @@ exports.listenForReactionRoles = async () => {
 
 exports.listenForTreat = async () => {
     logger.firebase('Listening for treats');
-    db.collection('treat-list').onSnapshot((querySnapshot) => {
+    dbFirebase.collection('treat-list').onSnapshot((querySnapshot) => {
         querySnapshot.docChanges().forEach(async (change) => {
             /** @type {FirebaseTreat} */
             const data = change.doc.data();

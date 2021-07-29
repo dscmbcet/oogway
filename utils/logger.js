@@ -1,5 +1,4 @@
 const fs = require('fs');
-const os = require('os');
 const { PREFIX } = require('./constants');
 
 const colors = {
@@ -36,29 +35,29 @@ const log = fs.createWriteStream('info.log', { flags: 'a' });
 
 const logger = {
     log(...args) {
-        console.log(`${colors.WHITE}LOG:${colors.DEFAULT}`, ...args);
-        log.write(`[${getDate()}] ${colors.WHITE}LOG:${colors.DEFAULT} ${args.join(' ')}\n`);
+        console.log(`${colors.WHITE}[LOG]${colors.DEFAULT}`, ...args);
+        log.write(`[${getDate()}] ${colors.WHITE}[LOG]${colors.DEFAULT} ${args.join(' ')}\n`);
     },
     debug(...args) {
         if (PREFIX !== '!') console.debug(`${colors.RED_WHITEBG} DEBUG ${colors.DEFAULT}`, ...args);
     },
     error(...args) {
-        console.error(`${colors.RED}ERROR:${colors.DEFAULT}`, ...args);
-        log.write(`[${getDate()}] ${colors.RED}ERROR:${colors.DEFAULT} ${args.join(' ')}\n`);
+        console.error(`${colors.RED}[ERROR]${colors.DEFAULT}`, ...args);
+        log.write(`[${getDate()}] ${colors.RED}[ERROR]${colors.DEFAULT} ${args.join(' ')}\n`);
         sendlogs(args, true);
     },
     warn(...args) {
-        console.warn(`${colors.YELLOW}WARN:${colors.DEFAULT}`, ...args);
-        log.write(`[${getDate()}] ${colors.YELLOW}WARN:${colors.DEFAULT} ${args.join(' ')}\n`);
+        console.warn(`${colors.YELLOW}[WARN]${colors.DEFAULT}`, ...args);
+        log.write(`[${getDate()}] ${colors.YELLOW}[WARN]${colors.DEFAULT} ${args.join(' ')}\n`);
     },
     info(...args) {
-        console.info(`${colors.BLUE}INFO:${colors.DEFAULT}`, ...args);
-        log.write(`[${getDate()}] ${colors.BLUE}INFO:${colors.DEFAULT} ${args.join(' ')}\n`);
+        console.info(`${colors.BLUE}[INFO]${colors.DEFAULT}`, ...args);
+        log.write(`[${getDate()}] ${colors.BLUE}[INFO]${colors.DEFAULT} ${args.join(' ')}\n`);
         sendlogs(args, false);
     },
     firebase(...args) {
-        console.info(`${colors.PURPLE}FIREBASE:${colors.DEFAULT}`, ...args);
-        log.write(`[${getDate()}] ${colors.PURPLE}FIREBASE:${colors.DEFAULT} ${args.join(' ')}\n`);
+        console.info(`${colors.PURPLE}[FIREBASE]${colors.DEFAULT}`, ...args);
+        log.write(`[${getDate()}] ${colors.PURPLE}[FIREBASE]${colors.DEFAULT} ${args.join(' ')}\n`);
     },
 };
 
