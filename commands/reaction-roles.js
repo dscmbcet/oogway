@@ -13,7 +13,7 @@ module.exports = {
      * @param {Discord.Message} message
      */
     async execute(message) {
-        if (!message.member.hasPermission('BAN_MEMBERS')) {
+        if (!message.member.hasPermission('MANAGE_ROLES')) {
             return sendDissapearingMessage(message, `You are not wise enough to give roles to others ${message.member}`);
         }
         if (message.mentions.roles.size === 0) {

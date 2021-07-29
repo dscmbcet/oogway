@@ -13,7 +13,7 @@ const colors = {
 function sendlogs(args, isError) {
     if (PREFIX !== '!') return;
     const { client } = require('../app');
-    const oogway = require('../configs/ooway-test');
+    const serverConifg = require('../configs/ooway-test');
 
     let msg;
     const INDIA_TZ_OFFSET = 1.98e7;
@@ -23,7 +23,7 @@ function sendlogs(args, isError) {
     else msg = `${createdTime}| INFO: ${args.join(' ')}`;
     msg = `\`\`\`${msg}\`\`\``;
 
-    const channel = client.channels.cache.get(oogway.log_channel_id);
+    const channel = client.channels.cache.get(serverConifg.log_channel_id);
     channel.send(msg);
 }
 

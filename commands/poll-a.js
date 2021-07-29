@@ -32,7 +32,7 @@ module.exports = {
 
         const embed = new Discord.MessageEmbed({
             title: 'Poll',
-            description: `**${description}**\n\n_Created by @${message.author.username}_`,
+            description: `**${description}**\n\n_created by @${message.author.username}_`,
             color: COLORS.orange,
         });
 

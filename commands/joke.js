@@ -12,11 +12,15 @@ module.exports = {
      * @param {Discord.Message} message
      */
     async execute(message) {
-        const embed = new Discord.MessageEmbed();
+        const embed = new Discord.MessageEmbed().setTitle('Here is your joke for the day').setColor(COLORS.cyan);
         try {
             const response = await fetch(API_URL.joke);
             const data = await response.json();
-            embed.setTitle('Here is your joke for the day').setDescription(data.joke).setColor(COLORS.cyan);
+            if (data.type === 'single') {
+                embed.setDescription(data.joke);
+            } else {
+                embed.setDescription(`${data.setup}\n${data.delivery}`);
+            }
             return message.channel.send(embed);
         } catch (e) {
             return sendDissapearingMessage(message, 'Sorry No Jokes For Now');

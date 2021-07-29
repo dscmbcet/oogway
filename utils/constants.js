@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 require('dotenv').config();
 module.exports = {
     PREFIX: JSON.parse(process.env.CONFIG).prefix,
@@ -13,7 +14,7 @@ module.exports = {
     },
 
     API_URL: {
-        joke: 'https://v2.jokeapi.dev/joke/Programming?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single',
+        joke: 'https://v2.jokeapi.dev/joke/Programming,Miscellaneous,Pun,Spooky,Christmas?blacklistFlags=nsfw,religious,racist,sexist,explicit',
         quotes: 'https://api.quotable.io/random',
     },
 

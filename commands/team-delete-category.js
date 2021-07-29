@@ -12,7 +12,7 @@ module.exports = {
      * @param {string[]} args
      */
     async execute(message, args) {
-        if (!message.member.hasPermission('ADMINISTRATOR')) {
+        if (!message.member.hasPermission('MANAGE_CHANNELS')) {
             return sendDissapearingMessage(message, `You are not wise enough to make those channels my friend ${message.author}`);
         }
         if (!args.length) {

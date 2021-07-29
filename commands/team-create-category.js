@@ -16,7 +16,7 @@ module.exports = {
      */
     async execute(message, args, client) {
         const TEAM_NO = parseInt(args[0], 10);
-        if (!message.member.hasPermission('ADMINISTRATOR')) {
+        if (!message.member.hasPermission('MANAGE_CHANNELS')) {
             return sendDissapearingMessage(message, `You are not wise enough to make those channels my friend ${message.author}`);
         }
         if (args.length < 2) {
