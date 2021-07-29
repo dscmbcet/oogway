@@ -17,16 +17,13 @@ handleFiles.forEach((file) => {
     require(`./handlers/${file}`)(client);
 });
 
-firebase.getLog();
 firebase.listenForReactionRoles();
 firebase.listenForTreat();
 
 function exitHandler(options, exitCode) {
-    firebase.writeLog().then(() => {
-        logger.error('Process Exiting');
-        if (exitCode || exitCode === 0) console.log(exitCode);
-        if (options.exit) process.exit();
-    });
+    logger.error('Process Exiting');
+    if (exitCode || exitCode === 0) console.log(exitCode);
+    if (options.exit) process.exit();
 }
 
 process
@@ -38,8 +35,6 @@ process
         process.exit(1);
     })
     .on('SIGINT', exitHandler.bind(null, { exit: true }))
-    .on('SIGTERM', exitHandler.bind(null, { exit: true }))
-    .on('SIGUSR1', exitHandler.bind(null, { exit: true }))
-    .on('SIGUSR2', exitHandler.bind(null, { exit: true }));
+    .on('SIGTERM', exitHandler.bind(null, { exit: true }));
 
 module.exports = { client };

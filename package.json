@@ -4,8 +4,7 @@
   "description": "Official DSC Bot for DSC Discord Server",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js",
-    "start": "node .",
+    "start": "nodemon app.js",
     "update-command-readme": "node ./utils/update-command-readme.js",
     "get-logs-heroku-app-only": "heroku logs --tail -a dsc-oogway-bot --source app",
     "get-logs-heroku": "heroku logs --tail -a dsc-oogway-bot",

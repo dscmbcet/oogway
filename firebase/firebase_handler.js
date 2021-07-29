@@ -6,11 +6,9 @@ const { logger } = require('../utils/logger');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    storageBucket: 'gs://master-oogway-bot.appspot.com/',
 });
 
 const dbFirebase = admin.firestore();
-const dbStorage = admin.storage().bucket();
 
 /**
  * @typedef {import('../utils/models/FirebaseReaction').FirebaseReaction} FirebaseReaction
@@ -74,18 +72,6 @@ exports.addToTreatList = async (message, user, description) => {
 exports.removeFromTreatList = async (messageid) => {
     const colRef = dbFirebase.collection('treat-list');
     await colRef.doc(messageid).delete();
-};
-
-exports.getLog = async () => {
-    logger.firebase('Importing Log');
-    await dbStorage.file('info.log').download({
-        destination: './info.log',
-    });
-};
-
-exports.writeLog = async () => {
-    logger.firebase('Exporting Log');
-    await dbStorage.upload('./info.log');
 };
 
 /**
