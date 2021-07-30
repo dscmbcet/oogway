@@ -1,7 +1,8 @@
 const admin = require('firebase-admin');
+require('dotenv').config();
 // eslint-disable-next-line no-unused-vars
 const Discord = require('discord.js');
-const serviceAccount = require('./firebase-config.json');
+const serviceAccount = JSON.parse(process.env.FIREBASE_CONFIG);
 const { logger } = require('../utils/logger');
 
 admin.initializeApp({
