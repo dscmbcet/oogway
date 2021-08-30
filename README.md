@@ -92,6 +92,11 @@ Discord bot for DSC MBCET Server
 - Usage: `!server-info`
 - Description: Gives information about the server
 
+#### showcase
+
+- Usage: `!showcase <TOPIC> - <DESCRIPTION>`
+- Description: Creates a text and voice channels of TOPIC for showcasing workflow
+
 #### team-create-category
 
 - Usage: `!team-create-category <TEAM_NO> <CATEGORY_NAME>`
