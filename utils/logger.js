@@ -19,7 +19,7 @@ function getDate() {
 function sendlogs(args, isError) {
     if (PREFIX !== '!') return;
     const { client } = require('../app');
-    const serverConifg = require('../configs/ooway-test');
+    const serverConifg = require('../configs/dsc');
 
     let msg;
     const createdTime = getDate();
