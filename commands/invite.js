@@ -28,8 +28,8 @@ module.exports = {
         });
         if (!message.member.hasPermission('CREATE_INSTANT_INVITE')) return message.channel.send(embed);
 
-        const username = args[0];
-        const email = args[1];
+        const username = args.join(' ');
+        const email = '';
         const channel = message.guild.channels.cache.get(client.configs.get(message.guild.id).welcome_channel_id);
         try {
             const invtite = await channel.createInvite({
