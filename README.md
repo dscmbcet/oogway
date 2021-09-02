@@ -19,12 +19,12 @@ Discord bot for DSC MBCET Server
 
 #### distribute-role-name
 
-- Usage: `!distribute-role-name <@role_name> <TEAM_NO>`
+- Usage: `!distribute-role-name <TEAM_NO> <@role_name>`
 - Description: Distributes the users (username) belonging to given role into TEAM_NO of teams
 
 #### distribute-role
 
-- Usage: `!distribute-role <@role_name> <TEAM_NO>`
+- Usage: `!distribute-role <TEAM_NO> <@role_name> `
 - Description: Distributes the users belonging to given role into TEAM_NO of teams
 
 #### find-role-name
@@ -86,6 +86,16 @@ Discord bot for DSC MBCET Server
 
 - Usage: `!reaction-roles <@role_1> [..@role_N]`
 - Description: Creates reaction role with given no. of role tags
+
+#### role-assign
+
+- Usage: `!role-assign <@role_name> <@username> [..@username_N]`
+- Description: Assigns the given role_name to given users
+
+#### role-remove
+
+- Usage: `!role-remove <@role_name> <@username> [..@username_N]`
+- Description: Removes the given role_name from given users
 
 #### server-info
 
