@@ -4,7 +4,7 @@ const { findRoleById, sendDissapearingMessage } = require('../utils/functions');
 
 module.exports = {
     name: 'distribute-role-name',
-    usage: `${PREFIX}distribute-role-name <@role_name> <TEAM_NO>`,
+    usage: `${PREFIX}distribute-role-name <TEAM_NO> <@role_name>`,
     description: 'Distributes the users (username) belonging to given role into TEAM_NO of teams',
 
     /**
@@ -15,7 +15,7 @@ module.exports = {
         if (args.length !== 2) return sendDissapearingMessage(message, `Check your arguments, ${message.author}!`);
         if (!message.mentions.roles.first()) return sendDissapearingMessage(message, `You didn't tag a role, ${message.author}!`);
 
-        const teamNo = parseInt(args[1], 10);
+        const teamNo = parseInt(args[0], 10);
         if (Number.isNaN(teamNo)) return sendDissapearingMessage(message, `You didn't specify a number, ${message.author}!`);
         if (teamNo <= 0) return sendDissapearingMessage(message, `Specify a greater number, ${message.author}!`);
 
