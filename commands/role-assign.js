@@ -4,6 +4,7 @@ const { sendDissapearingMessage } = require('../utils/functions');
 
 module.exports = {
     name: 'role-assign',
+    admin: true,
     usage: `${PREFIX}role-assign <@role_name> <@username> [..@username_N]`,
     description: 'Assigns the given role_name to given users',
 

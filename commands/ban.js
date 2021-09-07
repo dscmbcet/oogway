@@ -5,6 +5,7 @@ const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'ban',
+    admin: true,
     usage: `${PREFIX}ban <@user-name>`,
     description: 'Bans a member from server',
 

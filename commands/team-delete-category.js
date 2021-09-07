@@ -4,6 +4,7 @@ const { findChannelByName, findRoleById, sendDissapearingMessage } = require('..
 
 module.exports = {
     name: 'team-delete-category',
+    admin: true,
     usage: `${PREFIX}team-delete-category <CATEGORY_NAME>`,
     description: 'Deletes category CATEGORY_NAME with all its sub channels and roles',
 

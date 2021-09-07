@@ -6,6 +6,7 @@ const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'reaction-roles',
+    admin: true,
     usage: `${PREFIX}reaction-roles <@role_1> [..@role_N]`,
     description: 'Creates reaction role with given no. of role tags',
 

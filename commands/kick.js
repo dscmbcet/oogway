@@ -5,6 +5,7 @@ const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'kick',
+    admin: true,
     usage: `${PREFIX}kick <@user-name>`,
     description: 'Kicks a member from server',
 

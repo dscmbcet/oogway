@@ -5,6 +5,7 @@ const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'clear',
+    admin: true,
     usage: `${PREFIX}clear <NUMBER>`,
     description: 'Clear upto 100 messages',
 

@@ -5,6 +5,7 @@ const { findRoleById, sendDissapearingMessage } = require('../utils/functions');
 
 module.exports = {
     name: 'team-create-category',
+    admin: true,
     usage: `${PREFIX}team-create-category <TEAM_NO> <CATEGORY_NAME>`,
     description:
         'Creates category CATEGORY_NAME with given no. of TEAM_NO as sub channels for voice and text and creates role for each team',

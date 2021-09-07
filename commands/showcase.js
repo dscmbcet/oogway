@@ -4,6 +4,7 @@ const { sendDissapearingMessage } = require('../utils/functions');
 
 module.exports = {
     name: 'showcase',
+    admin: true,
     usage: `${PREFIX}showcase <TOPIC> - <DESCRIPTION>`,
     description: 'Creates a text and voice channels of TOPIC for showcasing workflow',
 

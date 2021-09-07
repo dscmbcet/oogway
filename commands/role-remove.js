@@ -4,6 +4,7 @@ const { sendDissapearingMessage } = require('../utils/functions');
 
 module.exports = {
     name: 'role-remove',
+    admin: true,
     usage: `${PREFIX}role-remove <@role_name> <@username> [..@username_N]`,
     description: 'Removes the given role_name from given users',
 

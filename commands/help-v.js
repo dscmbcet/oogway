@@ -11,18 +11,22 @@ module.exports = {
      * @param {Discord.Message} message
      */
     async execute(message) {
+        const moderator = message.member.permissions.has('MANAGE_GUILD');
         const commandFiles = fs.readdirSync('./commands/').filter((file) => file.endsWith('.js'));
 
-        const commandsArray = commandFiles.map((file) => {
-            const command = require(`./${file}`);
-            return {
-                name: command.name,
-                value: [
-                    `\`${command.usage === undefined ? '-' : command.usage}\``,
-                    `${command.description === undefined ? '-' : command.description}`,
-                ].join('\n'),
-            };
-        });
+        const commandsArray = commandFiles
+            .map((file) => {
+                const command = require(`./${file}`);
+                if (command.admin && !moderator) return 'ADMIN_ONLY';
+                return {
+                    name: command.name,
+                    value: [
+                        `\`${command.usage === undefined ? '-' : command.usage}\``,
+                        `${command.description === undefined ? '-' : command.description}`,
+                    ].join('\n'),
+                };
+            })
+            .filter((command) => command !== 'ADMIN_ONLY');
 
         commandsArray.sort();
 

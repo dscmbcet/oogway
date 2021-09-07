@@ -5,6 +5,7 @@ const { logger } = require('../utils/logger');
 
 module.exports = {
     name: 'invite',
+    admin: true,
     usage: `${PREFIX}invite <NAME>`,
     description: 'Creates an invite for NAME',
 
