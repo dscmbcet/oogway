@@ -18,6 +18,7 @@ module.exports = {
             .map((file) => {
                 const command = require(`./${file}`);
                 if (command.admin && !moderator) return 'ADMIN_ONLY';
+                if (command.hidden) return 'HIDDEN';
                 return {
                     name: command.name,
                     value: [
@@ -26,7 +27,7 @@ module.exports = {
                     ].join('\n'),
                 };
             })
-            .filter((command) => command !== 'ADMIN_ONLY');
+            .filter((command) => command !== 'ADMIN_ONLY' || command !== 'HIDDEN');
 
         commandsArray.sort();
 

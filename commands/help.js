@@ -18,9 +18,10 @@ module.exports = {
             .map((file) => {
                 const command = require(`./${file}`);
                 if (command.admin && !moderator) return 'ADMIN_ONLY';
+                if (command.hidden) return 'HIDDEN';
                 return `\`${command.usage === undefined ? '-' : command.usage}\``;
             })
-            .filter((command) => command !== 'ADMIN_ONLY');
+            .filter((command) => command !== 'ADMIN_ONLY' || command !== 'HIDDEN');
 
         commandsArray.sort();
         const embed = new Discord.MessageEmbed({
