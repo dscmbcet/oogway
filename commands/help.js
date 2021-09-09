@@ -21,7 +21,8 @@ module.exports = {
                 if (command.hidden) return 'HIDDEN';
                 return `\`${command.usage === undefined ? '-' : command.usage}\``;
             })
-            .filter((command) => command !== 'ADMIN_ONLY' || command !== 'HIDDEN');
+            .filter((command) => command !== 'ADMIN_ONLY')
+            .filter((command) => command !== 'HIDDEN');
 
         commandsArray.sort();
         const embed = new Discord.MessageEmbed({

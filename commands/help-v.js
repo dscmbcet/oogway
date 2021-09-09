@@ -27,7 +27,8 @@ module.exports = {
                     ].join('\n'),
                 };
             })
-            .filter((command) => command !== 'ADMIN_ONLY' || command !== 'HIDDEN');
+            .filter((command) => command !== 'ADMIN_ONLY')
+            .filter((command) => command !== 'HIDDEN');
 
         commandsArray.sort();
 
