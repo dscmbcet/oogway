@@ -1,3 +1,4 @@
 node_modules
 .env
 info.log
+assets/tokens/mail.json
