@@ -36,7 +36,7 @@ const QUESTION_FOUR = [
 const QUESTION_FIVE = [
     '✅ Great you are from **@DEPARTMENT** and will passout in year **@YEAR**',
     `If you'd like to change it then type: \`${PREFIX}dy <DEPARTMENT> <PASSOUT_YEAR>\`, Eg: \`${PREFIX}dy CSE 2023\``,
-    '\n**🔺5.Are you from MBCET or Other Colleges?`**',
+    '\n**🔺5. Are you from MBCET or Other Colleges?`**',
     'If you from MBCET Reply: `yes`',
     'Otherwise Reply: `YOUR_COLLEGE_NAME`',
 ].join('\n');
