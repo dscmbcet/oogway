@@ -18,8 +18,8 @@ const QUESTION_TWO = [
 
 const QUESTION_THREE = [
     '✅ Awesome, we have sent a verification email to: **@EMAIL** .',
-    `\nIf you haven't recieved the code type: \`${PREFIX}email <YOUR_EMAIL>\` again to resend the code, Eg: \`${PREFIX}email johndoe@gmail.com\``,
-    '\n**🔺3. Enter the verification code send to your mail**',
+    `\nIf you haven't recieved the code type: \`${PREFIX}email <YOUR_EMAIL>\` again to resent the code, Eg: \`${PREFIX}email johndoe@gmail.com\``,
+    '\n**🔺3. Enter the verification code sent to your mail**',
 ].join('\n');
 
 const ERROR_MAIL = ['Please try again later using command', `\`${PREFIX}email <YOUR_EMAIL>\``, `Eg: \`${PREFIX}email johndoe@gmail.com\``];
@@ -57,8 +57,3 @@ const FINAL = [
 const MESSAGES = { WELCOME_MESSAGE, QUESTION_TWO, QUESTION_THREE, QUESTION_FOUR, QUESTION_FIVE, FINAL, ERROR_MAIL };
 
 module.exports = { MESSAGES };
-
-// @USERNAME
-// @DISCORD_USERNAME
-// @EMAIL
-// @ANSWER_NAME
