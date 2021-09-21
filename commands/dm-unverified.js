@@ -29,7 +29,12 @@ module.exports = {
                     .setTitle(`Please verify yourself at ${message.guild.name} Server`)
                     .setColor(COLORS.cyan)
                     .setThumbnail(message.guild.iconURL())
-                    .setDescription(`Use command \`${PREFIX}verify-me\` in **oogway-spam** channel of server`)
+                    .setDescription(
+                        [
+                            `Use command \`${PREFIX}verify-me\` in **oogway-spam** channel of server`,
+                            '\nChannel Link: https://discord.com/channels/745702118240944138/868494568130248714',
+                        ].join('\n')
+                    )
                     .setFooter('Wish to see you there soon🙌');
 
                 await _user.roles.add(unverifiedRole);
