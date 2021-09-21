@@ -29,6 +29,7 @@ module.exports = {
             .addField('Email:', person.email)
             .addField('Branch:', person.branch)
             .addField('Year:', person.year === 0 ? 'Not Provided' : person.year)
+            .addField('College:', person.college)
             .addField('Verified:', person.verified ? ':white_check_mark:' : ':x:')
             .addField('Joined', `${member.joinedAt.toDateString()}`)
             .addField('Roles:', member.roles.cache.map((roles) => `${roles}`).join(' '));
