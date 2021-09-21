@@ -211,12 +211,20 @@ module.exports = {
                 }
                 const person = await getMember(user);
 
-                if (person.email === 'Not Provided' || person.name === 'Not Provided' || !person.verifiedEmail) {
+                if (
+                    person.email === 'Not Provided' ||
+                    person.name === 'Not Provided' ||
+                    person.year === 0 ||
+                    person.college === 'Not Provided' ||
+                    person.branch === 'Not Provided' ||
+                    !person.verifiedEmail
+                ) {
                     const embed = new Discord.MessageEmbed()
                         .setColor(COLORS.red)
                         .setThumbnail(user.user.displayAvatarURL())
                         .addField(`${user.user.tag}`, `${user.user}`)
                         .addField('Email:', person.email)
+                        .addField('College:', person.college)
                         .addField('Department:', person.branch)
                         .addField('Year:', person.year === 0 ? 'Not Provided' : person.year)
                         .addField('Email Verified:', person.verifiedEmail ? ':white_check_mark:' : ':x:')
