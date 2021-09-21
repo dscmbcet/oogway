@@ -96,6 +96,10 @@ module.exports = {
                 { message: MESSAGES.QUESTION_FOUR, command: 'dy' },
                 {
                     message: MESSAGES.QUESTION_FIVE.replace('@DEPARTMENT', tempUser.branch).replace('@YEAR', tempUser.year),
+                    command: 'college',
+                },
+                {
+                    message: MESSAGES.QUESTION_SIX,
                     command: 'yes',
                 },
             ];
@@ -115,6 +119,8 @@ module.exports = {
         }
 
         try {
+            const serverConfig = client.configs.get(guildID);
+
             if (command === 'verify-me') {
                 return message.channel.send(MESSAGES.WELCOME_MESSAGE.replace('@USERNAME', user).replace('@USERNAME', user));
             }
@@ -185,6 +191,20 @@ module.exports = {
                 return message.channel.send(msg);
             }
 
+            if (command === 'college') {
+                if (!args[0]) return sendDissapearingMessage(message, '**PLease provide details properly!**');
+                let college;
+                if (args[0].toLowerCase() === 'yes') college = 'MBCET';
+                else {
+                    college = args.join(' ');
+                    await user.roles.add(serverConfig.other_colleges_role_id);
+                }
+
+                await addNewMember({ user, college });
+                const msg = MESSAGES.QUESTION_SIX.replace('@COLLEGE', college);
+                return message.channel.send(msg);
+            }
+
             if (command === 'yes') {
                 if (message.content !== 'yes' && message.content !== '~yes') {
                     return sendDissapearingMessage(message, 'You must say `yes` to the code of conduct to move forward');
@@ -204,7 +224,6 @@ module.exports = {
                     return message.channel.send(embed);
                 }
 
-                const serverConfig = client.configs.get(guildID);
                 await user.roles.add(serverConfig.member_role_id);
                 await user.roles.remove(serverConfig.unverified_role_id);
 

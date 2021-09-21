@@ -35,6 +35,7 @@ const parseUser = (user) => {
         name: user.nickname ? user.nickname : user.displayName,
         email: 'Not Provided',
         branch: 'Not Provided',
+        college: 'Not Provided',
         year: 0,
         discordID: user.user.tag,
         roles: roleArray,
@@ -165,7 +166,7 @@ exports.getAllMember = async () => {
  * @param {boolean} verifiedEmail
  * @param {boolean} verified
  */
-exports.addNewMember = async ({ user, name, email, verificationCode, branch, year, verifiedEmail, verified }) => {
+exports.addNewMember = async ({ user, name, email, verificationCode, branch, year, college, verifiedEmail, verified }) => {
     let data = this.getMember(user);
     const colRef = dbFirebase.collection('users');
 
@@ -174,6 +175,7 @@ exports.addNewMember = async ({ user, name, email, verificationCode, branch, yea
     if (verificationCode) data = { ...data, verificationCode };
     if (branch) data = { ...data, branch };
     if (year) data = { ...data, year };
+    if (college) data = { ...data, college };
     if (verifiedEmail) data = { ...data, verifiedEmail };
     if (verified) {
         delete data.newUser;

@@ -4,6 +4,7 @@ export interface FirebaseUser {
     email: string;
     branch: string;
     year: number;
+    college: string;
     discordID: string;
     roles: {
         roleName: string;

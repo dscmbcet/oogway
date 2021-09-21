@@ -5,6 +5,7 @@ module.exports = {
     TEST_SERVER_ID: '853868805473173534',
     SPREADSHEET_ID: process.env.SPREADSHEET_ID,
     CREDENTIALS: JSON.parse(process.env.CREDENTIALS),
+    EMAIL_TOKEN: JSON.parse(process.env.EMAIL_TOKEN),
     WEB_CREDENTIALS: JSON.parse(process.env.WEB_CREDENTIALS).web,
 
     COLORS: {

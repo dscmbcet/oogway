@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const { updateDatabase } = require('../excel/spreadsheet_handler');
-const { getMember, getAllMember } = require('../firebase/firebase_handler');
+const { getMember, getAllMember, addNewMember } = require('../firebase/firebase_handler');
 const { PREFIX, COLORS } = require('../utils/constants');
 
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
     async execute(message) {
         if (!message.member.permissions.has('MANAGE_ROLES')) return;
 
-        const data = [['ID', 'Discord ID', 'Name', 'Email', 'Branch', 'Year', 'Verified']];
+        const data = [['ID', 'Discord ID', 'Name', 'Email', 'College', 'Branch', 'Year', 'Verified']];
         const roles = message.guild.roles.cache
             .sort()
             .map((e) => e.name)
@@ -45,7 +45,7 @@ module.exports = {
             let { year } = user;
             if (user.year === 0) year = 'Not Provided';
 
-            const userData = [user.id, user.discordID, user.name, user.email, user.branch, year, user.verified];
+            const userData = [user.id, user.discordID, user.name, user.email, user.college, user.branch, year, user.verified];
 
             roles.forEach((role) => {
                 if (members[i].roles.cache.find((_role) => _role.name === role) !== undefined) userData.push('TRUE');

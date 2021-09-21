@@ -1,10 +1,9 @@
 require('dotenv').config();
 const fs = require('fs');
 const nodemailer = require('nodemailer');
-const { WEB_CREDENTIALS } = require('./constants');
+const { WEB_CREDENTIALS, EMAIL_TOKEN } = require('./constants');
 const { htmlParser } = require('./html_parser');
 const { logger } = require('./logger');
-const token = require('../assets/tokens/mail.json');
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -17,14 +16,14 @@ const transporter = nodemailer.createTransport({
         clientId: WEB_CREDENTIALS.client_id,
         clientSecret: WEB_CREDENTIALS.client_secret,
         user: process.env.GOOGLE_USER,
-        refreshToken: token.refresh_token,
-        accessToken: token.access_token,
-        expires: token.expires_in,
+        refreshToken: EMAIL_TOKEN.refresh_token,
+        accessToken: EMAIL_TOKEN.access_token,
+        expires: EMAIL_TOKEN.expires_in,
     },
 });
 
 transporter.on('token', (newToken) => {
-    const data = { ...token, access_token: newToken.accessToken, expires_in: newToken.expires };
+    const data = { ...EMAIL_TOKEN, access_token: newToken.accessToken, expires_in: newToken.expires };
     fs.writeFileSync('./assets/tokens/mail.json', JSON.stringify(data, null, 2));
 });
 
