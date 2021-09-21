@@ -60,8 +60,8 @@ module.exports = {
     },
 
     /**
-     *
      * @param {Array} data
+     * @returns {Array}
      */
     filter(data) {
         let newData = data;
