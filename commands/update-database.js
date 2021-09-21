@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const { updateDatabase } = require('../excel/spreadsheet_handler');
-const { getMember, getAllMember, addNewMember } = require('../firebase/firebase_handler');
+const { getMember, getAllMember } = require('../firebase/firebase_handler');
 const { PREFIX, COLORS } = require('../utils/constants');
 
 module.exports = {
