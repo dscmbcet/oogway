@@ -19,6 +19,7 @@ module.exports = {
         if (!message.member.hasPermission('BAN_MEMBERS')) {
             return sendDissapearingMessage(message, `You are not wise enough to make that call my friend ${member}`);
         }
+
         args = args.filter((e) => e !== '');
         if (!message.mentions.users.first()) return sendDissapearingMessage(message, `You need to tag someone! ${member}`);
         if (args.length < 2) return sendDissapearingMessage(message, `Whats the reason? ${member}`);

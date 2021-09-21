@@ -3,6 +3,9 @@ require('dotenv').config();
 module.exports = {
     PREFIX: JSON.parse(process.env.CONFIG).prefix,
     TEST_SERVER_ID: '853868805473173534',
+    SPREADSHEET_ID: process.env.SPREADSHEET_ID,
+    CREDENTIALS: JSON.parse(process.env.CREDENTIALS),
+    WEB_CREDENTIALS: JSON.parse(process.env.WEB_CREDENTIALS).web,
 
     COLORS: {
         red: 0xff0000,

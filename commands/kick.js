@@ -6,7 +6,7 @@ const { logger } = require('../utils/logger');
 module.exports = {
     name: 'kick',
     admin: true,
-    usage: `${PREFIX}kick <@user-name>`,
+    usage: `${PREFIX}kick <@user-name> <reason>`,
     description: 'Kicks a member from server',
 
     /**
@@ -53,7 +53,7 @@ module.exports = {
             logger.info(`${tagUser.tag} has been kicked`);
             return message.channel.send(embed);
         } catch (e) {
-            console.log(e);
+            logger.log(e);
             return sendDissapearingMessage(message, `I am sorry but that person is wiser than you my friend ${member}`);
         }
     },

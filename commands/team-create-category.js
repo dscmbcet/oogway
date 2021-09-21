@@ -53,7 +53,7 @@ module.exports = {
         const channel = message.guild.channels;
 
         const categoryRole = await role.create({ data: { name: CATEGORY_NAME, color: 'BLACK' } });
-        const memberRolePermissions = findRoleById(message, serverConfig.new_member_default_role_id).permissions;
+        const memberRolePermissions = findRoleById(message, serverConfig.member_role_id).permissions;
 
         const category = await channel.create(CATEGORY_NAME, {
             type: 'category',
