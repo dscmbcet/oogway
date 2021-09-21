@@ -22,11 +22,6 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-transporter.on('token', (newToken) => {
-    const data = { ...EMAIL_TOKEN, access_token: newToken.accessToken, expires_in: newToken.expires };
-    fs.writeFileSync('./assets/tokens/mail.json', JSON.stringify(data, null, 2));
-});
-
 /**
  * Sends a  mail
  * @param {String} email
