@@ -16,13 +16,8 @@ module.exports = {
         if (!message.member.permissions.has('MANAGE_ROLES')) return;
 
         const data = [['ID', 'Discord ID', 'Name', 'Email', 'College', 'Branch', 'Year', 'Verified']];
-        const roles = message.guild.roles.cache
-            .sort()
-            .map((e) => e.name)
-            .filter((e) => e.toLowerCase() !== '@everyone')
-            .filter((e) => e.toLowerCase() !== 'member')
-            .filter((e) => e.toLowerCase() !== 'oogway')
-            .filter((e) => e.toLowerCase() !== 'member');
+        let roles = message.guild.roles.cache.sort().map((e) => e.name);
+        roles = this.filter(roles);
 
         data[0].push(...roles);
 
@@ -62,5 +57,20 @@ module.exports = {
             .setColor(COLORS.green)
             .setDescription('Users to "Database" excel sheet and firebase');
         message.channel.send(embed);
+    },
+
+    /**
+     *
+     * @param {Array} data
+     */
+    filter(data) {
+        let newData = data;
+        const unwanted = ['@everyone', 'member', 'oogway', 'bots', 'lead', 'hydra', 'mee6'];
+
+        unwanted.forEach((role) => {
+            newData = newData.filter((e) => e.toLowerCase() !== role);
+        });
+
+        return newData;
     },
 };
