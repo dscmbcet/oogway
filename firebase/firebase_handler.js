@@ -142,7 +142,7 @@ exports.getMember = async (user) => {
             await colRef.doc(user.id).create(data);
         } catch (error) {}
     } else {
-        delete data.newUser;
+        data.newUser = false;
     }
     return data;
 };
@@ -180,8 +180,7 @@ exports.addNewMember = async ({ user, name, email, verificationCode, branch, yea
     if (college) data = { ...data, college };
     if (verifiedEmail) data = { ...data, verifiedEmail };
     if (verified) {
-        delete data.newUser;
-        data = { ...data, verified };
+        data = { ...data, newUser: false, verified };
     }
     try {
         await colRef.doc(user.id).update(data);
