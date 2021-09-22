@@ -47,7 +47,7 @@ module.exports = {
             await channel.send(embed);
         } catch (error) {
             const embed = new Discord.MessageEmbed()
-                .setTitle('I am Unable to send you a message for verification')
+                .setTitle('I am unable to send you a message for verification')
                 .setColor(COLORS.red)
                 .setThumbnail(member.user.displayAvatarURL())
                 .setDescription(
