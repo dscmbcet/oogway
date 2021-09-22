@@ -99,7 +99,7 @@ module.exports = {
                     command: 'college',
                 },
                 {
-                    message: MESSAGES.QUESTION_SIX,
+                    message: MESSAGES.QUESTION_SIX.replace('@COLLEGE', tempUser.college),
                     command: 'agree',
                 },
             ];
