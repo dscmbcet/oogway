@@ -16,6 +16,7 @@ const htmlParser = () => {
     const reg = /--.*:.*;/gm;
     const varArray = css.matchAll(reg);
 
+    // eslint-disable-next-line no-restricted-syntax
     for (const variable of varArray) {
         const [name, value] = variable[0].trim().replace(';', '').split(':');
         const regex = `var(${name.trim()})`;

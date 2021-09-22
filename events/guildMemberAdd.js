@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const { v4: uuidv4 } = require('uuid');
-const { COLORS, PREFIX } = require('../utils/constants');
+const { COLORS, PREFIX, EMAIL_REGEX } = require('../utils/constants');
 const { logger } = require('../utils/logger');
 const { MESSAGES } = require('./messages/onboarding');
 const { sendDissapearingMessage } = require('../utils/functions');
@@ -143,9 +143,7 @@ module.exports = {
                 if (!args[0]) return sendDissapearingMessage(message, '**Invalid Email!**');
                 const email = args[0].trim();
 
-                const re =
-                    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                if (!re.test(email)) return sendDissapearingMessage(message, '**Invalid Email Entered!**');
+                if (!EMAIL_REGEX.test(email)) return sendDissapearingMessage(message, '**Invalid Email Entered!**');
                 if (email.endsWith('@mbcet.ac.in')) return sendDissapearingMessage(message, '**Invalid Email Entered!**');
 
                 const verificationCode = uuidv4().replace('-', '').slice(0, 10).toLocaleUpperCase();

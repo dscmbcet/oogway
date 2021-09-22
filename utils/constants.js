@@ -17,6 +17,10 @@ module.exports = {
         cyan: 0x00ffff,
     },
 
+    EMAIL_REGEX:
+        // eslint-disable-next-line no-useless-escape
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+
     API_URL: {
         joke: 'https://v2.jokeapi.dev/joke/Programming,Miscellaneous,Pun,Spooky,Christmas?blacklistFlags=nsfw,religious,racist,sexist,explicit',
         quotes: 'https://api.quotable.io/random',

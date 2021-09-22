@@ -30,6 +30,7 @@
         "no-await-in-loop": "off",
         "consistent-return": "off",
         "object-curly-newline": "off",
-        "comma-dangle": "off"
+        "comma-dangle": "off",
+        "operator-linebreak": "off"
     }
 }

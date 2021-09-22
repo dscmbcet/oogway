@@ -1,4 +1,5 @@
-const { google, GoogleApis } = require('googleapis');
+const { google } = require('googleapis');
+// eslint-disable-next-line no-unused-vars
 const Discord = require('discord.js');
 const { SPREADSHEET_ID, CREDENTIALS } = require('../utils/constants');
 
@@ -86,17 +87,7 @@ async function clearAndUpdateSheet(range, values) {
         spreadsheetId: SPREADSHEET_ID,
         range,
     });
-    await googlesheets.spreadsheets.values.update({
-        auth,
-        spreadsheetId: SPREADSHEET_ID,
-        range,
-        valueInputOption: 'USER_ENTERED',
-        requestBody: {
-            majorDimension: 'ROWS',
-            range,
-            values,
-        },
-    });
+    await updateSheet(range, values);
 }
 
 // ----------- Sheet helper functions : END ----------

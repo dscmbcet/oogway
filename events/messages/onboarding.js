@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const { PREFIX } = require('../../utils/constants');
 
 const WELCOME_MESSAGE = [
