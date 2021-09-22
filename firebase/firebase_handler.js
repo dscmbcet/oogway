@@ -116,7 +116,7 @@ exports.updateUser = async (user) => {
     } else {
         const roleArray = user.roles.cache.map((e) => ({ roleName: e.name, roleID: e.id }));
         data = {
-            name: user.nickname ? user.nickname : user.displayName,
+            name: user.displayName,
             discordID: user.user.tag,
             roles: roleArray,
         };
