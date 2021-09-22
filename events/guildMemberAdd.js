@@ -149,7 +149,7 @@ module.exports = {
                 if (email.endsWith('@mbcet.ac.in')) return sendDissapearingMessage(message, '**Invalid Email Entered!**');
 
                 const verificationCode = uuidv4().replace('-', '').slice(0, 10).toLocaleUpperCase();
-                await addNewMember({ user, email, verificationCode });
+                await addNewMember({ user, email, verificationCode, verifiedEmail: false });
 
                 let embed = new Discord.MessageEmbed()
                     .setTitle(`Sending verification code to: ${email}`)
