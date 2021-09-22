@@ -52,7 +52,7 @@ const QUESTION_SIX = [
     '5. Help and learn from each other.',
     '6. Anybody found not respecting the guidelines of the group shall be removed promptly.```',
     '\n**🔺6. Do you agree to abide by and uphold the code of conduct?`**',
-    'Reply: `yes`',
+    'Reply: `agree`',
 ].join('\n');
 
 const FINAL = [

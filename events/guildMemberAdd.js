@@ -77,7 +77,7 @@ module.exports = {
         let command;
         let args;
 
-        if (message.content.toLowerCase() === 'yes') command = 'yes';
+        if (message.content.toLowerCase() === 'agree') command = 'agree';
         else if (message.content.startsWith(PREFIX)) {
             args = message.content.slice(PREFIX.length).trim().split(' ');
             command = args.shift().toLowerCase();
@@ -100,7 +100,7 @@ module.exports = {
                 },
                 {
                     message: MESSAGES.QUESTION_SIX,
-                    command: 'yes',
+                    command: 'agree',
                 },
             ];
             const previousMessage = (await message.channel.messages.fetch())
@@ -207,7 +207,7 @@ module.exports = {
                     await user.roles.remove(serverConfig.other_colleges_role_id);
                 } else {
                     college = args.join(' ');
-                    await user.roles.add(serverConfig.other_colleges_role_id);
+                    if (college.toUpperCase() !== 'MBCET') await user.roles.add(serverConfig.other_colleges_role_id);
                 }
 
                 await addNewMember({ user, college });
@@ -215,9 +215,9 @@ module.exports = {
                 return message.channel.send(msg);
             }
 
-            if (command === 'yes') {
-                if (message.content !== 'yes' && message.content !== `${PREFIX}yes`) {
-                    return sendDissapearingMessage(message, 'You must say `yes` to the code of conduct to move forward');
+            if (command === 'agree') {
+                if (message.content !== 'agree' && message.content !== `${PREFIX}agree`) {
+                    return sendDissapearingMessage(message, 'You must say `agree` to the code of conduct to move forward');
                 }
                 const person = await getMember(user);
 
