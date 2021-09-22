@@ -178,8 +178,8 @@ exports.addNewMember = async ({ user, name, email, verificationCode, branch, yea
     if (branch) data = { ...data, branch };
     if (year) data = { ...data, year };
     if (college) data = { ...data, college };
-    if (verifiedEmail) data = { ...data, verifiedEmail };
-    if (verified) {
+    if (verifiedEmail !== undefined) data = { ...data, verifiedEmail };
+    if (verified !== undefined) {
         data = { ...data, newUser: false, verified };
     }
     try {
