@@ -146,15 +146,23 @@ module.exports = {
                 const re =
                     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 if (!re.test(email)) return sendDissapearingMessage(message, '**Invalid Email Entered!**');
+                if (email.endsWith('@mbcet.ac.in')) return sendDissapearingMessage(message, '**Invalid Email Entered!**');
 
                 const verificationCode = uuidv4().replace('-', '').slice(0, 10).toLocaleUpperCase();
                 await addNewMember({ user, email, verificationCode });
+
+                let embed = new Discord.MessageEmbed()
+                    .setTitle(`Sending verification code to: ${email}`)
+                    .setColor(COLORS.yellow)
+                    .setDescription('Please wait this might take a few minutes');
+                message.channel.send(embed);
+
                 const mailStatus = await sendMail(email, verificationCode);
                 if (mailStatus) {
                     const msg = MESSAGES.QUESTION_THREE.replace('@EMAIL', email);
                     return message.channel.send(msg);
                 }
-                const embed = new Discord.MessageEmbed()
+                embed = new Discord.MessageEmbed()
                     .setTitle('⛔ **We are experiencing some issues right now** ⛔')
                     .setColor(COLORS.red)
                     .setDescription(MESSAGES.ERROR_MAIL);
