@@ -141,6 +141,8 @@ exports.getMember = async (user) => {
         try {
             await colRef.doc(user.id).create(data);
         } catch (error) {}
+    } else {
+        delete data.newUser;
     }
     return data;
 };
