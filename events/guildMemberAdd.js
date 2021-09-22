@@ -216,7 +216,7 @@ module.exports = {
             }
 
             if (command === 'yes') {
-                if (message.content !== 'yes' && message.content !== '~yes') {
+                if (message.content !== 'yes' && message.content !== `${PREFIX}yes`) {
                     return sendDissapearingMessage(message, 'You must say `yes` to the code of conduct to move forward');
                 }
                 const person = await getMember(user);
