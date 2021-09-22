@@ -30,7 +30,7 @@ const QUESTION_FOUR = [
     'Valid Departments Are: `CSE, CE, ME, EE, EC, OTHER`',
     '\n**🔺4. Enter your department and passout year**',
     'Eg: if you are from **CSE** and in **2nd** year',
-    'Your reply should be: `CSE 2023`',
+    `Your reply should be: \`CSE ${new Date().getFullYear() + 2}\``,
 ].join('\n');
 
 const QUESTION_FIVE = [
