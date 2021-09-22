@@ -47,7 +47,7 @@ module.exports = {
             await channel.send(embed);
         } catch (error) {
             const embed = new Discord.MessageEmbed()
-                .setTitle(`Our BOT Unable to send you a message ${member.user.tag} for verification`)
+                .setTitle('I am Unable to send you a message for verification')
                 .setColor(COLORS.red)
                 .setThumbnail(member.user.displayAvatarURL())
                 .setDescription(
@@ -194,8 +194,10 @@ module.exports = {
             if (command === 'college') {
                 if (!args[0]) return sendDissapearingMessage(message, '**PLease provide details properly!**');
                 let college;
-                if (args[0].toLowerCase() === 'yes') college = 'MBCET';
-                else {
+                if (args[0].toLowerCase() === 'yes') {
+                    college = 'MBCET';
+                    await user.roles.remove(serverConfig.other_colleges_role_id);
+                } else {
                     college = args.join(' ');
                     await user.roles.add(serverConfig.other_colleges_role_id);
                 }
