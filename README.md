@@ -97,6 +97,11 @@ Discord bot for DSC MBCET Server
 - Usage: `!role-assign <@role_name> <@username> [..@username_N]`
 - Description: Assigns the given role_name to given users
 
+#### role-excel
+
+- Usage: `!role-excel <@role_name>`
+- Description: Assigns the given role_name to given users from excel sheet neoGrad
+
 #### role-remove
 
 - Usage: `!role-remove <@role_name> <@username> [..@username_N]`
