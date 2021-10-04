@@ -7,6 +7,7 @@ module.exports = {
     CREDENTIALS: JSON.parse(process.env.CREDENTIALS),
     EMAIL_TOKEN: JSON.parse(process.env.EMAIL_TOKEN),
     WEB_CREDENTIALS: JSON.parse(process.env.WEB_CREDENTIALS).web,
+    TESTER_ID: process.env.TESTER_ID,
 
     COLORS: {
         red: 0xff0000,
