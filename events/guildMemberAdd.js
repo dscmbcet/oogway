@@ -77,12 +77,14 @@ module.exports = {
         let command;
         let args;
 
+        const tempUser = await getMember(user);
+        if (tempUser.verified) return;
+
         if (message.content.toLowerCase() === 'agree') command = 'agree';
         else if (message.content.startsWith(PREFIX)) {
             args = message.content.slice(PREFIX.length).trim().split(' ');
             command = args.shift().toLowerCase();
         } else {
-            const tempUser = await getMember(user);
             const possibleMessage = [
                 {
                     message: MESSAGES.WELCOME_MESSAGE.replace('@USERNAME', user.user).replace('@USERNAME', user.user),
