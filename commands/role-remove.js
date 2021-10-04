@@ -13,6 +13,9 @@ module.exports = {
      * @param {string[]} args
      */
     async execute(message) {
+        if (!message.member.hasPermission('MANAGE_ROLES')) {
+            return sendDissapearingMessage(message, `You are not wise enough to make that call my friend ${message.author}`);
+        }
         if (!message.mentions.roles.first()) return sendDissapearingMessage(message, `You didn't tag a role, ${message.author}!`);
         if (!message.mentions.users.first()) return sendDissapearingMessage(message, `You didn't tag a user, ${message.author}!`);
 

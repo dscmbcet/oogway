@@ -13,7 +13,9 @@ module.exports = {
      * @param {Discord.Message} message
      */
     async execute(message) {
-        if (!message.member.permissions.has('MANAGE_GUILD')) return;
+        if (!message.member.hasPermission('MANAGE_GUILD')) {
+            return sendDissapearingMessage(message, `You are not wise enough to make that call my friend ${message.author}`);
+        }
         if (!message.mentions.users.first()) return sendDissapearingMessage(message, `You didn't tag a user, ${message.author}!`);
 
         const taggedUser = message.mentions.users.first();

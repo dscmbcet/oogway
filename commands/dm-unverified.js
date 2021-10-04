@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const { PREFIX, COLORS } = require('../utils/constants');
-const { findRoleById } = require('../utils/functions');
+const { findRoleById, sendDissapearingMessage } = require('../utils/functions');
 const { getMember } = require('../firebase/firebase_handler');
 
 module.exports = {
@@ -15,7 +15,9 @@ module.exports = {
      * @param {Discord.Client} client
      */
     async execute(message, args, client) {
-        if (!message.member.permissions.has('MANAGE_GUILD')) return;
+        if (!message.member.permissions.has('MANAGE_GUILD')) {
+            return sendDissapearingMessage(message, `You are not wise enough to make that call my friend ${message.author}`);
+        }
 
         const serverConfig = client.configs.get(message.guild.id);
         const unverifiedRole = findRoleById(message, serverConfig.unverified_role_id);

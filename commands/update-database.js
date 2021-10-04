@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const { updateDatabase } = require('../excel/spreadsheet_handler');
 const { getMember, getAllMember } = require('../firebase/firebase_handler');
 const { PREFIX, COLORS } = require('../utils/constants');
+const { sendDissapearingMessage } = require('../utils/functions');
 
 module.exports = {
     name: 'update-database',
@@ -13,7 +14,9 @@ module.exports = {
      * @param {Discord.Message} message
      */
     async execute(message) {
-        if (!message.member.permissions.has('MANAGE_ROLES')) return;
+        if (!message.member.hasPermission('MANAGE_ROLES')) {
+            return sendDissapearingMessage(message, `You are not wise enough to make that call my friend ${message.author}`);
+        }
 
         const data = [['ID', 'Discord ID', 'Name', 'Email', 'College', 'Branch', 'Year', 'Verified']];
         let roles = message.guild.roles.cache.sort().map((e) => e.name);
