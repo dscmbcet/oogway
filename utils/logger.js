@@ -27,7 +27,7 @@ function sendlogs(args, isError) {
     else msg = `${createdTime}| INFO: ${args.join(' ')}`;
 
     msg = `\`\`\`${msg}\`\`\``;
-    if (isError) msg = `<@${TESTER_ID}}>\n${msg}`;
+    if (isError) msg = `<@${TESTER_ID}>\n${msg}`;
 
     const channel = client.channels.cache.get(serverConifg.log_channel_id);
     channel.send(msg);
