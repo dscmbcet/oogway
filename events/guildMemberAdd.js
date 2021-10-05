@@ -80,7 +80,7 @@ module.exports = {
         const tempUser = await getMember(user);
         if (tempUser.verified) return;
 
-        if (message.content.toLowerCase() === 'agree') command = 'agree';
+        if (message.content.toLowerCase().trim() === 'agree') command = 'agree';
         else if (message.content.startsWith(PREFIX)) {
             args = message.content.slice(PREFIX.length).trim().split(' ');
             command = args.shift().toLowerCase();
@@ -202,7 +202,7 @@ module.exports = {
             if (command === 'college') {
                 if (!args[0]) return sendDissapearingMessage(message, '**PLease provide details properly!**');
                 let college;
-                if (args[0].toLowerCase() === 'yes') {
+                if (args[0].toLowerCase().trim() === 'yes') {
                     college = 'MBCET';
                     await user.roles.remove(serverConfig.other_colleges_role_id);
                 } else {
@@ -216,7 +216,8 @@ module.exports = {
             }
 
             if (command === 'agree') {
-                if (message.content !== 'agree' && message.content !== `${PREFIX}agree`) {
+                const commandMessage = message.content.toLowerCase().trim();
+                if (commandMessage !== 'agree' && commandMessage !== `${PREFIX}agree`) {
                     return sendDissapearingMessage(message, 'You must say `agree` to the code of conduct to move forward');
                 }
                 const person = await getMember(user);
