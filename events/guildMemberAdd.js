@@ -19,12 +19,12 @@ module.exports = {
         const user = await getMember(member);
 
         if (user.verified) {
-            const serverConfig = client.configs.get(member.guild.id);
-            const memberRole = member.guild.roles.cache.get(serverConfig.member_role_id);
-            await member.roles.add(memberRole);
             try {
                 await member.setNickname(user.name);
             } catch (error) {}
+            const serverConfig = client.configs.get(member.guild.id);
+            const memberRole = member.guild.roles.cache.get(serverConfig.member_role_id);
+            await member.roles.add(memberRole);
             return;
         }
         const serverConfig = client.configs.get(member.guild.id);
