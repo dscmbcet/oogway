@@ -58,20 +58,14 @@ const parseUser = (user) => {
 exports.updateBanOrKickMember = async (user, banned, kicked, status) => {
     const colRef = dbFirebase.collection('users');
     let data = await this.getMember(user);
+    if (banned) {
+        data = { ...data, banned: { status, reason: banned.reason } };
+    }
+    if (kicked) {
+        data = { ...data, kicked: { status, reason: kicked.reason } };
+    }
 
     if (data.newUser) {
-        if (banned) {
-            data = {
-                ...data,
-                banned: { status, reason: banned.reason },
-            };
-        }
-        if (kicked) {
-            data = {
-                ...data,
-                kicked: { status, reason: kicked.reason },
-            };
-        }
         try {
             await colRef.doc(user.id).create(data);
         } catch (error) {}
@@ -79,12 +73,6 @@ exports.updateBanOrKickMember = async (user, banned, kicked, status) => {
         if (banned && banned.reason !== '') logger.firebase(`Added ${user.user.tag} to banned: ${banned.reason}`);
         if (kicked && kicked.reason !== '') logger.firebase(`Added ${user.user.tag} to kicked: ${kicked.reason}`);
     } else {
-        if (banned) {
-            data = { banned: { status, reason: banned.reason } };
-        }
-        if (kicked) {
-            data = { ...data, kicked: { status, reason: kicked.reason } };
-        }
         try {
             await colRef.doc(user.id).update(data);
         } catch (error) {}
