@@ -22,6 +22,9 @@ module.exports = {
             const serverConfig = client.configs.get(member.guild.id);
             const memberRole = member.guild.roles.cache.get(serverConfig.member_role_id);
             await member.roles.add(memberRole);
+            try {
+                await member.setNickname(user.name);
+            } catch (error) {}
             return;
         }
         const serverConfig = client.configs.get(member.guild.id);
