@@ -41,7 +41,7 @@ module.exports = {
                             `Dear ${taggedUser},`,
                             'We have noticed you are not following our guidelines properly',
                             'As mentioned earlier we will not tolerate any kind of misbehaviour,',
-                            'Your are being `KICKED` from **GDSC MBCET**',
+                            'You are being `KICKED` from **GDSC MBCET**',
                         ].join('\n')
                     );
                 } catch (error) {}
