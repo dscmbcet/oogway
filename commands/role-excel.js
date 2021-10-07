@@ -28,7 +28,7 @@ module.exports = {
         for (let i = 0; i < sheetData.length; i++) {
             const user = message.guild.members.cache.find((u) => `${u.user.username}#${u.user.discriminator}` === sheetData[i][0]);
             if (!user) {
-                unknownPeople.push(sheetData[i][1]);
+                unknownPeople.push(sheetData[i][0]);
                 continue;
             }
             await user.roles.add(roleID);
