@@ -120,10 +120,10 @@ module.exports = {
 
             command = bestMessage.command;
             args = message.content.trim().split(' ');
-            logger.info(`${user.user.tag} is using DM: ${command}`);
         }
 
         try {
+            logger.info(`${user.user.tag} is using DM: ${command}`);
             const serverConfig = client.configs.get(guildID);
 
             if (command === 'verify-me') {
