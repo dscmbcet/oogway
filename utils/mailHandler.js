@@ -10,6 +10,8 @@ const transporter = nodemailer.createTransport({
     pool: true,
     maxConnections: 5,
     maxMessages: 30,
+    rateDelta: 60000,
+    rateLimit: 500,
     secure: true,
     auth: {
         type: 'OAuth2',
