@@ -62,7 +62,7 @@ module.exports = {
                         `\nAfter that type \`${PREFIX}verify-me\` here`,
                     ].join('\n')
                 )
-                .setFooter('Feel free to disble the Allow direct messages from server members option after verification');
+                .setFooter('Feel free to disable the Allow direct messages from server members option after verification');
             await channel.send(embed);
         }
     },
