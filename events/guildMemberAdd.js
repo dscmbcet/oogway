@@ -269,9 +269,6 @@ module.exports = {
                     color: COLORS.cyan,
                 });
                 channel.send(embed);
-
-                await new Promise((resolve) => setTimeout(() => resolve(), 60000));
-                await message.channel.delete();
             }
         } catch (e) {
             logger.error(`Command: ${command} Error:`, e);
