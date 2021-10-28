@@ -42,12 +42,6 @@ async function sendMail(email, verificationCode) {
                     to: email,
                     subject: 'Verification For GDSC MBCET Discord Server',
                     html,
-                    attachments: [
-                        {
-                            path: './assets/mail/banner.png',
-                            cid: 'banner',
-                        },
-                    ],
                 },
                 (e) => {
                     if (e) {
