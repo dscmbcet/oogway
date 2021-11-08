@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 const Discord = require('discord.js');
-const { reactionDataArray, removeReactionRole } = require('../firebase/firebase_handler');
+const { listenForReactionRoles, listenForTreat } = require('../firebase/firebase_handler');
 const { PREFIX } = require('../utils/constants');
 const { logger } = require('../utils/logger');
 
@@ -15,5 +15,8 @@ module.exports = {
         logger.info('Master Oogway Is Ready!');
         logger.info(`PREFIX: ${PREFIX}`);
         logger.info('Handling Guilds:', guilds.join(', '));
+
+        listenForReactionRoles();
+        listenForTreat();
     },
 };

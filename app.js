@@ -17,9 +17,6 @@ handleFiles.forEach((file) => {
     require(`./handlers/${file}`)(client);
 });
 
-firebase.listenForReactionRoles();
-firebase.listenForTreat();
-
 function exitHandler(options, exitCode) {
     logger.error('Process Exiting');
     if (exitCode || exitCode === 0) console.log(exitCode);
