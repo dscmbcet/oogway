@@ -239,7 +239,10 @@ function checkDate(timestamp) {
     return new Date(timestamp) > date;
 }
 
-exports.listenForReactionRoles = async () => {
+/**
+ * @param {Discord.Client} client
+ */
+exports.listenForReactionRoles = async (client) => {
     logger.firebase('Listening for reaction roles');
     dbFirebase.collection('reaction-roles').onSnapshot((querySnapshot) => {
         querySnapshot.docChanges().forEach(async (change) => {
@@ -248,6 +251,13 @@ exports.listenForReactionRoles = async () => {
             if (change.type === 'added') {
                 if (checkDate(data.timestamp)) {
                     logger.firebase(`New reaction role:${data.id} @type: ${data.type} @Channel: ${data.channel_name}`);
+                    const guild = client.guilds.cache.find((e) => e.id === data.guild_id);
+                    const channel = guild.channels.cache.find((e) => e.id === data.channel_id);
+                    try {
+                        await channel.messages.fetch(data.id);
+                    } catch (error) {
+                        await this.removeReactionRole(data.id);
+                    }
                 }
                 this.reactionDataArray.push(data);
             }

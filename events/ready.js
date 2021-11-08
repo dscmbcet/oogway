@@ -15,15 +15,5 @@ module.exports = {
         logger.info('Master Oogway Is Ready!');
         logger.info(`PREFIX: ${PREFIX}`);
         logger.info('Handling Guilds:', guilds.join(', '));
-
-        reactionDataArray.forEach(async (reaction) => {
-            const guild = client.guilds.cache.find((e) => e.id === reaction.guild_id);
-            const channel = guild.channels.cache.find((e) => e.id === reaction.channel_id);
-            try {
-                await channel.messages.fetch(reaction.id);
-            } catch (error) {
-                await removeReactionRole(reaction.id);
-            }
-        });
     },
 };
