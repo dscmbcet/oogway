@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 const Discord = require('discord.js');
-const { listenForReactionRoles, listenForTreat } = require('../firebase/firebase_handler');
+const firebase = require('../firebase/firebase_handler');
 const { PREFIX } = require('../utils/constants');
 const { logger } = require('../utils/logger');
 
@@ -16,7 +16,7 @@ module.exports = {
         logger.info(`PREFIX: ${PREFIX}`);
         logger.info('Handling Guilds:', guilds.join(', '));
 
-        listenForReactionRoles();
-        listenForTreat();
+        firebase.listenForReactionRoles(client);
+        firebase.listenForTreat();
     },
 };
