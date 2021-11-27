@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { firebaseSpamLinkArray } = require('../firebase/firebase_handler');
 const { COLORS, PREFIX } = require('../utils/constants');
 const { logger } = require('../utils/logger');
 
