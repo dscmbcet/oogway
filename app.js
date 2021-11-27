@@ -2,7 +2,7 @@ require('dotenv').config();
 const fs = require('fs');
 const Discord = require('discord.js');
 const { logger } = require('./utils/logger');
-const firebase = require('./firebase/firebase_handler');
+require('./firebase/firebase_handler');
 const { token } = JSON.parse(process.env.CONFIG);
 
 const client = new Discord.Client();

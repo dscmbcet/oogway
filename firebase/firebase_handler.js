@@ -8,6 +8,7 @@ const { addOffenceSheet } = require('../excel/spreadsheet_handler');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
+    databaseURL: 'https://master-oogway-bot-default-rtdb.firebaseio.com/',
 });
 
 const dbFirebase = admin.firestore();
