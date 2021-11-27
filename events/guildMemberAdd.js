@@ -108,10 +108,7 @@ module.exports = {
                     command: 'agree',
                 },
             ];
-            const previousMessage = (await message.channel.messages.fetch())
-                .filter((e) => e.author.bot)
-                .filter((e) => e.content !== '')
-                .first().content;
+            const previousMessage = (await message.channel.messages.fetch()).filter((e) => e.author.bot).filter((e) => e.content !== '');
 
             const bestMessage = possibleMessage.find((e) => e.message === previousMessage);
             if (bestMessage === undefined) {
