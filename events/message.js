@@ -16,6 +16,8 @@ module.exports = {
             messageHandler(message, client);
             return;
         }
+
+        if (!message.content.startsWith(PREFIX)) await this.checkSpamMessage(message, client);
         if (!message.content.startsWith(PREFIX)) return;
 
         let embed;
@@ -53,6 +55,58 @@ module.exports = {
             return message.channel.send(embed).then((msg) => {
                 msg.delete({ timeout: 5000 });
             });
+        }
+    },
+
+    /**
+     * Checks if given message is a nitro spam message
+     * @param {Discord.Message} message
+     * @param {Discord.Client} client
+     * */
+    async checkSpamMessage(message, client) {
+        const msg = message.content;
+
+        const spamArray = firebaseSpamLinkArray.map((e) => e.link);
+
+        let flag = false;
+        if (msg.toLowerCase().includes('@everyone') && msg.toLowerCase().includes('nitro')) {
+            flag = true;
+        } else {
+            for (let index = 0; index < spamArray.length; index++) {
+                if (msg.toLowerCase().includes(spamArray[index])) {
+                    flag = true;
+                    break;
+                }
+            }
+        }
+
+        if (flag) {
+            const member = message.guild.member(message.author.id);
+            try {
+                await member.send(
+                    [
+                        `Dear ${member},`,
+                        'We have noticed you are not following our guidelines properly',
+                        'As mentioned earlier we will not tolerate any kind of misbehaviour,',
+                        'You are being `KICKED` from **GsDSC MBCET Server**',
+                    ].join('\n')
+                );
+            } catch (error) {}
+            try {
+                member.kick('Used spam link');
+            } catch (error) {}
+
+            const embed = new Discord.MessageEmbed()
+                .setTitle(`${member.user.tag} used spam link`)
+                .setDescription(`Message :-\n\`\`\`${message.content}\`\`\``)
+                .setThumbnail(member.user.displayAvatarURL())
+                .setColor(COLORS.cyan);
+
+            message.delete();
+
+            const serverConfig = client.configs.get(message.guild.id);
+            const channel = client.channels.cache.get(serverConfig.moderator_channel_id);
+            channel.send(embed);
         }
     },
 };

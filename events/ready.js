@@ -18,5 +18,6 @@ module.exports = {
 
         firebase.listenForReactionRoles(client);
         firebase.listenForTreat();
+        firebase.listenForSpamLinkChanges();
     },
 };
