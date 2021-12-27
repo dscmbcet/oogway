@@ -2,7 +2,7 @@ module.exports = {
     name: 'GDSC MBCET',
     id: '745702118240944138',
     welcome_channel_id: '745702315079500028',
-    member_role_id: '924552809184100382',
+    member_role_id: '924962737979789332',
     core_team_role_id: '745705235825033216',
     unverified_role_id: '889789620114579506',
     other_colleges_role_id: '889821552101699584',
