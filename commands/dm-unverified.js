@@ -22,9 +22,9 @@ module.exports = {
         const serverConfig = client.configs.get(message.guild.id);
         const unverifiedRole = findRoleById(message, serverConfig.unverified_role_id);
 
-        message.guild.members.cache.forEach(async (e) => {
-            const _user = message.guild.members.cache.get(e.id);
-            const user = await getMember(_user);
+        message.guild.members.cache.forEach(async (guildUser) => {
+            if (guildUser.user.bot) return;
+            const user = await getMember(guildUser);
 
             if (!user.verified) {
                 const embed = new Discord.MessageEmbed()
@@ -39,12 +39,12 @@ module.exports = {
                     )
                     .setFooter('Wish to see you there soon🙌');
 
-                await _user.roles.add(unverifiedRole);
+                await guildUser.roles.add(unverifiedRole);
                 try {
-                    await _user.send(embed);
+                    await guildUser.send(embed);
                 } catch (error) {}
             } else {
-                await _user.roles.remove(unverifiedRole);
+                await guildUser.roles.remove(unverifiedRole);
             }
         });
 
