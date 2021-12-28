@@ -27,21 +27,7 @@ module.exports = {
         const command = args.shift().toLowerCase();
 
         const commandFileData = client.commands.get(command);
-        if (!commandFileData) {
-            embed = new Discord.MessageEmbed({
-                title: 'Invalid Command',
-                description: [
-                    '“There are no accidents”',
-                    'But you my friend have made one',
-                    'I will show you the way',
-                    'Type: `!help-v`',
-                ].join('\n'),
-                color: COLORS.red,
-            });
-            return message.channel.send(embed).then((msg) => {
-                msg.delete({ timeout: 15000 });
-            });
-        }
+        if (!commandFileData) return;
 
         logger.log(`Recieved command from: ${message.author.tag} , command: ${message.content} `);
         try {
