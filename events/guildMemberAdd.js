@@ -46,7 +46,13 @@ module.exports = {
             const embed = new Discord.MessageEmbed()
                 .setTitle('Verification')
                 .setColor(COLORS.cyan)
-                .setDescription(`Check your DM for verification ${member.user}`);
+                .setDescription(
+                    [
+                        `Check your DM for verification ${member.user}`,
+                        "\nIf you haven't recieved the message",
+                        `Type \`${PREFIX}verify-me\` here`,
+                    ].join('\n')
+                );
             await member.send(message);
             await channel.send(embed);
         } catch (error) {
