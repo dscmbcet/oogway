@@ -27,6 +27,7 @@ module.exports = {
             await member.roles.add(memberRole);
             return;
         }
+        if (member.user.bot) return;
         const serverConfig = client.configs.get(member.guild.id);
         const unverifiedRole = member.guild.roles.cache.get(serverConfig.unverified_role_id);
         await member.roles.add(unverifiedRole);
