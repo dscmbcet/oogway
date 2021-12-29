@@ -21,6 +21,7 @@ module.exports = {
 
         const serverConfig = client.configs.get(message.guild.id);
         const unverifiedRole = findRoleById(message, serverConfig.unverified_role_id);
+        const memberRole = findRoleById(message, serverConfig.member_role_id);
 
         message.guild.members.cache.forEach(async (guildUser) => {
             if (guildUser.user.bot) return;
@@ -33,17 +34,19 @@ module.exports = {
                     .setThumbnail(message.guild.iconURL())
                     .setDescription(
                         [
-                            `Use command \`${PREFIX}verify-me\` in **oogway-spam** channel of server`,
-                            '\nChannel Link: https://discord.com/channels/745702118240944138/868494568130248714',
+                            `Use command \`${PREFIX}verify-me\` in **verification** channel of server`,
+                            '\nChannel Link: https://discord.com/channels/745702118240944138/889790082616283167',
                         ].join('\n')
                     )
                     .setFooter('Wish to see you there soon🙌');
 
                 await guildUser.roles.add(unverifiedRole);
+                await guildUser.roles.remove(memberRole);
                 try {
                     await guildUser.send(embed);
                 } catch (error) {}
             } else {
+                await guildUser.roles.add(memberRole);
                 await guildUser.roles.remove(unverifiedRole);
             }
         });
