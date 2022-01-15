@@ -4,7 +4,7 @@ const { COLORS, PREFIX, EMAIL_REGEX } = require('../utils/constants');
 const { logger } = require('../utils/logger');
 const { MESSAGES } = require('./messages/onboarding');
 const { sendDissapearingMessage } = require('../utils/functions');
-const { addNewMember, getMember, updateBanOrKickMember } = require('../firebase/firebase_handler');
+const { addNewMember, getMember, updateBanOrKickMember } = require('../firebase');
 const { sendMail } = require('../utils/mailHandler');
 
 module.exports = {

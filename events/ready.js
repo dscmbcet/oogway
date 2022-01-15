@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 const Discord = require('discord.js');
-const firebase = require('../firebase/firebase_handler');
+const firebase = require('../firebase');
 const { PREFIX } = require('../utils/constants');
 const { logger } = require('../utils/logger');
 

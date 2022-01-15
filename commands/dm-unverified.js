@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const { PREFIX, COLORS } = require('../utils/constants');
 const { findRoleById, sendDissapearingMessage } = require('../utils/functions');
-const { getMember } = require('../firebase/firebase_handler');
+const { getMember } = require('../firebase');
 
 module.exports = {
     name: 'dm-unverified',

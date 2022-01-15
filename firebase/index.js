@@ -4,7 +4,7 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const serviceAccount = JSON.parse(process.env.FIREBASE_CONFIG);
 const { logger } = require('../utils/logger');
-const { addOffenceSheet } = require('../excel/spreadsheet_handler');
+const { addOffenceSheet } = require('../excel');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),

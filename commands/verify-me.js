@@ -2,7 +2,7 @@
 const Discord = require('discord.js');
 const { PREFIX, COLORS } = require('../utils/constants');
 const { sendVerify } = require('../events/guildMemberAdd');
-const { getMember } = require('../firebase/firebase_handler');
+const { getMember } = require('../firebase');
 
 module.exports = {
     name: 'verify-me',

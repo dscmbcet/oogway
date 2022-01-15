@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { reactionDataArray, removeReactionRole, removeFromTreatList } = require('../firebase/firebase_handler');
+const { reactionDataArray, removeReactionRole, removeFromTreatList } = require('../firebase');
 const { COLORS, REACTION_TYPE, TEAM_EMOJIS } = require('../utils/constants');
 const { findRoleById, findChannelById, sendDissapearingMessage } = require('../utils/functions');
 const { logger } = require('../utils/logger');

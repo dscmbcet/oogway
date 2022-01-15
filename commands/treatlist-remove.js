@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { treatDataArray, addReactionRole } = require('../firebase/firebase_handler');
+const { treatDataArray, addReactionRole } = require('../firebase');
 const { PREFIX, COLORS, REACTION_TYPE } = require('../utils/constants');
 const { sendDissapearingMessage } = require('../utils/functions');
 

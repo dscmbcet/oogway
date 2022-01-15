@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { treatDataArray } = require('../firebase/firebase_handler');
+const { treatDataArray } = require('../firebase');
 const { PREFIX, COLORS } = require('../utils/constants');
 
 module.exports = {

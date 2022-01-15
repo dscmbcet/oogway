@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 const Discord = require('discord.js');
-const { updateBanOrKickMember } = require('../firebase/firebase_handler');
+const { updateBanOrKickMember } = require('../firebase');
 
 module.exports = {
     name: 'guildMemberRemove',

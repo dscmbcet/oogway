@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const { COLORS, PREFIX } = require('../utils/constants');
 const { sendDissapearingMessage } = require('../utils/functions');
-const { firebaseSpamLinkArray } = require('../firebase/firebase_handler');
+const { firebaseSpamLinkArray } = require('../firebase');
 
 module.exports = {
     name: 'spam-list',
