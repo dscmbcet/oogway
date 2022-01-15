@@ -1,19 +1,19 @@
 {
   "name": "master_oogway",
-  "version": "2.1.0",
-  "description": "Official DSC Bot for DSC Discord Server",
+  "version": "2.2.0",
+  "description": "Official GDSC Bot for GDSC Discord Server",
   "main": "index.js",
   "private": true,
   "scripts": {
-    "start": "node index.js",
     "dev": "nodemon index.js",
     "update-command-readme": "node ./utils/update-command-readme.js",
+    "start": "node index.js",
     "get-logs-heroku-app-only": "heroku logs --tail -a dsc-oogway-bot --source app",
     "get-logs-heroku": "heroku logs --tail -a dsc-oogway-bot",
     "connect-bash": "heroku ps:exec --dyno=Worker.1 --app dsc-oogway-bot",
     "manual-deploy": "git push heroku main"
   },
-  "author": "GDSC MBCET",
+  "author": "M Aswin Kishore",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^12.5.3",

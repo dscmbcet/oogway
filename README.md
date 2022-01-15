@@ -100,7 +100,7 @@ Discord bot for DSC MBCET Server
 #### role-excel
 
 - Usage: `!role-excel <@role_name>`
-- Description: Assigns the given role_name to given users from excel sheet neoGrad
+- Description: Assigns the given role_name to given users from excel sheet RoleSheet
 
 #### role-remove
 
@@ -116,6 +116,21 @@ Discord bot for DSC MBCET Server
 
 - Usage: `!showcase <TOPIC> - <DESCRIPTION>`
 - Description: Creates a text and voice channels of TOPIC for showcasing workflow
+
+#### spam-add
+
+- Usage: `!spam-add <link>`
+- Description: Adds a spam link for auto kicking
+
+#### spam-list
+
+- Usage: `!spam-list`
+- Description: View the current spam links for auto kicking
+
+#### spam-remove
+
+- Usage: `!spam-remove <link>`
+- Description: Removes a spam link from auto kicking
 
 #### team-create-category
 
