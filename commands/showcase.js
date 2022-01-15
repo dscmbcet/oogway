@@ -30,22 +30,21 @@ module.exports = {
         }
 
         const serverConfig = client.configs.get(message.guild.id);
-
-        const channel = message.guild.channels;
-
-        /** @type {Discord.Channel} */
-        const category = channel.cache.get(serverConfig.showcase_category_id);
+        const { channels: guildChannels } = message.guild;
 
         /** @type {Discord.Channel} */
-        const showcaseAnnouncementChannel = channel.cache.get(serverConfig.showcase_channel_id);
+        const category = guildChannels.cache.get(serverConfig.showcase_category_id);
 
-        const textChannel = await channel.create(TOPIC, {
+        /** @type {Discord.Channel} */
+        const showcaseAnnouncementChannel = guildChannels.cache.get(serverConfig.showcase_channel_id);
+
+        const textChannel = await guildChannels.create(TOPIC, {
             type: 'text',
             topic: DESCRIPTION,
             parent: category.id,
         });
 
-        const voiceChannel = await channel.create(`${TOPIC}-voice`, {
+        const voiceChannel = await guildChannels.create(`${TOPIC}-voice`, {
             type: 'voice',
             parent: category.id,
         });
