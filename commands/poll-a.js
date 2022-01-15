@@ -21,13 +21,13 @@ module.exports = {
         const description = args.join(' ');
 
         if (Number.isNaN(pollNo)) {
-            return sendDissapearingMessage(`You didn't specify a number, ${message.author}!`);
+            return sendDissapearingMessage(message, `You didn't specify a number, ${message.author}!`);
         }
         if (pollNo === 0) {
-            return sendDissapearingMessage(`Poll: Can't Be Zero, ${message.author}!`);
+            return sendDissapearingMessage(message, `Poll: Can't Be Zero, ${message.author}!`);
         }
         if (pollNo > emojiArr.length) {
-            return sendDissapearingMessage(`POLL : Can't Be Greater Than ${emojiArr.length}, ${message.author}!`);
+            return sendDissapearingMessage(message, `POLL : Can't Be Greater Than ${emojiArr.length}, ${message.author}!`);
         }
 
         const embed = new Discord.MessageEmbed({
