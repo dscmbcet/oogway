@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { addReactionRole } = require('../firebase/firebase_handler');
+const { addReactionRole } = require('../firebase/reaction');
 const { PREFIX, COLORS, TEAM_EMOJIS, REACTION_TYPE } = require('../utils/constants');
 const { findRoleById, sendDissapearingMessage } = require('../utils/functions');
 

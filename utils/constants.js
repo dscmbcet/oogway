@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-require('dotenv').config();
 module.exports = {
     PREFIX: JSON.parse(process.env.CONFIG).prefix,
     TEST_SERVER_ID: '853868805473173534',

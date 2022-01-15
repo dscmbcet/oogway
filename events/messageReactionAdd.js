@@ -1,14 +1,15 @@
 const Discord = require('discord.js');
-const { reactionDataArray, removeReactionRole, removeFromTreatList } = require('../firebase/firebase_handler');
+const { removeFromTreatList } = require('../firebase/treat');
+const { reactionDataArray, removeReactionRole } = require('../firebase/reaction');
 const { COLORS, REACTION_TYPE, TEAM_EMOJIS } = require('../utils/constants');
 const { findRoleById, findChannelById, sendDissapearingMessage } = require('../utils/functions');
 const { logger } = require('../utils/logger');
 
 /**
- * @typedef {import('../utils/models/FirebaseReaction').FirebaseReaction} FirebaseReaction
- * @typedef {import('../utils/models/FirebaseReaction').FirebaseReactionTeamPoll} FirebaseReactionTeamPoll
- * @typedef {import('../utils/models/FirebaseReaction').FirebaseReactionAnnoymous} FirebaseReactionAnnoymous
- * @typedef {import('../utils/models/FirebaseReaction').FirebaseReactionAnnoymousTreat} FirebaseReactionAnnoymousTreat
+ * @typedef {import('../models/FirebaseReaction').FirebaseReaction} FirebaseReaction
+ * @typedef {import('../models/FirebaseReaction').FirebaseReactionTeamPoll} FirebaseReactionTeamPoll
+ * @typedef {import('../models/FirebaseReaction').FirebaseReactionAnnoymous} FirebaseReactionAnnoymous
+ * @typedef {import('../models/FirebaseReaction').FirebaseReactionAnnoymousTreat} FirebaseReactionAnnoymousTreat
  */
 
 module.exports = {

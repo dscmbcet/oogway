@@ -1,11 +1,11 @@
 const Discord = require('discord.js');
-const { reactionDataArray } = require('../firebase/firebase_handler');
+const { reactionDataArray } = require('../firebase/reaction');
 const { COLORS, TEAM_EMOJIS, REACTION_TYPE } = require('../utils/constants');
 const { findRoleById, findChannelById, sendDissapearingMessage } = require('../utils/functions');
 const { logger } = require('../utils/logger');
 
 /**
- * @typedef {import('../utils/models/FirebaseReaction').FirebaseReactionTeamPoll} FirebaseReactionTeamPoll
+ * @typedef {import('../models/FirebaseReaction').FirebaseReactionTeamPoll} FirebaseReactionTeamPoll
  */
 
 module.exports = {

@@ -78,4 +78,15 @@ module.exports = {
             logger.warn('Tried deleting a message that has already been deleted');
         }
     },
+
+    /**
+     * Checks whether given timestamp is older than today
+     * @param {string} timestamp
+     * @returns {boolean}
+     */
+    checkDate(timestamp) {
+        const date = new Date();
+        date.setDate(date.getDate() - 1);
+        return new Date(timestamp) > date;
+    },
 };

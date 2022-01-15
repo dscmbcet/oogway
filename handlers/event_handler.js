@@ -1,6 +1,5 @@
 const fs = require('fs');
-// eslint-disable-next-line no-unused-vars
-const Discord = require('discord.js');
+const Discord = require('discord.js'); // eslint-disable-line no-unused-vars
 const { PREFIX, TEST_SERVER_ID } = require('../utils/constants');
 const { logger } = require('../utils/logger');
 

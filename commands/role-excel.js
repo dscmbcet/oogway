@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { getSheetValuesByName } = require('../excel/spreadsheet_handler');
+const { getSheetValuesByName } = require('../excel');
 const { PREFIX, COLORS } = require('../utils/constants');
 const { sendDissapearingMessage } = require('../utils/functions');
 

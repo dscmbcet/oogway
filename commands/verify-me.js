@@ -1,8 +1,7 @@
-// eslint-disable-next-line no-unused-vars
-const Discord = require('discord.js');
+const Discord = require('discord.js'); // eslint-disable-line no-unused-vars
 const { PREFIX, COLORS } = require('../utils/constants');
 const { sendVerify } = require('../events/guildMemberAdd');
-const { getMember } = require('../firebase/firebase_handler');
+const { getMember } = require('../firebase/member');
 
 module.exports = {
     name: 'verify-me',

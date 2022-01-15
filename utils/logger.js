@@ -18,7 +18,7 @@ function getDate() {
 
 function sendlogs(args, isError) {
     if (PREFIX !== '!') return;
-    const { client } = require('../app');
+    const { client } = require('..');
     const serverConifg = require('../configs/dsc');
 
     let msg;

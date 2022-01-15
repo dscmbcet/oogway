@@ -1,6 +1,5 @@
-// eslint-disable-next-line no-unused-vars
-const Discord = require('discord.js');
-const firebase = require('../firebase/firebase_handler');
+const Discord = require('discord.js'); // eslint-disable-line no-unused-vars
+const initListeners = require('../firebase/listeners');
 const { PREFIX } = require('../utils/constants');
 const { logger } = require('../utils/logger');
 
@@ -16,8 +15,6 @@ module.exports = {
         logger.info(`PREFIX: ${PREFIX}`);
         logger.info('Handling Guilds:', guilds.join(', '));
 
-        firebase.listenForReactionRoles(client);
-        firebase.listenForTreat();
-        firebase.listenForSpamLinkChanges();
+        initListeners(client);
     },
 };
