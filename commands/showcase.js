@@ -1,4 +1,6 @@
 const Discord = require('discord.js');
+const { v4: uuidv4 } = require('uuid');
+const { addToShowCaseList } = require('../firebase/showcase');
 const { PREFIX, COLORS } = require('../utils/constants');
 const { sendDissapearingMessage } = require('../utils/functions');
 
@@ -38,6 +40,8 @@ module.exports = {
         /** @type {Discord.Channel} */
         const showcaseAnnouncementChannel = guildChannels.cache.get(serverConfig.showcase_channel_id);
 
+        const id = uuidv4().slice(0, 23);
+
         const textChannel = await guildChannels.create(TOPIC, {
             type: 'text',
             topic: DESCRIPTION,
@@ -49,19 +53,21 @@ module.exports = {
             parent: category.id,
         });
 
-        let embed = new Discord.MessageEmbed({
-            title: `Created Process Showcase Channels For ${TOPIC} Succesfully`,
-            color: COLORS.green,
-        });
+        let embed = new Discord.MessageEmbed()
+            .setTitle('Created Process Showcase Channels Succesfully')
+            .addField('ID', id)
+            .addField('Topic', TOPIC)
+            .setFooter(`By ${message.author.tag}`, message.author.displayAvatarURL())
+            .setColor(COLORS.green);
 
         await message.reply(embed);
 
-        embed = new Discord.MessageEmbed()
-            .setColor(COLORS.cyan)
-            .setTitle('Process Showcase')
-            .setFooter(`By ${message.author.tag}`, message.author.displayAvatarURL())
-            .setDescription(`Topic : **${TOPIC}**\n${DESCRIPTION}\n\nJoin at <#${voiceChannel.id}> | <#${textChannel.id}>`);
+        embed.setTitle('Process ShowCase');
+        await textChannel.send(embed);
 
+        embed = embed.setColor(COLORS.cyan).setDescription(`Join at <#${voiceChannel.id}> | <#${textChannel.id}>`);
+
+        await addToShowCaseList(message, TOPIC, id, [textChannel.id, voiceChannel.id]);
         await showcaseAnnouncementChannel.send(embed);
     },
 };

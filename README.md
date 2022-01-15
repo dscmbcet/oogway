@@ -112,6 +112,11 @@ Discord bot for DSC MBCET Server
 - Usage: `!server-info`
 - Description: Gives information about the server
 
+#### showcase-remove
+
+- Usage: `!showcase-remove <ID>`
+- Description: Removes the text and voice channels of showcase of given ID
+
 #### showcase
 
 - Usage: `!showcase <TOPIC> - <DESCRIPTION>`

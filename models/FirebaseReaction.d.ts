@@ -61,7 +61,7 @@ export interface FirebaseReactionAnnoymousTreat extends FirebaseReaction {
     }[];
 }
 
-enum REACTION_TYPE {
+declare enum REACTION_TYPE {
     TEAM = 'TEAM',
     ANNOYMOUS = 'ANNOYMOUS',
     TREAT = 'TREAT',
