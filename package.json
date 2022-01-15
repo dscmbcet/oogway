@@ -5,8 +5,8 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "update-command-readme": "node ./utils/update-command-readme.js",
     "get-logs-heroku-app-only": "heroku logs --tail -a dsc-oogway-bot --source app",
     "get-logs-heroku": "heroku logs --tail -a dsc-oogway-bot",
