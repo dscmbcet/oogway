@@ -23,11 +23,11 @@
     "juice": "^8.0.0",
     "node-fetch": "^2.6.4",
     "nodemailer": "^6.6.3",
-    "nodemon": "^2.0.12",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
+    "nodemon": "^2.0.12",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.24.2",
