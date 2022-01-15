@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const { updateDatabase } = require('../excel');
-const { getMember, getAllMember } = require('../firebase');
+const { getMember, getAllMember } = require('../firebase/member');
 const { PREFIX, COLORS } = require('../utils/constants');
 const { sendDissapearingMessage } = require('../utils/functions');
 

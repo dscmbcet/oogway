@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { getMember } = require('../firebase');
+const { getMember } = require('../firebase/member');
 const { PREFIX } = require('../utils/constants');
 const { sendDissapearingMessage } = require('../utils/functions');
 

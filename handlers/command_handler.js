@@ -1,6 +1,5 @@
 const fs = require('fs');
-// eslint-disable-next-line no-unused-vars
-const Discord = require('discord.js');
+const Discord = require('discord.js'); // eslint-disable-line no-unused-vars
 
 /** @param {Discord.Client} client */
 module.exports = (client) => {

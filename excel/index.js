@@ -1,6 +1,5 @@
 const { google } = require('googleapis');
-// eslint-disable-next-line no-unused-vars
-const Discord = require('discord.js');
+const Discord = require('discord.js'); // eslint-disable-line no-unused-vars
 const { SPREADSHEET_ID, CREDENTIALS } = require('../utils/constants');
 
 const auth = new google.auth.GoogleAuth({
@@ -11,8 +10,8 @@ const auth = new google.auth.GoogleAuth({
 // ----------- Sheet helper functions ----------
 
 /**
- * @typedef {import('../utils/models/FirebaseUser').FirebaseUser} FirebaseUser
- * @typedef {import('../utils/models/LeaderBoardUser').LeaderBoardUser} LeaderBoardUser
+ * @typedef {import('../models/FirebaseUser').FirebaseUser} FirebaseUser
+ * @typedef {import('../models/LeaderBoardUser').LeaderBoardUser} LeaderBoardUser
  */
 
 /**
