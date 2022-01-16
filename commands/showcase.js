@@ -68,7 +68,7 @@ module.exports = {
 
         embed = new Discord.MessageEmbed()
             .setTitle('How to delete?')
-            .setDescription(['After you are finished with your show.', 'Use the command', `\n\`!showcase-remove ${id}\``].join('\n'))
+            .setDescription(['After you are finished with your showcase.', 'Use the command', `\n\`!showcase-remove ${id}\``].join('\n'))
             .setColor(COLORS.yellow);
         await textChannel.send(embed);
     },
