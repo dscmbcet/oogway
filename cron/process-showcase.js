@@ -18,7 +18,7 @@ const showcaseIsOld = (timestamp) => {
 };
 
 const runner = () => {
-    logger.info('Running processShowCaseCron');
+    logger.log('Running processShowCaseCron');
     showCaseDataArray.forEach((showcaseItem) => {
         if (showcaseIsOld(showcaseItem.timestamp)) removeFromShowCaseList(showcaseItem.id);
     });

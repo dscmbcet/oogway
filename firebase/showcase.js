@@ -52,7 +52,6 @@ exports.listenForShowCase = async (client) => {
             }
             if (change.type === 'removed') {
                 logger.firebase(`Removed showcase: ${data.id} , Topic: ${data.topic}`);
-                logger.info(`Removed showcase: ${data.id} , Topic: ${data.topic}`);
                 const deleteIndex = this.showCaseDataArray.findIndex((e) => e.id === data.id);
                 if (deleteIndex !== -1) this.showCaseDataArray.splice(deleteIndex);
 
