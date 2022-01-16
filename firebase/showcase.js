@@ -45,7 +45,7 @@ exports.listenForShowCase = async (client) => {
                     logger.firebase(`New showcase: ${data.id} , Topic: ${data.topic}`);
                 }
                 const guild = client.guilds.cache.get(data.guild_id);
-                if (!guild.channels.cache.get(data.channels[0])) this.removeShowCaseList(data.id);
+                if (!guild.channels.cache.get(data.channels[0])) this.removeFromShowCaseList(data.id);
                 this.showCaseDataArray.push(data);
             }
             if (change.type === 'removed') {
