@@ -33,4 +33,6 @@ module.exports = {
         ANNOYMOUS: 'ANNOYMOUS',
         TREAT: 'TREAT',
     },
+
+    TIMEZONE: 'Asia/Kolkata',
 };

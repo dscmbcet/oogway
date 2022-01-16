@@ -1,4 +1,5 @@
 const Discord = require('discord.js'); // eslint-disable-line no-unused-vars
+const initCronJobs = require('../cron');
 const initListeners = require('../firebase/listeners');
 const { PREFIX } = require('../utils/constants');
 const { logger } = require('../utils/logger');
@@ -16,5 +17,6 @@ module.exports = {
         logger.info('Handling Guilds:', guilds.join(', '));
 
         initListeners(client);
+        initCronJobs(client);
     },
 };
