@@ -11,14 +11,16 @@ exports.showCaseDataArray = [];
 /**
  * @param {Discord.Message} message
  * @param {string} topic
+ * @param {string} description
  * @param {string} id
  * @param {string[]} channels
  */
-exports.addToShowCaseList = async (message, topic, id, channels) => {
+exports.addToShowCaseList = async (message, topic, description, id, channels) => {
     const colRef = dbFirebase.collection('showcase-list');
     colRef.doc(id).create({
         id,
         topic,
+        description,
         channels,
         guild_id: message.guild.id,
         timestamp: new Date().toISOString(),

@@ -51,7 +51,8 @@ module.exports = {
         let embed = new Discord.MessageEmbed()
             .setTitle('Created Process Showcase Channels Succesfully')
             .addField('ID', id)
-            .addField('Topic', TOPIC)
+            .addField('Topic', TOPIC, true)
+            .addField('Description', DESCRIPTION, true)
             .setFooter(`By ${message.author.tag}`, message.author.displayAvatarURL())
             .setColor(COLORS.green);
 
@@ -62,7 +63,7 @@ module.exports = {
 
         embed = embed.setColor(COLORS.cyan).setDescription(`Join at <#${voiceChannel.id}> | <#${textChannel.id}>`);
 
-        await addToShowCaseList(message, TOPIC, id, [textChannel.id, voiceChannel.id]);
+        await addToShowCaseList(message, TOPIC, DESCRIPTION, id, [textChannel.id, voiceChannel.id]);
         await showcaseAnnouncementChannel.send(embed);
 
         embed = new Discord.MessageEmbed()

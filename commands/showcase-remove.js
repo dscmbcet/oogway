@@ -24,6 +24,7 @@ module.exports = {
         const embed = new Discord.MessageEmbed()
             .setTitle('Deleted Process Showcase Channels')
             .addField('Topic', showCaseData.topic)
+            .addField('Description', showCaseData.description)
             .setColor(COLORS.green);
 
         await message.reply(embed);
