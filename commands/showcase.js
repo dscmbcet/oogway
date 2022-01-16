@@ -6,7 +6,6 @@ const { sendDissapearingMessage } = require('../utils/functions');
 
 module.exports = {
     name: 'showcase',
-    admin: true,
     usage: `${PREFIX}showcase <TOPIC> - <DESCRIPTION>`,
     description: 'Creates a text and voice channels of TOPIC for showcasing workflow',
 
@@ -16,10 +15,6 @@ module.exports = {
      * @param {Discord.Client} client
      */
     async execute(message, args, client) {
-        if (!message.member.hasPermission('MANAGE_CHANNELS')) {
-            return sendDissapearingMessage(message, `You are not wise enough to make those channels my friend ${message.author}`);
-        }
-
         let TOPIC;
         let DESCRIPTION;
 
@@ -69,5 +64,11 @@ module.exports = {
 
         await addToShowCaseList(message, TOPIC, id, [textChannel.id, voiceChannel.id]);
         await showcaseAnnouncementChannel.send(embed);
+
+        embed = new Discord.MessageEmbed()
+            .setTitle('How to delete?')
+            .setDescription(['After you are finished with your show.', 'Use the command', `\n\`!showcase-remove ${id}\``].join('\n'))
+            .setColor(COLORS.yellow);
+        await textChannel.send(embed);
     },
 };
