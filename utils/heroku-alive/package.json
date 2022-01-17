@@ -1,0 +1,16 @@
+{
+  "name": "heroku-alive",
+  "version": "1.0.0",
+  "description": "Switches Heroku Account to manage dyno hours",
+  "main": "index.js",
+  "scripts": {
+    "heroku-check": "node index.js"
+  },
+  "author": "M Aswin Kishore",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "dotenv": "^14.1.0",
+    "node-fetch": "^2.6.7"
+  }
+}

@@ -1,0 +1,28 @@
+name: Heroku Account Swap
+on:
+    schedule:
+        - cron: '0 */3 * * *'
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        env:
+            ACCOUNT1: ${{secrets.ACCOUNT1}}
+            ACCOUNT2: ${{secrets.ACCOUNT2}}
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js 14.x
+              uses: actions/setup-node@v2
+              with:
+                  node-version: 14.x
+                  cache: 'npm'
+            - name: Building
+              run: |
+                  cd utils/heroku-alive
+                  npm ci
+                  npm run build --if-present
+            - name: Running Heroku Script
+              run: |
+                  cd utils/heroku-alive
+                  npm run-script heroku-check
