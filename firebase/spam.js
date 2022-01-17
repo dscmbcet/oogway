@@ -2,7 +2,7 @@ const Discord = require('discord.js'); // eslint-disable-line no-unused-vars
 const { dbRealtimeDatabase } = require('.');
 const { logger } = require('../utils/logger');
 
-/** @typedef {import('../models/SpamLink').SpamLink} SpamLink */
+/** @typedef {import('../types/SpamLink').SpamLink} SpamLink */
 
 /** @type {SpamLink[]} */
 exports.firebaseSpamLinkArray = [];

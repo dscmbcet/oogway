@@ -2,7 +2,7 @@ const Discord = require('discord.js'); // eslint-disable-line no-unused-vars
 const { dbFirebase } = require('.');
 const { logger } = require('../utils/logger');
 
-/** @typedef {import('../models/FirebaseUser').FirebaseUser} FirebaseUser */
+/** @typedef {import('../types/FirebaseUser').FirebaseUser} FirebaseUser */
 
 /** @param {Discord.GuildMember} user  */
 const parseUser = (user) => {

@@ -3,7 +3,7 @@ const { dbFirebase } = require('.');
 const { checkDate } = require('../utils/functions');
 const { logger } = require('../utils/logger');
 
-/** @typedef {import('../models/FirebaseShowCase').FirebaseShowCase} FirebaseShowCase */
+/** @typedef {import('../types/FirebaseShowCase').FirebaseShowCase} FirebaseShowCase */
 
 /** @type {FirebaseShowCase[]} */
 exports.showCaseDataArray = [];

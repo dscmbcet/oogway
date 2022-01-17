@@ -3,7 +3,7 @@ const { dbFirebase } = require('.');
 const { checkDate } = require('../utils/functions');
 const { logger } = require('../utils/logger');
 
-/** @typedef {import('../models/FirebaseReaction').FirebaseReaction} FirebaseReaction */
+/** @typedef {import('../types/FirebaseReaction').FirebaseReaction} FirebaseReaction */
 
 /** @type {FirebaseReaction[]} */
 exports.reactionDataArray = [];

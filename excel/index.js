@@ -10,8 +10,8 @@ const auth = new google.auth.GoogleAuth({
 // ----------- Sheet helper functions ----------
 
 /**
- * @typedef {import('../models/FirebaseUser').FirebaseUser} FirebaseUser
- * @typedef {import('../models/LeaderBoardUser').LeaderBoardUser} LeaderBoardUser
+ * @typedef {import('../types/FirebaseUser').FirebaseUser} FirebaseUser
+ * @typedef {import('../types/LeaderBoardUser').LeaderBoardUser} LeaderBoardUser
  */
 
 /**

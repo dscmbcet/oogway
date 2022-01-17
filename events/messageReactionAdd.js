@@ -6,10 +6,10 @@ const { findRoleById, findChannelById, sendDissapearingMessage } = require('../u
 const { logger } = require('../utils/logger');
 
 /**
- * @typedef {import('../models/FirebaseReaction').FirebaseReaction} FirebaseReaction
- * @typedef {import('../models/FirebaseReaction').FirebaseReactionTeamPoll} FirebaseReactionTeamPoll
- * @typedef {import('../models/FirebaseReaction').FirebaseReactionAnnoymous} FirebaseReactionAnnoymous
- * @typedef {import('../models/FirebaseReaction').FirebaseReactionAnnoymousTreat} FirebaseReactionAnnoymousTreat
+ * @typedef {import('../types/FirebaseReaction').FirebaseReaction} FirebaseReaction
+ * @typedef {import('../types/FirebaseReaction').FirebaseReactionTeamPoll} FirebaseReactionTeamPoll
+ * @typedef {import('../types/FirebaseReaction').FirebaseReactionAnnoymous} FirebaseReactionAnnoymous
+ * @typedef {import('../types/FirebaseReaction').FirebaseReactionAnnoymousTreat} FirebaseReactionAnnoymousTreat
  */
 
 module.exports = {

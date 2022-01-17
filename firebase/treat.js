@@ -3,7 +3,7 @@ const { dbFirebase } = require('.');
 const { checkDate } = require('../utils/functions');
 const { logger } = require('../utils/logger');
 
-/** @typedef {import('../models/FirebaseTreat').FirebaseTreat} FirebaseTreat */
+/** @typedef {import('../types/FirebaseTreat').FirebaseTreat} FirebaseTreat */
 
 /** @type {FirebaseTreat[]} */
 exports.treatDataArray = [];
