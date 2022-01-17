@@ -1,5 +1,4 @@
 require('dotenv').config();
-const fs = require('fs');
 const nodemailer = require('nodemailer');
 const { WEB_CREDENTIALS, EMAIL_TOKEN } = require('./constants');
 const { htmlParser } = require('./html_parser');
