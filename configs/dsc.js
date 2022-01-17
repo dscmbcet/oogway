@@ -10,4 +10,5 @@ module.exports = {
     log_channel_id: '869303157023473765',
     showcase_category_id: '752546457361449030',
     showcase_channel_id: '927160397591621673',
+    moderator_channel_id: '788424250666647594',
 };
