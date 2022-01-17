@@ -23,7 +23,7 @@ module.exports = (client) => {
             try {
                 await event.execute(...args, client);
             } catch (e) {
-                logger.error(`Event ${event.name} Error:`, e);
+                logger.error(`Event ${event.name} Error: ${e.message} | ${e?.stack}`);
             }
         });
     });

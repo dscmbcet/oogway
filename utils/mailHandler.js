@@ -44,7 +44,7 @@ async function sendMail(email, verificationCode) {
                 },
                 (e) => {
                     if (e) {
-                        logger.error(`IMPORTANT: Error Occured While Sending ERROR Mail: ${e.message}`);
+                        logger.error(`IMPORTANT: Error Occured While Sending ERROR Mail: ${e.message} | ${e?.stack}`);
                         resolve(false);
                     } else {
                         logger.info(`Mail has been sent to ${email}`);

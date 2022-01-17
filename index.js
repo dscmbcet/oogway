@@ -24,11 +24,11 @@ function exitHandler(options, exitCode) {
 }
 
 process
-    .on('unhandledRejection', (reason, p) => {
-        logger.error(reason, 'Unhandled Rejection at Promise', p);
+    .on('unhandledRejection', (err, p) => {
+        logger.error(`Error: ${err.message} | ${err?.stack} Unhandled Rejection at Promise: ${p}`);
     })
     .on('uncaughtException', (err) => {
-        logger.error(err);
+        logger.error(`UncaughtException: ${err.message} | ${err?.stack}`);
         process.exit(1);
     })
     .on('SIGINT', exitHandler.bind(null, { exit: true }))

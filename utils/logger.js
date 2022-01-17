@@ -16,6 +16,11 @@ function getDate() {
     return new Date(new Date().valueOf() + INDIA_TZ_OFFSET).toUTCString().replace('GMT', 'IST');
 }
 
+/**
+ * Sends logs to server
+ * @param {Error} args
+ * @param {boolean} isError
+ */
 function sendlogs(args, isError) {
     if (PREFIX !== '!') return;
     const { client } = require('..');
@@ -23,8 +28,8 @@ function sendlogs(args, isError) {
 
     let msg;
     const createdTime = getDate();
-    if (isError) msg = `${createdTime}| ERROR: ${args.join(' ')}`;
-    else msg = `${createdTime}| INFO: ${args.join(' ')}`;
+    if (isError) msg = `${createdTime}| [ERROR] ${args.join(' ')}`;
+    else msg = `${createdTime}| [INFO] ${args.join(' ')}`;
 
     msg = `\`\`\`${msg}\`\`\``;
     if (isError) msg = `<@${TESTER_ID}>\n${msg}`;

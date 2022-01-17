@@ -279,7 +279,7 @@ module.exports = {
                 channel.send(embed);
             }
         } catch (e) {
-            logger.error(`Command: ${command} Error:`, e);
+            logger.error(`Command: ${command} Error: ${e.message} | ${e?.stack}`);
             const embed = new Discord.MessageEmbed({
                 title: 'Error Occured',
                 description: 'Check your commands',

@@ -47,7 +47,7 @@ module.exports = {
             const userRoles = reaction.message.guild.members.cache.get(user.id).roles;
             userRoles.remove(teamData[teamNo].role.id);
         } catch (e) {
-            logger.error(`Event: ${this.name}, User:  ${user.username} Error: `, e);
+            logger.error(`Event: ${this.name}, User:  ${user.username} Error:  ${e.message} | ${e?.stack}`);
             return sendDissapearingMessage(
                 reaction.message,
                 `Some error occured removing your ${teamData[teamNo].role} role my friend ${user}`
