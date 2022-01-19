@@ -35,7 +35,6 @@ module.exports = {
         if (taggedUser.user.bot) return sendDissapearingMessage(message, `If you kick me who will help you my friend ${member}`);
 
         try {
-            await taggedUser.kick(reason);
             try {
                 await taggedUser.send(
                     [
@@ -46,6 +45,7 @@ module.exports = {
                     ].join('\n')
                 );
             } catch (error) {}
+            await taggedUser.kick(reason);
 
             embed.setTitle(`${tagUser.tag} has been kicked`);
             embed.setFooter(`Reason: ${reason}`, taggedUser.user.displayAvatarURL()).setColor(COLORS.cyan);
