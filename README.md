@@ -87,6 +87,11 @@ Discord bot for DSC MBCET Server
 - Usage: `!poll <NUMBER> <TITLE> [DESCRIPTION]`
 - Description: Creates a poll of given NUMBER with a TITLE and a DESCRIPTION
 
+#### purge
+
+- Usage: `!purge`
+- Description: Kicks all unverified members from server and sends DM
+
 #### reaction-roles
 
 - Usage: `!reaction-roles <@role_1> [..@role_N]`
@@ -161,6 +166,11 @@ Discord bot for DSC MBCET Server
 
 - Usage: `!treatlist`
 - Description: Gives the current treatlist
+
+#### ttt
+
+- Usage: `!ttt [@OpponentUsername]`
+- Description: Play Tic Tac Toe
 
 #### update-database
 
