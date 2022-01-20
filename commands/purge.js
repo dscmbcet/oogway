@@ -27,11 +27,11 @@ module.exports = {
         const date = new Date();
         const threeDayOld = new Date(date.setDate(date.getDate() - 3));
 
-        unverifiedRole.members.forEach((user) => {
+        unverifiedRole.members.forEach(async (user) => {
             if (coreTeamRole.members.get(user.id)) return;
             if (user.joinedAt < threeDayOld) {
                 try {
-                    user.send(
+                    await user.send(
                         [
                             `Dear ${user},`,
                             `We have noticed you haven't verified yourself in our ${message.guild.name} server.`,
@@ -42,7 +42,7 @@ module.exports = {
                     );
                 } catch (error) {}
 
-                user.kick('Verification Timeout');
+                await user.kick('Verification Timeout');
             }
         });
 
