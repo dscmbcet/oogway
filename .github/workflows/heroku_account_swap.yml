@@ -10,6 +10,8 @@ jobs:
         env:
             ACCOUNT1: ${{secrets.ACCOUNT1}}
             ACCOUNT2: ${{secrets.ACCOUNT2}}
+            BOT: ${{secrets.BOT}}
+            CHANNEL: ${{secrets.CHANNEL}}
         steps:
             - uses: actions/checkout@v2
             - name: Use Node.js 14.x

@@ -1,12 +1,13 @@
 const axios = require('axios').default;
 require('dotenv').config();
+const { sendHerokuSwapLog } = require('./utils/discordAPI');
 
 const mbcetCredentials = JSON.parse(process.env.ACCOUNT1);
 const dscCredentials = JSON.parse(process.env.ACCOUNT2);
 
 const baseURL = 'https://api.heroku.com';
 const Accept = 'application/vnd.heroku+json; version=3.account-quotas';
-const thresholdHours = 128;
+const thresholdHours = 24;
 
 const mbcetAPI = axios.create({
     baseURL,
@@ -46,7 +47,8 @@ const mbcetBot = async (enable) => {
     return mbcetRes.data.quantity;
 };
 
-const enableDSCBot = async (enable) => {
+const enableDSCBot = async (enable, formattedQuota) => {
+    sendHerokuSwapLog(enable, formattedQuota.quota);
     await dscBot(enable);
     await mbcetBot(!enable);
 };
@@ -58,15 +60,16 @@ const checkCredits = async () => {
     const dscRes = (await dscAPI.get(`/accounts/${dscCredentials.id}/actions/get-quota`))?.data;
     const dscQuota = (dscRes.account_quota - dscRes.quota_used) / 3600;
 
-    console.log({ quota: { dsc: dscQuota.toFixed(2), mbcet: mbcetQuota.toFixed(2) } });
+    const formattedQuota = { quota: { dsc: dscQuota.toFixed(2), mbcet: mbcetQuota.toFixed(2) } };
+    console.log(formattedQuota);
 
     // If quotas expired
-    if (mbcetQuota === 0) return enableDSCBot(true);
-    if (dscQuota === 0) return enableDSCBot(false);
+    if (mbcetQuota === 0) return enableDSCBot(true, formattedQuota);
+    if (dscQuota === 0) return enableDSCBot(false, formattedQuota);
 
     // Dividing quotas equally
-    if (mbcetQuota >= thresholdHours) await enableDSCBot(false);
-    else await enableDSCBot(true);
+    if (mbcetQuota >= thresholdHours) await enableDSCBot(false, formattedQuota);
+    else await enableDSCBot(true, formattedQuota);
 };
 
 checkCredits();
