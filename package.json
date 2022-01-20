@@ -9,8 +9,11 @@
     "update-command-readme": "node ./utils/update-command-readme.js",
     "start": "node index.js",
     "get-logs-heroku-app-only": "heroku logs --tail -a dsc-oogway-bot --source app",
+    "get-logs-heroku-app-mbcet-only": "heroku logs --tail -a dsc-oogway-bot-mbcet --source app",
     "get-logs-heroku": "heroku logs --tail -a dsc-oogway-bot",
+    "get-logs-heroku-mbcet": "heroku logs --tail -a dsc-oogway-bot-mbcet",
     "connect-bash": "heroku ps:exec --dyno=Worker.1 --app dsc-oogway-bot",
+    "connect-bash-mbcet": "heroku ps:exec --dyno=Worker.1 --app dsc-oogway-bot-mbcet",
     "manual-deploy": "git push heroku main"
   },
   "author": "M Aswin Kishore",
