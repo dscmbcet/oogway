@@ -58,17 +58,22 @@ module.exports = {
 
         await message.reply(embed);
 
+        const description = `Join at <#${voiceChannel.id}> | <#${textChannel.id}>`;
         embed.setTitle('Process ShowCase');
         await textChannel.send(embed);
+        await textChannel.send(description);
 
-        embed = embed.setColor(COLORS.cyan).setDescription(`Join at <#${voiceChannel.id}> | <#${textChannel.id}>`);
+        embed = embed.setColor(COLORS.cyan);
 
         await addToShowCaseList(message, TOPIC, DESCRIPTION, id, [textChannel.id, voiceChannel.id]);
         await showcaseAnnouncementChannel.send(embed);
+        await showcaseAnnouncementChannel.send(description);
 
         embed = new Discord.MessageEmbed()
             .setTitle('How to delete?')
-            .setDescription(['After you are finished with your showcase.', 'Use the command', `\n\`!showcase-remove ${id}\``].join('\n'))
+            .setDescription(
+                ['After you are finished with your showcase.', 'Use the command', `\n\`${PREFIX}showcase-remove ${id}\``].join('\n')
+            )
             .setColor(COLORS.yellow);
         await textChannel.send(embed);
     },

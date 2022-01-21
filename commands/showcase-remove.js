@@ -27,6 +27,8 @@ module.exports = {
             .addField('Description', showCaseData.description)
             .setColor(COLORS.green);
 
-        await message.reply(embed);
+        try {
+            await message.reply(embed);
+        } catch (error) {}
     },
 };
