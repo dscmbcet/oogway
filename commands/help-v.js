@@ -1,6 +1,6 @@
-const Discord = require('discord.js');
+const Discord = require('discord.js'); // eslint-disable-line no-unused-vars
 const fs = require('fs');
-const { PREFIX, COLORS } = require('../utils/constants');
+const { PREFIX } = require('../utils/constants');
 
 module.exports = {
     name: 'help-v',
@@ -11,33 +11,30 @@ module.exports = {
      * @param {Discord.Message} message
      */
     async execute(message) {
-        const moderator = message.member.permissions.has('MANAGE_GUILD');
+        const admins = message.member.permissions.has('ADMINISTRATOR');
         const commandFiles = fs.readdirSync('./commands/').filter((file) => file.endsWith('.js'));
 
         const commandsArray = commandFiles
             .map((file) => {
                 const command = require(`./${file}`);
-                if (command.admin && !moderator) return 'ADMIN_ONLY';
-                if (command.hidden) return 'HIDDEN';
-                return {
+                const description = {
                     name: command.name,
                     value: [
                         `\`${command.usage === undefined ? '-' : command.usage}\``,
                         `${command.description === undefined ? '-' : command.description}`,
                     ].join('\n'),
                 };
+
+                if (command.hidden) return 'HIDDEN';
+                if (command.admin && admins) return description;
+                if (command.admin) return 'DELETE';
+                return description;
             })
-            .filter((command) => command !== 'ADMIN_ONLY')
+            .filter((command) => command !== 'DELETE')
             .filter((command) => command !== 'HIDDEN');
 
         commandsArray.sort();
-
-        const embed = new Discord.MessageEmbed({
-            title: 'Commands',
-            color: COLORS.purple,
-            fields: commandsArray,
-        });
-
-        return message.channel.send(embed);
+        const msg = `**Commands Usage**\n\n${commandsArray.map((e) => `${e?.value}\n`).join('\n')}`;
+        return message.channel.send(msg, { split: true });
     },
 };
