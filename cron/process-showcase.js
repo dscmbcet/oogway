@@ -13,7 +13,7 @@ const showcaseIsOld = (timestamp) => {
     const date2 = new Date(timestamp);
     const diffDays = Math.ceil(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
 
-    if (diffDays >= 1) return true;
+    if (diffDays >= 2) return true;
     return false;
 };
 
