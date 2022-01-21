@@ -29,6 +29,17 @@ module.exports = {
         const commandFileData = client.commands.get(command);
         if (!commandFileData) return;
 
+        if (command.disable) {
+            embed = new Discord.MessageEmbed({
+                title: 'Disabled',
+                description: 'This command is temporarily disabled',
+                color: COLORS.red,
+            });
+            return message.channel.send(embed).then((msg) => {
+                msg.delete({ timeout: 5000 });
+            });
+        }
+
         logger.log(`Recieved command from: ${message.author.tag} , command: ${message.content} `);
         try {
             await commandFileData.execute(message, args, client);
