@@ -7,7 +7,7 @@ const dscCredentials = JSON.parse(process.env.ACCOUNT2);
 
 const baseURL = 'https://api.heroku.com';
 const Accept = 'application/vnd.heroku+json; version=3.account-quotas';
-const thresholdHours = 24;
+const thresholdHours = 48;
 
 const mbcetAPI = axios.create({
     baseURL,
