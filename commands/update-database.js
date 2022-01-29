@@ -36,6 +36,8 @@ module.exports = {
         const firebaseData = await getAllMember();
 
         for (let i = 0; i < members.length; i++) {
+            if (members[i].user.bot) continue;
+
             let user;
             user = firebaseData.find((e) => e.id === members[i].id);
             if (!user) user = await getMember(members[i]);
