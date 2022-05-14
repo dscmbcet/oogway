@@ -5,7 +5,6 @@ const { logger } = require('../utils/logger');
 const { execute } = require('../commands/purge');
 
 /**
- * Initializes Verification Timeout Cron
  * @param {Discord.Channel} channel
  * @param {Discord.Client} client
  */
@@ -18,15 +17,13 @@ const runner = (channel, client) => {
 };
 
 /**
- * Initializes process showcase cron
+ * Initializes Verification Timeout cron
+ * @param {Discord.Channel} channel
  * @param {Discord.Client} client
  */
-const init = (client) => {
-    const serverConifg = require('../configs/dsc');
-    const channel = client.channels.cache.get(serverConifg.log_channel_id);
-
+const init = (channel, client) => {
     const verificationTimeoutCron = new CronJob(
-        '0 0 * * *',
+        '0 0 */3 * *',
         () => {
             runner(channel, client);
         },
