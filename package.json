@@ -14,7 +14,7 @@
     "get-logs-heroku-mbcet": "heroku logs --tail -a dsc-oogway-bot-mbcet",
     "connect-bash": "heroku ps:exec --dyno=Worker.1 --app dsc-oogway-bot",
     "connect-bash-mbcet": "heroku ps:exec --dyno=Worker.1 --app dsc-oogway-bot-mbcet",
-    "manual-deploy": "git push heroku main"
+    "manual-deploy": "git push heroku master"
   },
   "author": "M Aswin Kishore",
   "license": "ISC",
