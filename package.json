@@ -14,7 +14,9 @@
     "get-logs-heroku-mbcet": "heroku logs --tail -a dsc-oogway-bot-mbcet",
     "connect-bash": "heroku ps:exec --dyno=Worker.1 --app dsc-oogway-bot",
     "connect-bash-mbcet": "heroku ps:exec --dyno=Worker.1 --app dsc-oogway-bot-mbcet",
-    "manual-deploy": "git push heroku master"
+    "manual-deploy": "npm run heroku-deploy-dsc && npm run heroku-deploy-mbcet",
+    "heroku-deploy-mbcet": "heroku container:push worker -a dsc-oogway-bot-mbcet && heroku container:release worker -a dsc-oogway-bot-mbcet",
+    "heroku-deploy-dsc": "heroku container:push worker -a dsc-oogway-bot && heroku container:release worker -a dsc-oogway-bot"
   },
   "author": "M Aswin Kishore",
   "license": "ISC",
