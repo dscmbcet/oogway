@@ -26,7 +26,7 @@ const init = (client) => {
     const channel = client.channels.cache.get(serverConifg.log_channel_id);
 
     const verificationTimeoutCron = new CronJob(
-        '*/1 * * * *',
+        '0 0 * * *',
         () => {
             runner(channel, client);
         },
