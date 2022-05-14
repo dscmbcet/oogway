@@ -1,6 +1,6 @@
 const axios = require('axios').default;
 require('dotenv').config();
-const { sendHerokuSwapLog } = require('./utils/discordAPI');
+const { sendHerokuSwapLog, sendErrorLog } = require('./utils/discordAPI');
 
 const mbcetCredentials = JSON.parse(process.env.ACCOUNT1);
 const dscCredentials = JSON.parse(process.env.ACCOUNT2);
@@ -48,28 +48,35 @@ const mbcetBot = async (enable) => {
 };
 
 const enableDSCBot = async (enable, formattedQuota) => {
-    sendHerokuSwapLog(enable, formattedQuota.quota);
+    await sendHerokuSwapLog(enable, formattedQuota.quota);
     await dscBot(enable);
     await mbcetBot(!enable);
 };
 
 const checkCredits = async () => {
-    const mbcetRes = (await mbcetAPI.get(`/accounts/${mbcetCredentials.id}/actions/get-quota`))?.data;
-    const mbcetQuota = (mbcetRes.account_quota - mbcetRes.quota_used) / 3600;
+    try {
+        const mbcetRes = (await mbcetAPI.get(`/accounts/${mbcetCredentials.id}/actions/get-quota`))?.data;
+        const mbcetQuota = (mbcetRes.account_quota - mbcetRes.quota_used) / 3600;
 
-    const dscRes = (await dscAPI.get(`/accounts/${dscCredentials.id}/actions/get-quota`))?.data;
-    const dscQuota = (dscRes.account_quota - dscRes.quota_used) / 3600;
+        const dscRes = (await dscAPI.get(`/accounts/${dscCredentials.id}/actions/get-quota`))?.data;
+        const dscQuota = (dscRes.account_quota - dscRes.quota_used) / 3600;
 
-    const formattedQuota = { quota: { dsc: dscQuota.toFixed(2), mbcet: mbcetQuota.toFixed(2) } };
-    console.log(formattedQuota);
+        const formattedQuota = { quota: { dsc: dscQuota.toFixed(2), mbcet: mbcetQuota.toFixed(2) } };
+        console.log(formattedQuota);
 
-    // If quotas expired
-    if (mbcetQuota === 0) return enableDSCBot(true, formattedQuota);
-    if (dscQuota === 0) return enableDSCBot(false, formattedQuota);
+        // If quotas expired
+        if (mbcetQuota === 0) return enableDSCBot(true, formattedQuota);
+        if (dscQuota === 0) return enableDSCBot(false, formattedQuota);
 
-    // Dividing quotas equally
-    if (mbcetQuota >= thresholdHours) await enableDSCBot(false, formattedQuota);
-    else await enableDSCBot(true, formattedQuota);
+        // Dividing quotas equally
+        if (mbcetQuota >= thresholdHours) await enableDSCBot(false, formattedQuota);
+        else await enableDSCBot(true, formattedQuota);
+    } catch (error) {
+        console.error(error);
+        await sendErrorLog(error);
+    }
 };
 
-checkCredits();
+checkCredits().then(() => {
+    process.exit(0);
+});

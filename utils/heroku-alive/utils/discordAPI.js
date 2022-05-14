@@ -15,8 +15,8 @@ const discord = axios.create({
  * @param {Boolean} dscBotEnable
  * @param {Object} quota
  */
-const sendHerokuSwapLog = (dscBotEnable, quota) => {
-    discord.post(`/channels/${logChannel}/messages`, {
+const sendHerokuSwapLog = async (dscBotEnable, quota) => {
+    await discord.post(`/channels/${logChannel}/messages`, {
         embeds: [
             {
                 title: 'Heroku Account Swapper',
@@ -42,6 +42,23 @@ const sendHerokuSwapLog = (dscBotEnable, quota) => {
     });
 };
 
+/**
+ * Sends Error Message To Discord
+ * @param {Error} error
+ */
+const sendErrorLog = async (error) => {
+    await discord.post(`/channels/${logChannel}/messages`, {
+        embeds: [
+            {
+                title: 'Failed Heroku Account Swapper',
+                color: 15158332,
+                description: [`\`${error.message}\``, `\`${error.stack}\``].join('\n'),
+            },
+        ],
+    });
+};
+
 module.exports = {
     sendHerokuSwapLog,
+    sendErrorLog,
 };
