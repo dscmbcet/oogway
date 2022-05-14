@@ -8,6 +8,8 @@ jobs:
     build:
         runs-on: ubuntu-latest
         env:
+            HEROKU_API_MBCET: ${{secrets.HEROKU_API_MBCET}}
+            HEROKU_API_DSC: ${{secrets.HEROKU_API_DSC}}
             ACCOUNT1: ${{secrets.ACCOUNT1}}
             ACCOUNT2: ${{secrets.ACCOUNT2}}
             BOT: ${{secrets.BOT}}

@@ -1,0 +1,35 @@
+name: Deploy
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+    workflow_dispatch:
+
+jobs:
+    dsc:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+              with:
+                  heroku_api_key: ${{secrets.HEROKU_API_MBCET}}
+                  heroku_app_name: ${{secrets.APP_NAME_MBCET}}
+                  heroku_email: ${{secrets.EMAIL_MBCET}}
+                  usedocker: true
+                  docker_heroku_process_type: worker
+              env:
+                  NODE_ENV: production
+    mbcet:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+              with:
+                  heroku_api_key: ${{secrets.HEROKU_API_DSC}}
+                  heroku_app_name: ${{secrets.APP_NAME_DSC}}
+                  heroku_email: ${{secrets.EMAIL_DSC}}
+                  usedocker: true
+                  docker_heroku_process_type: worker
+              env:
+                  NODE_ENV: production

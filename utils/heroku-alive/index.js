@@ -12,7 +12,7 @@ const thresholdHours = 48;
 const mbcetAPI = axios.create({
     baseURL,
     headers: {
-        Authorization: `Bearer ${mbcetCredentials.token}`,
+        Authorization: `Bearer ${process.env.HEROKU_API_MBCET}`,
         Accept,
     },
 });
@@ -20,7 +20,7 @@ const mbcetAPI = axios.create({
 const dscAPI = axios.create({
     baseURL,
     headers: {
-        Authorization: `Bearer ${dscCredentials.token}`,
+        Authorization: `Bearer ${process.env.HEROKU_API_DSC}`,
         Accept,
     },
 });
