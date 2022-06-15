@@ -1,6 +1,6 @@
 {
   "name": "master_oogway",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Official GDSC Bot for GDSC Discord Server",
   "main": "index.js",
   "private": true,
