@@ -42,8 +42,10 @@ async function sendMail(email, verificationCode) {
     try {
         await transporter.sendMail(mailOptions);
         logger.info(`Mail has been sent to ${email}`);
+        return true;
     } catch (e) {
         logger.error(`IMPORTANT: Error Occured While Sending ERROR Mail: ${e.message} | ${e?.stack}`);
+        return false;
     }
 }
 
