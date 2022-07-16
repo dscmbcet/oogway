@@ -7,16 +7,16 @@ const auth = new google.auth.GoogleAuth({
     scopes: 'https://www.googleapis.com/auth/spreadsheets',
 });
 
-// ----------- Sheet helper functions ----------
-
 /**
  * @typedef {import('../types/FirebaseUser').FirebaseUser} FirebaseUser
  * @typedef {import('../types/LeaderBoardUser').LeaderBoardUser} LeaderBoardUser
  */
 
+// ----------- Sheet helper functions ----------
+
 /**
- * Initializes GoogleSheet
- * @returns {Promise<any[][]>}
+ * Returns the rows and columns of given sheet
+ * @returns {Promise<string[][]>}
  */
 async function getSheetValuesByName(rangeName) {
     const client = await auth.getClient();
@@ -35,7 +35,7 @@ async function getSheetValuesByName(rangeName) {
 /**
  * Adds values to given range
  * @param {string} range
- * @param {any[][]} values
+ * @param {string[][]} values
  */
 async function appendToSheet(range, values) {
     const client = await auth.getClient();
@@ -55,7 +55,7 @@ async function appendToSheet(range, values) {
 /**
  * Adds values to given range
  * @param {string} range
- * @param {any[][]} values
+ * @param {string[][]} values
  */
 async function updateSheet(range, values) {
     const client = await auth.getClient();
@@ -76,7 +76,7 @@ async function updateSheet(range, values) {
 /**
  * Clear and then adds values to given range
  * @param {string} range
- * @param {any[][]} values
+ * @param {string[][]} values
  */
 async function clearAndUpdateSheet(range, values) {
     const client = await auth.getClient();
@@ -105,7 +105,7 @@ async function addOffenceSheet(user, banned, kicked) {
 
 /**
  * Updates the data of user to sheet 'Database' and adds everyone in 'Old Database'
- * @param {any[][]} data
+ * @param {string[][]} data
  */
 async function updateDatabase(data) {
     await clearAndUpdateSheet('Database!A1:ZA', data);

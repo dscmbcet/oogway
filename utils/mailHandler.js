@@ -25,35 +25,26 @@ const transporter = nodemailer.createTransport({
 
 /**
  * Sends a  mail
- * @param {String} email
- * @param {Array} verificationCode
+ * @param {string} email
+ * @param {string} verificationCode
  */
 async function sendMail(email, verificationCode) {
     logger.info(`Sending mail to ${email}`);
     const html = htmlParser().replace('<#verificationCode>', verificationCode);
 
-    return new Promise(
-        (resolve) =>
-            // eslint-disable-next-line implicit-arrow-linebreak
-            transporter.sendMail(
-                {
-                    from: `"GDSC MBCET BOT" <${process.env.GOOGLE_USER}>`,
-                    to: email,
-                    subject: 'Verification For GDSC MBCET Discord Server',
-                    html,
-                },
-                (e) => {
-                    if (e) {
-                        logger.error(`IMPORTANT: Error Occured While Sending ERROR Mail: ${e.message} | ${e?.stack}`);
-                        resolve(false);
-                    } else {
-                        logger.info(`Mail has been sent to ${email}`);
-                        resolve(true);
-                    }
-                }
-            )
-        // eslint-disable-next-line function-paren-newline
-    );
+    const mailOptions = {
+        from: `"GDSC MBCET BOT" <${process.env.GOOGLE_USER}>`,
+        to: email,
+        subject: 'Verification For GDSC MBCET Discord Server',
+        html,
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        logger.info(`Mail has been sent to ${email}`);
+    } catch (e) {
+        logger.error(`IMPORTANT: Error Occured While Sending ERROR Mail: ${e.message} | ${e?.stack}`);
+    }
 }
 
 module.exports = { sendMail };
