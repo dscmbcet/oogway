@@ -1,0 +1,25 @@
+name: Deploy VM
+on:
+    push:
+        branches:
+            - master
+    workflow_dispatch:
+
+jobs:
+    deploy:
+        name: Deploy
+        runs-on: ubuntu-latest
+        steps:
+            - name: Deploying to VM
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.HOST }}
+                  username: ${{ secrets.USERNAME }}
+                  password: ${{ secrets.PASSWORD }}
+                  script: |
+                      cd apps/oogway
+                      git checkout master
+                      git fetch --all
+                      git reset --hard origin/master
+                      sudo npm run-script docker-prod-build
+                      sudo npm run-script docker-prod-run
