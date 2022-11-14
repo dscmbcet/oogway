@@ -1,0 +1,22 @@
+version: '3.4'
+services:
+    bot-dev:
+        container_name: oogway-dev
+        env_file: dev.env
+        image: oogway-dev:latest
+        volumes:
+            - ./logs:/app/logs
+        build:
+            context: .
+            dockerfile: Dockerfile
+        command: npm run start
+    bot-prod:
+        container_name: oogway-prod
+        env_file: .env
+        image: oogway:latest
+        volumes:
+            - ./logs:/app/logs
+        build:
+            context: .
+            dockerfile: Dockerfile
+        command: npm run start
