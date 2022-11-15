@@ -38,7 +38,8 @@ function sendlogs(args, isError) {
     channel.send(msg);
 }
 
-const log = fs.createWriteStream('info.log', { flags: 'a' });
+const log = fs.createWriteStream('./logs/info.log', { flags: 'a' });
+const errorLog = fs.createWriteStream('./logs/error.log', { flags: 'a' });
 
 const logger = {
     log(...args) {
@@ -50,7 +51,7 @@ const logger = {
     },
     error(...args) {
         console.error(`[${getDate()}] ${colors.RED}[ERROR]${colors.DEFAULT}`, ...args);
-        log.write(`[${getDate()}] ${colors.RED}[ERROR]${colors.DEFAULT} ${args.join(' ')}\n`);
+        errorLog.write(`[${getDate()}] ${colors.RED}[ERROR]${colors.DEFAULT} ${args.join(' ')}\n`);
         sendlogs(args, true);
     },
     warn(...args) {
