@@ -15,11 +15,11 @@ jobs:
               with:
                   host: ${{ secrets.HOST }}
                   username: ${{ secrets.USERNAME }}
-                  password: ${{ secrets.PASSWORD }}
+                  key: ${{ secrets.KEY }}
                   script: |
                       cd apps/oogway
-                      git checkout master
-                      git fetch --all
-                      git reset --hard origin/master
+                      sudo git checkout master
+                      sudo git fetch --all
+                      sudo git reset --hard origin/master
                       sudo npm run-script docker-prod-build
                       sudo npm run-script docker-prod-run
