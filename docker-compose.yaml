@@ -1,4 +1,4 @@
-version: '3.4'
+version: '2.4'
 services:
     bot-dev:
         container_name: oogway-dev
@@ -9,6 +9,9 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+        mem_limit: 1G
+        mem_reservation: 512M
+        cpus: 2
         command: npm run start
     bot-prod:
         container_name: oogway-prod
@@ -19,4 +22,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+        mem_limit: 1G
+        mem_reservation: 512M
+        cpus: 2
         command: npm run start
