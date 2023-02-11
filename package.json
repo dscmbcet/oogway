@@ -15,10 +15,10 @@
     "docker-dev-stop": "docker-compose stop bot-dev",
     "docker-dev-logs": "docker logs -f oogway-dev",
     "docker-prod-deploy": "npm run-script docker-prod-build && npm run-script docker-prod-run && npm run-script docker-prod-logs",
-    "docker-prod-build": "docker-compose up --no-start --build bot-prod",
-    "docker-prod-run": "docker-compose up -d bot-prod",
-    "docker-prod-logs": "docker logs -f oogway-prod",
-    "docker-prod-stop": "docker-compose stop bot-prod"
+    "docker-prod-build": "sudo docker-compose up --no-start --build bot-prod",
+    "docker-prod-run": "sudo docker-compose up -d bot-prod",
+    "docker-prod-logs": "sudo docker logs -f oogway-prod",
+    "docker-prod-stop": "sudo docker-compose stop bot-prod"
   },
   "author": "M Aswin Kishore",
   "license": "ISC",
