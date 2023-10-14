@@ -18,8 +18,8 @@ jobs:
                   key: ${{ secrets.KEY }}
                   script: |
                       cd apps/oogway
-                      sudo git checkout master
-                      sudo git fetch --all
-                      sudo git reset --hard origin/master
-                      sudo npm run-script docker-prod-build
-                      sudo npm run-script docker-prod-run
+                      git checkout master
+                      git fetch --all
+                      git reset --hard origin/master
+                      npm run-script docker-prod-build
+                      npm run-script docker-prod-run
