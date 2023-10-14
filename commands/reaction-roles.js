@@ -23,7 +23,7 @@ module.exports = {
 
         const teamData = message.mentions.roles
             .array()
-            .sort()
+            .sort((a, b) => a.name.localeCompare(b.name))
             .map((e) => ({ role: e }));
 
         const TEAM_NO = message.mentions.roles.size;
